@@ -4,6 +4,7 @@ import { errorMiddleWare } from "./middlewares/error.js";
 import NodeCache from "node-cache";
 import { config } from "dotenv";
 import morgan from "morgan";
+import cors from "cors";
 import cookieParser from "cookie-parser";
 
 config({ path: "./.env" });
@@ -15,9 +16,12 @@ const app = express();
 
 export const myCache = new NodeCache();
 
+// AlLowing CORS
+app.use(cors());
+
 // Middleware
 app.use(express.json());
-app.use(cookieParser())
+app.use(cookieParser());
 app.use(morgan("dev"));
 
 app.get("/", (req, res) => {
@@ -33,7 +37,6 @@ import productRoutes from "./routes/product.js";
 import orderRoutes from "./routes/order.js";
 import paymentRoutes from "./routes/payment.js";
 import statRoutes from "./routes/stats.js";
-
 
 app.use("/api/v1/user", userRoutes);
 app.use("/api/v1/product", productRoutes);
