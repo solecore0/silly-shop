@@ -1,10 +1,9 @@
-import { NextFunction, Request, Response } from "express";
+import { NextFunction, Response } from "express";
 import { TryCatch } from "../middlewares/error.js";
 import { ExtendedRequest, NewOrderRequestBody } from "../types/types.js";
 import ErrorHandler from "../utils/utility-class.js";
 import Order from "../models/order.js";
 import { invalidateCache, reduceStock } from "../utils/features.js";
-import { it } from "node:test";
 import { myCache } from "../app.js";
 
 export const createNewOrder = TryCatch(
@@ -80,7 +79,6 @@ export const getAllOrders = TryCatch(async (req, res, next) => {
 });
 
 export const getMyOrders = TryCatch(async (req, res, next) => {
-  
   const id = req.user?._id;
   let orders = [];
   let key = `my-orders-${id}`;
