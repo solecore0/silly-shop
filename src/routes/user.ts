@@ -9,9 +9,9 @@ import {
   getUser,
   loginUser,
   logoutUser,
-  refreshAccessToken
+  refreshAccessToken,
 } from "../controllers/user.js";
-import { adminOnly } from "../middlewares/auth.js";
+import { adminOnly, IsAuthorizedUser } from "../middlewares/auth.js";
 
 // CREATE USER - PfOST /api/v1/user
 router.post("/register", createUser);
@@ -26,8 +26,11 @@ router.post("/login", loginUser);
 router.get("/logout", logoutUser);
 
 // Login User - POST /api/v1/user/login
-router.get("/all", adminOnly, getAllUsers);
+router.get("/all", IsAuthorizedUser, adminOnly, getAllUsers);
 
-router.route("/:id").get(adminOnly, getUser).delete(adminOnly, deleteUser);
+router
+  .route("/:id")
+  .get(IsAuthorizedUser, adminOnly, getUser)
+  .delete(IsAuthorizedUser, adminOnly, deleteUser);
 
 export default router;

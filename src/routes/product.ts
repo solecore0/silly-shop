@@ -2,7 +2,7 @@ import express from "express";
 
 const router = express.Router();
 
-import { adminOnly } from "../middlewares/auth.js";
+import { adminOnly, IsAuthorizedUser } from "../middlewares/auth.js";
 import { singleUpload } from "../middlewares/multer.js";
 import {
   createProduct,
@@ -19,10 +19,10 @@ import {
 router.get("/find", getProducts);
 
 // CREATE Product - POST /api/v1/user
-router.post("/new", adminOnly, singleUpload, createProduct);
+router.post("/new", IsAuthorizedUser, adminOnly, singleUpload, createProduct);
 
 // GET ALL PRODUCTS - GET /api/v1/product
-router.get("/all", adminOnly, getAllProducts);
+router.get("/all", IsAuthorizedUser, adminOnly, getAllProducts);
 
 // GET ALL CATEGORIES - GET /api/v1/product/categories
 router.get("/categories", getCategories);
@@ -34,7 +34,7 @@ router.get("/latest", getLatestProducts);
 router
   .route("/:id")
   .get(getProductDetails)
-  .put(adminOnly, singleUpload, updateProduct)
-  .delete(adminOnly, deleteProduct);
+  .put(IsAuthorizedUser, adminOnly, singleUpload, updateProduct)
+  .delete(IsAuthorizedUser, adminOnly, deleteProduct);
 
 export default router;

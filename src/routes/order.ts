@@ -1,5 +1,12 @@
 import express from "express";
-import { createNewOrder, deleteOrder, getAllOrders, getMyOrders, getOrderDetails, updateOrder } from "../controllers/order.js";
+import {
+  createNewOrder,
+  deleteOrder,
+  getAllOrders,
+  getMyOrders,
+  getOrderDetails,
+  updateOrder,
+} from "../controllers/order.js";
 import { adminOnly, IsAuthorizedUser } from "../middlewares/auth.js";
 
 const router = express.Router();
@@ -8,12 +15,16 @@ const router = express.Router();
 router.post("/new", IsAuthorizedUser, createNewOrder);
 
 // Get All Orders - GET /api/v1/order/all
-router.get("/all", adminOnly, getAllOrders);
+router.get("/all", IsAuthorizedUser, adminOnly, getAllOrders);
 
 // Get User's orders - GET /api/v1/order/my
 router.get("/my", IsAuthorizedUser, getMyOrders);
 
 // Get Single Order Details Or Delete It Or Update It - Get /api/v1/order/:id
-router.route("/:id").get(getOrderDetails).delete(adminOnly, deleteOrder).put(adminOnly, updateOrder);
+router
+  .route("/:id")
+  .get(getOrderDetails)
+  .delete(IsAuthorizedUser, adminOnly, deleteOrder)
+  .put(IsAuthorizedUser, adminOnly, updateOrder);
 
 export default router;
