@@ -7,6 +7,7 @@ import {
   deleteUser,
   getAllUsers,
   getUser,
+  getUserInfo,
   loginUser,
   logoutUser,
   refreshAccessToken,
@@ -24,6 +25,7 @@ router.post("/login", loginUser);
 
 // LOGOUT USER - GET /api/v1/user/logout
 router.get("/logout", logoutUser);
+router.get("/me", IsAuthorizedUser, getUserInfo);
 
 // Login User - POST /api/v1/user/login
 router.get("/all", IsAuthorizedUser, adminOnly, getAllUsers);

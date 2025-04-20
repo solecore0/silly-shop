@@ -33,19 +33,23 @@ export const IsAuthorizedUser = TryCatch(async (req, res, next) => {
   }
 
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET ?? " ") as {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET ?? "") as {
       id: string;
     };
 
     // Find user
-    const user = await User.findById(decoded.id);
+    const user = await User.findById(decoded.id).select("+password");
     if (!user) {
       return res.status(401).json({ error: "Invalid User Info" });
     }
 
+    // Attach the complete user object to the request
     req.user = user;
     next();
   } catch (error) {
-    return res.status(401).json({ error: "Invalid access token" });
+    if (error instanceof jwt.JsonWebTokenError) {
+      return res.status(401).json({ error: "Invalid access token" });
+    }
+    return res.status(500).json({ error: "Internal server error" });
   }
 });

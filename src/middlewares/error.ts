@@ -16,9 +16,8 @@ export const errorMiddleWare = (
     err.message = "Duplicate key error";
   }
   if (err.name === "CastError") {
-    err.message = "Invalid ID";
+    err.message = "Invalid ID here";
   }
-
 
   return res.status(err.statusCode).json({
     success: false,

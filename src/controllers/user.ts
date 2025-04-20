@@ -168,3 +168,19 @@ export const refreshAccessToken = TryCatch(async (req, res) => {
   // Return new access token
   res.json({ accessToken: newAccessToken });
 });
+
+export const getUserInfo = TryCatch(async (req, res, next) => {
+  if (!req.user) {
+    return next(new ErrorHandler("User not authenticated", 401));
+  }
+
+  const user = await User.findById(req.user._id);
+  if (!user) {
+    return next(new ErrorHandler("User Not Found", 404));
+  }
+
+  return res.status(200).json({
+    success: true,
+    user,
+  });
+});
