@@ -117,8 +117,7 @@ export const refreshAccessToken = TryCatch(async (req, res) => {
     return res.status(401).json({ error: "Refresh token missing" });
   }
 
-  const refreshTokenExpire =
-    parseInt(process.env.REFRESH_TOKEN_EXPIRE as string) || 2;
+  const refreshTokenExpire = Number(process.env.REFRESH_COOKIE_EXPIRE ?? "7");
 
   // Verify refresh token
   let decodedData;
