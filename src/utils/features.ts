@@ -1,4 +1,3 @@
-import { myCache } from "../app.js";
 import Product from "../models/product.js";
 import {
   CheckCacheType,
@@ -6,6 +5,11 @@ import {
   OrderItemsType,
 } from "../types/types.js";
 import { Document } from "mongoose";
+import {
+  getCache,
+  setCache,
+  invalidateCache as redisInvalidateCache,
+} from "../services/redis.js";
 
 export const invalidateCache = async ({
   product,
@@ -17,47 +21,16 @@ export const invalidateCache = async ({
   coupons,
   couponID,
 }: InvalidateCacheType) => {
-  if (product) {
-    const productKeys: string[] = [
-      "latest-products",
-      "all-products",
-      "categories",
-    ];
-
-    if (typeof productIDs === "string")
-      productKeys.push(`product-${productIDs}`);
-    if (typeof productIDs === "object")
-      productIDs.forEach((id) => productKeys.push(`product-${id}`));
-
-    myCache.del(productKeys);
-  }
-  if (order) {
-    const orderKeys: string[] = ["all-orders"];
-
-    if (orderID) orderKeys.push(`order-${orderID}`);
-    if (userID) orderKeys.push(`my-orders-${userID}`);
-
-    myCache.del(orderKeys);
-  }
-  if (coupons) {
-    const couponKeys = ["all-coupons"];
-
-    if (couponID) couponKeys.push(`coupon-${couponID}`);
-
-    myCache.del(couponKeys);
-  }
-
-  myCache.del("dashboard-stats");
-
-  if (admin) {
-    const adminKeys = [
-      "admin-dashboard-stats",
-      "admin-pie-charts",
-      "admin-line-charts",
-      "admin-bar-charts",
-    ];
-    myCache.del(adminKeys);
-  }
+  await redisInvalidateCache({
+    product,
+    order,
+    admin,
+    productIDs,
+    orderID,
+    userID,
+    coupons,
+    couponID,
+  });
 };
 
 export const reduceStock = async (orderItems: OrderItemsType[]) => {
@@ -77,31 +50,28 @@ export const checkCache = async (
   id?: string
 ) => {
   if (action === "findAll") {
-    let variable = [];
+    let variable = await getCache(key);
 
-    if (myCache.has(key)) return JSON.parse(myCache.get(key) as string);
-    else {
+    if (!variable) {
       variable = await model.find();
-      myCache.set(key, JSON.stringify(variable));
+      await setCache(key, variable);
     }
 
     return variable;
   }
 
   if (action === "findOne") {
-    let variable;
+    let variable = await getCache(key);
 
-    if (myCache.has(key)) return JSON.parse(myCache.get(key) as string);
-    else {
+    if (!variable) {
       variable = await model.findById(id);
-      myCache.set(key, JSON.stringify(variable));
-
       if (!variable) {
         throw new Error("Invalid ID");
       }
-
-      return variable;
+      await setCache(key, variable);
     }
+
+    return variable;
   }
 };
 

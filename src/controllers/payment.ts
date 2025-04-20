@@ -1,8 +1,8 @@
-import { myCache } from "../app.js";
 import { TryCatch } from "../middlewares/error.js";
 import { Coupon } from "../models/coupon.js";
-import { checkCache, invalidateCache } from "../utils/features.js";
+import { invalidateCache } from "../utils/features.js";
 import ErrorHandler from "../utils/utility-class.js";
+import { getCache, setCache } from "../services/redis.js";
 
 export const createCoupon = TryCatch(async (req, res, next) => {
   const { coupon, amount } = req.body;
@@ -24,9 +24,13 @@ export const createCoupon = TryCatch(async (req, res, next) => {
 });
 
 export const getAllCoupons = TryCatch(async (req, res, next) => {
-  let key = "all-coupons";
+  const key = "all-coupons";
+  let coupons = await getCache(key);
 
-  let coupons = await checkCache(key, Coupon, "findAll");
+  if (!coupons) {
+    coupons = await Coupon.find();
+    await setCache(key, coupons);
+  }
 
   return res.status(200).json({
     success: true,
@@ -53,8 +57,14 @@ export const deleteCoupon = TryCatch(async (req, res, next) => {
 
 export const getDiscount = TryCatch(async (req, res, next) => {
   const { id } = req.query as { id: string };
+  const key = `coupon-${id}`;
 
-  const coupon = await checkCache(`coupon-${id}`, Coupon, "findOne", id);
+  let coupon = await getCache(key);
+  if (!coupon) {
+    coupon = await Coupon.findById(id);
+    if (!coupon) return next(new ErrorHandler("Invalid Coupon", 400));
+    await setCache(key, coupon);
+  }
 
   return res.status(200).json({
     success: true,

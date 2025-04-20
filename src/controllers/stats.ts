@@ -1,5 +1,4 @@
-import { addAbortSignal } from "stream";
-import { myCache } from "../app.js";
+import { getCache, setCache } from "../services/redis.js";
 import { TryCatch } from "../middlewares/error.js";
 import Order from "../models/order.js";
 import Product from "../models/product.js";
@@ -12,20 +11,19 @@ import {
 
 export const getStats = TryCatch(async (req, res, next) => {
   let stats;
+  const key = "dashboard-stats";
 
-  const today = new Date();
+  stats = await getCache(key);
+  if (!stats) {
+    const today = new Date();
 
-  const thisMonthStart = new Date(today.getFullYear(), today.getMonth(), 1);
-  const lastMonthStart = new Date(today.getFullYear(), today.getMonth() - 1, 1);
-  const lastMonthEnd = new Date(today.getFullYear(), today.getMonth(), 0);
+    const thisMonthStart = new Date(today.getFullYear(), today.getMonth(), 1);
+    const lastMonthStart = new Date(today.getFullYear(), today.getMonth() - 1, 1);
+    const lastMonthEnd = new Date(today.getFullYear(), today.getMonth(), 0);
 
-  const sixMonthsAgo = new Date();
-  sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 6);
+    const sixMonthsAgo = new Date();
+    sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 6);
 
-  if (myCache.has("dashboard-stats")) {
-    stats = JSON.parse(myCache.get("dashboard-stats") as string);
-    // console.log(sixMonthsAgo)
-  } else {
     const thisMonthUsersPromise = User.find({
       createdAt: {
         $gte: thisMonthStart,
@@ -193,18 +191,18 @@ export const getStats = TryCatch(async (req, res, next) => {
       topTransactions: modifiedLastFiveOrders,
     };
 
-    myCache.set("dashboard-stats", JSON.stringify(stats));
+    await setCache(key, stats);
   }
 
-  res.status(200).json({ success: true, stats });
+  return res.status(200).json({ success: true, stats });
 });
 
 export const getPieCharts = TryCatch(async (req, res, next) => {
   let charts;
   const key = "admin-pie-charts";
 
-  if (myCache.has(key)) charts = JSON.parse(myCache.get(key) as string);
-  else {
+  charts = await getCache(key);
+  if (!charts) {
     const allOrderPromise = Order.find({}).select([
       "total",
       "discount",
@@ -303,7 +301,7 @@ export const getPieCharts = TryCatch(async (req, res, next) => {
       adminCustomer,
     };
 
-    myCache.set(key, JSON.stringify(charts));
+    await setCache(key, charts);
   }
 
   return res.status(200).json({
@@ -316,8 +314,8 @@ export const getBarCharts = TryCatch(async (req, res, next) => {
   let charts;
   const key = "admin-bar-charts";
 
-  if (myCache.has(key)) charts = JSON.parse(myCache.get(key) as string);
-  else {
+  charts = await getCache(key);
+  if (!charts) {
     const today = new Date();
 
     const sixMonthsAgo = new Date();
@@ -363,7 +361,7 @@ export const getBarCharts = TryCatch(async (req, res, next) => {
       orders: ordersCounts,
     };
 
-    myCache.set(key, JSON.stringify(charts));
+    await setCache(key, charts);
   }
 
   return res.status(200).json({
@@ -376,8 +374,8 @@ export const getLineCharts = TryCatch(async (req, res, next) => {
   let charts;
   const key = "admin-line-charts";
 
-  if (myCache.has(key)) charts = JSON.parse(myCache.get(key) as string);
-  else {
+  charts = await getCache(key);
+  if (!charts) {
     const today = new Date();
 
     const twelveMonthsAgo = new Date();
@@ -418,7 +416,7 @@ export const getLineCharts = TryCatch(async (req, res, next) => {
       revenue,
     };
 
-    myCache.set(key, JSON.stringify(charts));
+    await setCache(key, charts);
   }
 
   return res.status(200).json({

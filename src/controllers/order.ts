@@ -4,7 +4,7 @@ import { ExtendedRequest, NewOrderRequestBody } from "../types/types.js";
 import ErrorHandler from "../utils/utility-class.js";
 import Order from "../models/order.js";
 import { invalidateCache, reduceStock } from "../utils/features.js";
-import { myCache } from "../app.js";
+import { getCache, setCache } from "../services/redis.js";
 
 export const createNewOrder = TryCatch(
   async (
@@ -63,13 +63,11 @@ export const createNewOrder = TryCatch(
 );
 
 export const getAllOrders = TryCatch(async (req, res, next) => {
-  let orders = [];
+  let orders = await getCache("all-orders");
 
-  if (myCache.has("all-orders"))
-    orders = JSON.parse(myCache.get("all-orders") as string);
-  else {
+  if (!orders) {
     orders = await Order.find().populate("user", "name");
-    myCache.set("all-orders", JSON.stringify(orders));
+    await setCache("all-orders", orders);
   }
 
   return res.status(200).json({
@@ -83,10 +81,10 @@ export const getMyOrders = TryCatch(async (req, res, next) => {
   let orders = [];
   let key = `my-orders-${id}`;
 
-  if (myCache.has(key)) orders = JSON.parse(myCache.get(key) as string);
-  else {
+  orders = await getCache(key);
+  if (!orders) {
     orders = await Order.find({ user: id }).populate("user", "name");
-    myCache.set(key, JSON.stringify(orders));
+    await setCache(key, orders);
   }
 
   return res.status(200).json({
@@ -97,16 +95,14 @@ export const getMyOrders = TryCatch(async (req, res, next) => {
 
 export const getOrderDetails = TryCatch(async (req, res, next) => {
   const id = req.params.id;
-
   let order;
   let key = `order-${id}`;
 
-  if (myCache.has(key)) order = JSON.parse(myCache.get(key) as string);
-  else {
+  order = await getCache(key);
+  if (!order) {
     order = await Order.findById(id).populate("user", "name");
-
     if (!order) return next(new ErrorHandler("Order Not Found", 404));
-    myCache.set(key, JSON.stringify(order));
+    await setCache(key, order);
   }
 
   return res.status(200).json({

@@ -1,11 +1,11 @@
 import express from "express";
 import { connectToDB } from "./utils/db.js";
 import { errorMiddleWare } from "./middlewares/error.js";
-import NodeCache from "node-cache";
 import { config } from "dotenv";
 import morgan from "morgan";
 import cors from "cors";
 import cookieParser from "cookie-parser";
+import { connectToRedis } from "./services/redis.js";
 
 config({ path: "./.env" });
 
@@ -13,8 +13,6 @@ const port: number = Number(process.env.PORT) || 4000;
 const mongoURI: string = process.env.MONGO_URI || "";
 
 const app = express();
-
-export const myCache = new NodeCache();
 
 // AlLowing CORS
 app.use(cors());
@@ -30,6 +28,8 @@ app.get("/", (req, res) => {
 
 // Connecting to database
 connectToDB(mongoURI);
+// Connect to Redis
+connectToRedis();
 
 // Importing Routes
 import userRoutes from "./routes/user.js";
