@@ -43,7 +43,7 @@ services:
       - app-network
 
   mongodb:
-    image: mongo:latest
+    image: mongo:4.4
     ports:
       - "27017:27017"
     volumes:
