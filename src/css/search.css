@@ -1,0 +1,155 @@
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow-x: hidden;
+    gap: 1rem;
+
+}
+
+
+.search {
+    margin: 1.5rem 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+}
+
+hr {
+    margin: 1.5rem 0;
+    width: 60%;
+    color: grey;
+}
+
+input {
+    width: 70%; 
+    height: 100%; 
+}
+
+
+
+
+
+.search .choises {
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+    gap: 1.5rem;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.ser {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 0.5rem 0;
+    padding: 0.6rem 0.5rem;
+    border-bottom: 1px solid #000000;
+    width: 80%;
+    font-size: 1rem;
+    
+}
+
+
+.search .choises input {
+    width: 85%;
+   
+}
+
+.search .choises select {
+    width: 65%;
+    border-radius: 8px;
+    border: 1.5px solid #000000;
+    font-size: 1rem;
+    padding: 0.3rem 0.5rem;
+    background-color: #fff;
+}
+
+.search .choises .Slc {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+}
+
+
+
+
+
+.result {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 2rem 0;
+    gap: 2rem;
+    height: 100%;
+}
+
+.result .txt {
+    font-size: 2rem;
+}
+
+@media  screen and (min-width: 1024px) {
+    
+    h3 {
+        font-size: 1.5rem;
+    }
+    h1 {
+        font-size: 2rem;
+    }
+    .search {
+        flex-direction: row;
+        padding: 0 2rem;
+        position: relative;
+        align-items: normal ;
+    }
+
+    .search .choises {
+        width: 40%;
+        position: sticky;
+        flex-direction: column;
+        gap: 3rem;
+        height: fit-content;
+        box-shadow: 0px 4px 8px  rgba(0, 0, 0, 0.25);
+        justify-content: left;
+        align-items: center;
+        padding: 2rem 0;
+        margin: 2rem 4rem;
+    }
+
+    .search .choises .Slc{
+        flex-direction: column;
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+    }
+
+    .search .Slc select {
+        width: 70%;
+        height: 2.8rem;
+    }
+    .search .Slc input {
+        width: 70%;
+    }
+
+    .result {
+        justify-content: space-between;
+    }
+
+    .result h1 {
+        font-size: 2rem;
+    
+    }
+}
