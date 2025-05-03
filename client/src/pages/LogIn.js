@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { loginUser } from "../redux/user";
-import { useNavigate } from 'react-router-dom';
-import Cookies from 'js-cookie'
+import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
 const LogIn = () => {
   const [email, setEmail] = useState("");
@@ -11,12 +11,12 @@ const LogIn = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleSubmit = async() => {
+  const handleSubmit = async () => {
     await dispatch(loginUser({ email, password }));
-     if (Cookies.get('token')) {
-          navigate('/')
-          window.location.reload()
-        }
+    if (Cookies.get("token")) {
+      navigate("/");
+      window.location.reload();
+    }
   };
 
   return (

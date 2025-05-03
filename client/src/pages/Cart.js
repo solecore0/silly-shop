@@ -5,8 +5,9 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 function Cart() {
-
   const navigate = useNavigate();
+  const user = useSelector((state) => state.user.user);
+  const token = useSelector((state) => state.user.token);
 
   const data = [
     {
@@ -16,13 +17,20 @@ function Cart() {
       price: "$30",
       amount: 1,
     },
-    
   ];
 
-  
   const removeItem = () => {};
-  
+
+  const handleOrder = () => {
+    if (!user || !token) {
+      navigate("/login");
+      return;
+    }
+    navigate("/OrderInformation");
+  };
+
   const screenWidth = useSelector((state) => state.ui.screenWidth);
+
   return (
     <div className="cart">
       <h1>Cart</h1>
@@ -34,16 +42,20 @@ function Cart() {
         </div>
         <div className="Total">
           <h2>Total</h2>
-          {screenWidth > 1024 ? data.map((item) => (
-           <div className="wrap">
-              <span>{item.name}</span>
-              <span>{item.price}</span>
-            </div>
-          )) : ""}
+          {screenWidth > 1024
+            ? data.map((item) => (
+                <div className="wrap" key={item.id}>
+                  <span>{item.name}</span>
+                  <span>{item.price}</span>
+                </div>
+              ))
+            : ""}
           <p>$100</p>
         </div>
       </div>
-      <button className="orderBtn" onClick={()=>{navigate("/OrderInformation")}}>Order</button>
+      <button className="orderBtn" onClick={handleOrder}>
+        {!user ? "Login to Order" : "Order"}
+      </button>
     </div>
   );
 }
