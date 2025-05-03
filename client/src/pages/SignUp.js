@@ -50,7 +50,7 @@ const SignUp = () => {
     }
   };
 
-  console.log(name, password, email, photo, dob);
+  console.log(name, password, email, photo, dob , gender);
   return (
     <div className="registery" onKeyDown={handleKeyDown}>
       <h1>Sign-up</h1>

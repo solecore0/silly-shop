@@ -62,6 +62,7 @@ function Navbar() {
 
   const logOut = () => {
     dispatch(logout());
+    setOpenUsr(false);
     navigate("/");
   };
 
@@ -103,7 +104,11 @@ function Navbar() {
               </li>
               {user ? (
                 <li>
-                  <img src={user?.photo} alt={user?.name} onClick={toggleUser} />
+                  <img
+                    src={user?.photo}
+                    alt={user?.name?.[0] || "U"}
+                    onClick={toggleUser}
+                  />
                 </li>
               ) : (
                 <li>
@@ -126,7 +131,7 @@ function Navbar() {
           <div className={`Tlinks`}>
             <ul>
               <li>
-                <Link to="/orders">Orders</Link>
+                <Link to="/order">Orders</Link>
               </li>
               {user?.role === "admin" && (
                 <li>
@@ -173,7 +178,11 @@ function Navbar() {
                 </Link>
               </li>
               {user ? (
-                <img src={user?.photo} alt="" onClick={toggleUser} />
+                <img
+                  src={user?.photo}
+                  alt={user?.name?.[0] || "U"}
+                  onClick={toggleUser}
+                />
               ) : (
                 <li>
                   <Link to="/login">Log-in</Link>{" "}
@@ -186,7 +195,7 @@ function Navbar() {
           <div className={`Llinks`}>
             <ul>
               <li>
-                <Link to="/orders">Orders</Link>
+                <Link to="/order">Orders</Link>
               </li>
               {user?.role === "admin" && (
                 <li>
@@ -211,7 +220,11 @@ function Navbar() {
           </div>
           <div className="Adm">
             {user ? (
-              <img src={user?.photo} alt="" onClick={toggleUser} />
+              <img
+                src={user?.photo}
+                alt={user?.name?.[0] || "U"}
+                onClick={toggleUser}
+              />
             ) : (
               <Link to="/login">Log-in</Link>
             )}
@@ -243,7 +256,7 @@ function Navbar() {
           <div className={`links`}>
             <ul>
               <li>
-                <Link to="/orders">Orders</Link>
+                <Link to="/order">Orders</Link>
               </li>
               {user?.role === "admin" && (
                 <li>

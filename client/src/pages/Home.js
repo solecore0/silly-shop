@@ -36,14 +36,18 @@ function Home() {
       </div>
       <div className="main">
         <h1>Shop</h1>
-        <div className="cards">
-          {paginatedItems.map((item) => (
-            <Card key={item._id} item={item} />
-          ))}
-        </div>
-        {data.length <= 10 ? (
-          null
+        {data?.length > 0 ? (
+          <div className="cards">
+            {paginatedItems.map((item) => (
+              <Card key={item._id} item={item} />
+            ))}
+          </div>
         ) : (
+          <div className="no-data">
+            <h1>No Data Found</h1>
+          </div>
+        )}
+        {data.length <= 10 ? null : (
           <div className="pgch">
             <button
               disabled={!isPrevPage}
