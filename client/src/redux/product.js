@@ -29,7 +29,9 @@ export const fetchProductId = createAsyncThunk(
     const response = await axios.get(
       `http://localhost:4000/api/v1/product/${id}`
     );
-    return response.data.products;
+    console.log(response.data);
+    return response.data.product;
+    
   }
 );
 
