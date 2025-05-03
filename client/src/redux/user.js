@@ -24,12 +24,10 @@ export const loginUser = createAsyncThunk(
         }
       );
 
-      // Store token in localStorage
       localStorage.setItem("token", response.data.token);
-
       return response.data;
     } catch (error) {
-      return rejectWithValue(error.response.data.message);
+      return rejectWithValue(error.response?.data?.message || "Login failed");
     }
   }
 );
@@ -109,11 +107,16 @@ const userSlice = createSlice({
         state.loading = false;
         state.user = action.payload.user;
         state.token = action.payload.token;
+        state.error = null;
         Cookies.set("token", action.payload.token, { expires: COOKIE_EXPIRES });
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
+        state.user = null;
+        state.token = null;
+        localStorage.removeItem("token");
+        Cookies.remove("token");
       })
 
       // Signup cases
