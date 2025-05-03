@@ -50,6 +50,8 @@ const AddProduct = lazy(() => import("./pages/admin/AddProduct"));
 const PrivateRoute = ({ element, adminRequired = false }) => {
   const user = useSelector((state) => state.user.user);
   const token = useSelector((state) => state.user.token);
+  console.log("User:", user);
+  console.log("Token:", token);
 
   if (!token || !user) {
     return <Navigate to="/login" />;
