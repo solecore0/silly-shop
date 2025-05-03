@@ -2,6 +2,7 @@ import React, { useState,useRef} from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { createProduct} from "../../redux/product";
+import toast from "react-hot-toast";
 
 const AddProduct = () => {
 
@@ -33,7 +34,7 @@ const AddProduct = () => {
     e.preventDefault();
   
     if (!name || !price || !stock || !category || !photoRef.current) {
-      alert("All fields are required.");
+      toast.error("All fields are required.");
       return;
     }
   

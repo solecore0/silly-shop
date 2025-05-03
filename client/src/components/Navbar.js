@@ -63,7 +63,6 @@ function Navbar() {
   const logOut = () => {
     dispatch(logout());
     navigate("/");
-    window.location.reload();
   };
 
   useEffect(() => {

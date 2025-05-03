@@ -13,9 +13,8 @@ const LogIn = () => {
 
   const handleSubmit = async() => {
     await dispatch(loginUser({ email, password }));
-     if (Cookies.get('token')) {
+     if (localStorage.getItem('token')) {
           navigate('/')
-          window.location.reload()
         }
   };
 

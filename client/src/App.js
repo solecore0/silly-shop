@@ -49,7 +49,7 @@ function App() {
   useEffect(() => {
     // Handle window resize
     const handleResize = () => {
-      toast.success("Window resized!");
+
       dispatch(setScreenWidth(window.innerWidth));
     };
 

@@ -22,7 +22,6 @@ const SignUp = () => {
    await dispatch(signupUser({ name , password , email , photo , dob , gender }))
    if (localStorage.getItem('token')) {
       navigate('/')
-      window.location.reload()
     }
   }
   const handleKeyDown = (e) => {
