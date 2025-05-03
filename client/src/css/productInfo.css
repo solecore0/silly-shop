@@ -89,7 +89,6 @@ h2{
 
 @media screen and (min-width: 1024px) {
     .Cmain {
-       flex-direction: row;
        justify-content: normal;
        align-items: center;
        padding: 2rem 3rem;

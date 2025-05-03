@@ -104,7 +104,7 @@ function Navbar() {
               </li>
               {user ? (
                 <li>
-                  <img src={user.photo} alt={user.name} onClick={toggleUser} />
+                  <img src={user?.photo} alt={user?.name} onClick={toggleUser} />
                 </li>
               ) : (
                 <li>
@@ -129,7 +129,7 @@ function Navbar() {
               <li>
                 <Link to="/orders">Orders</Link>
               </li>
-              {user.role === "admin" && (
+              {user?.role === "admin" && (
                 <li>
                   <Link to="/admin/dashboard">Admin</Link>
                 </li>
@@ -174,7 +174,7 @@ function Navbar() {
                 </Link>
               </li>
               {user ? (
-                <img src={user.photo} alt="" onClick={toggleUser} />
+                <img src={user?.photo} alt="" onClick={toggleUser} />
               ) : (
                 <li>
                   <Link to="/login">Log-in</Link>{" "}
@@ -212,7 +212,7 @@ function Navbar() {
           </div>
           <div className="Adm">
             {user ? (
-              <img src={user.photo} alt="" onClick={toggleUser} />
+              <img src={user?.photo} alt="" onClick={toggleUser} />
             ) : (
               <Link to="/login">Log-in</Link>
             )}
@@ -246,7 +246,7 @@ function Navbar() {
               <li>
                 <Link to="/orders">Orders</Link>
               </li>
-              {user.role === "admin" && (
+              {user?.role === "admin" && (
                 <li>
                   <Link to="/admin/dashboard">Admin</Link>
                 </li>
