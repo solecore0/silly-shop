@@ -1,9 +1,17 @@
 import React, { lazy, Suspense, useEffect, useRef } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setScreenWidth } from "./redux/uiSlice";
 import { fetchProductInfo } from "./redux/product";
-import toast, { Toaster } from 'react-hot-toast';
+import Cookies from "js-cookie";
+import toast, { Toaster } from "react-hot-toast";
+
 
 // css
 import "./App.css";
@@ -38,8 +46,23 @@ const Stopwatch = lazy(() => import("./pages/admin/apps/stopwatch"));
 const Toss = lazy(() => import("./pages/admin/apps/toss"));
 const AddProduct = lazy(() => import("./pages/admin/AddProduct"));
 
-function App() {
+// Private Route Component
+const PrivateRoute = ({ element, adminRequired = false }) => {
+  const user = useSelector((state) => state.user.user);
+  const token = useSelector((state) => state.user.token);
 
+  if (!token || !user) {
+    return <Navigate to="/login" />;
+  }
+
+  if (adminRequired && user.role !== "admin") {
+    return <Navigate to="/" />;
+  }
+
+  return element;
+};
+
+function App() {
   const dispatch = useDispatch();
 
   const hasFetchedUser = useRef(false);
@@ -57,8 +80,10 @@ function App() {
     handleResize(); // Initial dispatch
 
     // Check for authentication token
-    const token = localStorage.getItem('token');
-    
+
+    const token = localStorage.getItem("token");
+
+
     if (token) {
       // prevent future runs
       dispatch(loadUser());
@@ -104,20 +129,74 @@ function App() {
           <Route path="/search" element={<Search />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/product/:id" element={<ProductInfo />} />
-          <Route path="/OrderInformation" element={<OrderInformation />} />
-          <Route path="/order" element={<Order />} />
-          {/* Admin  */}
-          <Route path="/admin/dashboard" element={<DashBoard />} />
-          <Route path="/admin/product" element={<Products />} />
-          <Route path="/admin/customer" element={<Customer />} />
-          <Route path="/admin/transaction" element={<Transaction />} />
-          <Route path="/admin/chart/line" element={<LineChart />} />
-          <Route path="/admin/chart/pie" element={<PieChart />} />
-          <Route path="/admin/chart/bar" element={<BarChart />} />
-          <Route path="/admin/app/coupon" element={<Coupon />} />
-          <Route path="/admin/app/stopwatch" element={<Stopwatch />} />
-          <Route path="/admin/app/toss" element={<Toss />} />
-          <Route path="/admin/AddProduct" element={<AddProduct/>}></Route>
+          <Route
+            path="/OrderInformation"
+            element={<PrivateRoute element={<OrderInformation />} />}
+          />
+          <Route path="/order" element={<PrivateRoute element={<Order />} />} />
+          {/* Admin Routes */}
+          <Route
+            path="/admin/dashboard"
+            element={
+              <PrivateRoute adminRequired={true} element={<DashBoard />} />
+            }
+          />
+          <Route
+            path="/admin/product"
+            element={
+              <PrivateRoute adminRequired={true} element={<Products />} />
+            }
+          />
+          <Route
+            path="/admin/customer"
+            element={
+              <PrivateRoute adminRequired={true} element={<Customer />} />
+            }
+          />
+          <Route
+            path="/admin/transaction"
+            element={
+              <PrivateRoute adminRequired={true} element={<Transaction />} />
+            }
+          />
+          <Route
+            path="/admin/chart/line"
+            element={
+              <PrivateRoute adminRequired={true} element={<LineChart />} />
+            }
+          />
+          <Route
+            path="/admin/chart/pie"
+            element={
+              <PrivateRoute adminRequired={true} element={<PieChart />} />
+            }
+          />
+          <Route
+            path="/admin/chart/bar"
+            element={
+              <PrivateRoute adminRequired={true} element={<BarChart />} />
+            }
+          />
+          <Route
+            path="/admin/app/coupon"
+            element={<PrivateRoute adminRequired={true} element={<Coupon />} />}
+          />
+          <Route
+            path="/admin/app/stopwatch"
+            element={
+              <PrivateRoute adminRequired={true} element={<Stopwatch />} />
+            }
+          />
+          <Route
+            path="/admin/app/toss"
+            element={<PrivateRoute adminRequired={true} element={<Toss />} />}
+          />
+          <Route
+            path="/admin/AddProduct"
+            element={
+              <PrivateRoute adminRequired={true} element={<AddProduct />} />
+            }
+          />
         </Routes>
       </Suspense>
     </Router>

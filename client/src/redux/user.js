@@ -1,7 +1,8 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
-import Cookies from 'js-cookie';
-import toast from 'react-hot-toast';
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
+import Cookies from "js-cookie";
+import toast from "react-hot-toast";
+
 
 const COOKIE_EXPIRES = 7;
 
@@ -9,77 +10,76 @@ const initialState = {
   user: null,
   token: null,
   loading: false,
-  error: null
+  error: null,
 };
 
 // Async thunk for login
 export const loginUser = createAsyncThunk(
-  'user/login',
+  "user/login",
   async ({ email, password }, { rejectWithValue }) => {
     try {
-      const response = await axios.post('http://localhost:4000/api/v1/user/login', {
-        email,
-        password
-      });
+      const response = await axios.post(
+        "http://localhost:4000/api/v1/user/login",
+        {
+          email,
+          password,
+        }
+      );
 
-      // Show success toast
-      toast.success('Logged in successfully!');
-      
-      // Store token in localStorage
-      localStorage.setItem('token', response.data.token);
-
+      toast.success("Logged in successfully!");
+      localStorage.setItem("token", response.data.token);
       return response.data;
-     
     } catch (error) {
-      // Show error toast
-      toast.error(error.response.data.message || 'Login failed');
-      return rejectWithValue(error.response.data.message);
+        
+      toast.error(error.response.data.message || "Login failed");
+      return rejectWithValue(error.response?.data?.message || "Login failed");
     }
   }
 );
 
 export const signupUser = createAsyncThunk(
-    'user/signup',
-    async ({ name, email, password , photo ,dob , gender }, { rejectWithValue }) => {
-      try {
-        const response = await axios.post('http://localhost:4000/api/v1/user/register', {
+  "user/signup",
+  async (
+    { name, email, password, photo, dob, gender },
+    { rejectWithValue }
+  ) => {
+    try {
+      const response = await axios.post(
+        "http://localhost:4000/api/v1/user/register",
+        {
           name,
           email,
-          password, 
-          gender, 
+          password,
+          gender,
           dob,
-          photo
-        });
-  
-        // Show success toast
-        toast.success('Registration successful!');
-        
-        // Store token in localStorage
-        localStorage.setItem('token', response.data.token);
-    
-        return response.data;
+          photo,
+        }
+      );
+      toast.success("Registration successful!");
+      // Store token in localStorage immediately on success
+      localStorage.setItem("token", response.data.token);
 
-      } catch (error) {
-        // Show error toast
-        toast.error(error.response.data.message || 'Registration failed');
-        return rejectWithValue(error.response.data.message);
-      }
+      return response.data;
+    } catch (error) {
+      toast.error(error.response.data.message || "Registration failed");
+      return rejectWithValue(error.response.data.message);
     }
-  );
+  }
+);
+
 
 // Async thunk for loading user data
 export const loadUser = createAsyncThunk(
-  'user/loadUser',
+  "user/loadUser",
   async (_, { rejectWithValue }) => {
     try {
-      const token = localStorage.getItem('token');
-      const response = await axios.get('http://localhost:4000/api/v1/user/me', {
+      const token = localStorage.getItem("token");
+      const response = await axios.get("http://localhost:4000/api/v1/user/me", {
         headers: {
-          Authorization: `Bearer ${token}`
-        }
-
+          Authorization: `Bearer ${token}`,
+        },
       });
-      
+
       return response.data;
     } catch (error) {
       // Show error toast
@@ -90,12 +90,12 @@ export const loadUser = createAsyncThunk(
 );
 
 const userSlice = createSlice({
-  name: 'user',
+  name: "user",
   initialState,
   reducers: {
     logout: (state) => {
-      Cookies.remove('token');
-      localStorage.removeItem('token');
+      Cookies.remove("token");
+      localStorage.removeItem("token");
       state.user = null;
       state.token = null;
       state.loading = false;
@@ -105,7 +105,7 @@ const userSlice = createSlice({
     },
     clearError: (state) => {
       state.error = null;
-    }
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -116,27 +116,38 @@ const userSlice = createSlice({
       })
       .addCase(loginUser.fulfilled, (state, action) => {
         state.loading = false;
+        state.user = action.payload.user;
         state.token = action.payload.token;
+        state.error = null;
+        Cookies.set("token", action.payload.token, { expires: COOKIE_EXPIRES });
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
+        state.user = null;
+        state.token = null;
+        localStorage.removeItem("token");
+        Cookies.remove("token");
       })
 
-      // Add signup cases
+      // Signup cases
       .addCase(signupUser.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
       .addCase(signupUser.fulfilled, (state, action) => {
         state.loading = false;
+        state.user = action.payload.user;
         state.token = action.payload.token;
+        state.error = null;
+        // Set cookie on successful signup
+        Cookies.set("token", action.payload.token, { expires: COOKIE_EXPIRES });
       })
       .addCase(signupUser.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       })
-      
+
       // Load user cases
       .addCase(loadUser.pending, (state) => {
         state.loading = true;
@@ -150,7 +161,7 @@ const userSlice = createSlice({
         state.loading = false;
         state.error = action.payload;
       });
-  }
+  },
 });
 
 export const { logout, clearError } = userSlice.actions;
