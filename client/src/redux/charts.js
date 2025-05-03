@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import toast from 'react-hot-toast';
 
 // Create async thunk for fetching pie chart data
 export const fetchPieData = createAsyncThunk(
@@ -7,14 +8,15 @@ export const fetchPieData = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
         const token = localStorage.getItem('token');
-      const response = await axios.get('http://localhost:4000/api/v1/admin/stats/pie', {
-        headers: {
-            Authorization: `Bearer ${token}`
+        const response = await axios.get('http://localhost:4000/api/v1/admin/stats/pie', {
+          headers: {
+              Authorization: `Bearer ${token}`
           }
-    });
-      return response.data.charts;
+        });
+        return response.data.charts;
     } catch (error) {
-      return rejectWithValue(error.response.data.message);
+        toast.error(error.response?.data?.message || 'Failed to load pie chart data');
+        return rejectWithValue(error.response?.data?.message);
     }
   }
 );
@@ -32,10 +34,11 @@ export const fetchLineData = createAsyncThunk(
         });
         return response.data.charts;
       } catch (error) {
-        return rejectWithValue(error.response.data.message);
+        toast.error(error.response?.data?.message || 'Failed to load line chart data');
+        return rejectWithValue(error.response?.data?.message);
       }
     }
-  );
+);
 
 // Add bar chart data thunk
 export const fetchBarData = createAsyncThunk(
@@ -50,10 +53,11 @@ export const fetchBarData = createAsyncThunk(
         });
         return response.data.charts;
       } catch (error) {
-        return rejectWithValue(error.response.data.message);
+        toast.error(error.response?.data?.message || 'Failed to load bar chart data');
+        return rejectWithValue(error.response?.data?.message);
       }
     }
-  );
+);
 
 const chartsSlice = createSlice({
   name: 'charts',

@@ -1,47 +1,67 @@
 // src/redux/productSlice.js
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import toast from 'react-hot-toast';
 
 // Async thunks for fetching data from backend
 export const fetchProductInfo = createAsyncThunk(
   "product/fetchProductInfo",
-  async () => {
-    const response = await axios.get(
-      "http://localhost:4000/api/v1/product/latest"
-    );
-    return response.data.products;
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await axios.get(
+        "http://localhost:4000/api/v1/product/latest"
+      );
+
+      return response.data.products;
+    } catch (error) {
+      toast.error(error.response?.data?.message || "Failed to fetch products");
+      return rejectWithValue(error.response?.data?.message);
+    }
   }
 );
 
 export const fetchProductSearch = createAsyncThunk(
   "product/fetchProductSearch",
-  async (query) => {
-    const response = await axios.get(
-      `http://localhost:4000/api/v1/product/find?name=${query}`
-    );
-    return response.data.products;
+  async (query, { rejectWithValue }) => {
+    try {
+      const response = await axios.get(
+        `http://localhost:4000/api/v1/product/find?name=${query}`
+      );
+      return response.data.products;
+    } catch (error) {
+      toast.error(error.response?.data?.message || "Search failed");
+      return rejectWithValue(error.response?.data?.message);
+    }
   }
 );
 
 export const fetchProductId = createAsyncThunk(
   "product/fetchProductId",
-  async (id) => {
-    const response = await axios.get(
-      `http://localhost:4000/api/v1/product/${id}`
-    );
-    console.log(response.data);
-    return response.data.product;
-    
+  async (id, { rejectWithValue }) => {
+    try {
+      const response = await axios.get(
+        `http://localhost:4000/api/v1/product/${id}`
+      );
+      return response.data.product;
+    } catch (error) {
+      toast.error(error.response?.data?.message || "Failed to fetch product details");
+      return rejectWithValue(error.response?.data?.message);
+    }
   }
 );
 
 export const fetchCategories = createAsyncThunk(
   "product/fetchCategories",
-  async () => {
-    const response = await axios.get(
-      "http://localhost:4000/api/v1/product/categories"
-    );
-    return response.data.categories;
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await axios.get(
+        "http://localhost:4000/api/v1/product/categories"
+      );
+      return response.data.categories;
+    } catch (error) {
+      toast.error(error.response?.data?.message || "Failed to fetch categories");
+      return rejectWithValue(error.response?.data?.message);
+    }
   }
 );
 
@@ -71,7 +91,6 @@ export const createProduct = createAsyncThunk(
   async (formData, { rejectWithValue }) => {
     try {
       const token = localStorage.getItem('token');
-      console.log("🚀 Sending product data:", formData);
       const response = await axios.post(
         "http://localhost:4000/api/v1/product/new",
         formData,
@@ -132,7 +151,9 @@ const productSlice = createSlice({
         (action) => action.type.endsWith("/rejected"),
         (state, action) => {
           state.status = "failed";
-          state.error = action.error.message;
+          state.error = action.payload || action.error.message;
+          // Show error toast for any rejected action
+          toast.error(state.error);
         }
       );
   },

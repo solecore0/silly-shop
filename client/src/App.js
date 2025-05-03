@@ -1,4 +1,5 @@
 import React, { lazy, Suspense, useEffect, useRef } from "react";
+
 import {
   BrowserRouter as Router,
   Routes,
@@ -9,6 +10,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { setScreenWidth } from "./redux/uiSlice";
 import { fetchProductInfo } from "./redux/product";
 import Cookies from "js-cookie";
+import toast, { Toaster } from "react-hot-toast";
+
 
 // css
 import "./App.css";
@@ -69,6 +72,7 @@ function App() {
   useEffect(() => {
     // Handle window resize
     const handleResize = () => {
+
       dispatch(setScreenWidth(window.innerWidth));
     };
 
@@ -76,7 +80,9 @@ function App() {
     handleResize(); // Initial dispatch
 
     // Check for authentication token
+
     const token = localStorage.getItem("token");
+
 
     if (token) {
       // prevent future runs
@@ -89,9 +95,32 @@ function App() {
     return () => window.removeEventListener("resize", handleResize);
   }, [dispatch]);
 
-  return (
+  return (  
     <Router>
       <Navbar />
+      <Toaster
+      position="top-right"
+      toastOptions={{
+        duration: 2000,
+        style: {
+          background: '#333',
+          color: '#fff',
+        },
+        // Add close button configuration
+        success: {
+          duration: 3000,
+          icon: '✅',
+          className: 'toast-success',
+        },
+        error: {
+          duration: 4000,
+          icon: '❌',
+          className: 'toast-error',
+        },
+        // Enable close button for all toasts
+        closeButton: true,
+      }}
+    />
       <Suspense fallback={<Loader />}>
         <Routes>
           <Route path="/" element={<Home />} />

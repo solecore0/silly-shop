@@ -1,23 +1,16 @@
-import React, {  useState } from "react";
+import React, { useState } from "react";
 import "../css/Home.css";
 import Card from "../components/Card";
 
 import { useDispatch, useSelector } from "react-redux";
 
-
 function Home() {
-  
   const [query] = useState("");
   const [page, setPage] = useState(1);
 
- 
-
   const Dispatch = useDispatch();
 
-
-
-  const data = useSelector((state)=>state.product.productInfo);
-  
+  const data = useSelector((state) => state.product.productInfo);
 
   const isPrevPage = page > 1;
   const isNextPage = page < data.length / 10;
@@ -27,7 +20,7 @@ function Home() {
     (page - 1) * itemsPerPage,
     page * itemsPerPage
   );
-  
+
   return (
     <div className="home">
       <div className="Showcase">
@@ -48,19 +41,23 @@ function Home() {
             <Card key={item._id} item={item} />
           ))}
         </div>
-        <div className="pgch">
-          <button
-            disabled={!isPrevPage}
-            onClick={() => setPage((prev) => prev - 1)}>
-            Prev
-          </button>
-          <span>{page}</span>
-          <button
-            disabled={!isNextPage}
-            onClick={() => setPage((prev) => prev + 1)}>
-            Next
-          </button>
-        </div>
+        {data.length <= 10 ? (
+          null
+        ) : (
+          <div className="pgch">
+            <button
+              disabled={!isPrevPage}
+              onClick={() => setPage((prev) => prev - 1)}>
+              Prev
+            </button>
+            <span>{page}</span>
+            <button
+              disabled={!isNextPage}
+              onClick={() => setPage((prev) => prev + 1)}>
+              Next
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

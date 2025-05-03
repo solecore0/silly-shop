@@ -63,7 +63,6 @@ function Navbar() {
   const logOut = () => {
     dispatch(logout());
     navigate("/");
-    window.location.reload();
   };
 
   useEffect(() => {
@@ -189,7 +188,7 @@ function Navbar() {
               <li>
                 <Link to="/orders">Orders</Link>
               </li>
-              {user.role === "admin" && (
+              {user?.role === "admin" && (
                 <li>
                   <Link to="/admin/dashboard">Admin</Link>
                 </li>

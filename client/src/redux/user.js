@@ -1,6 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import Cookies from "js-cookie";
+import toast from "react-hot-toast";
+
 
 const COOKIE_EXPIRES = 7;
 
@@ -24,9 +26,12 @@ export const loginUser = createAsyncThunk(
         }
       );
 
+      toast.success("Logged in successfully!");
       localStorage.setItem("token", response.data.token);
       return response.data;
     } catch (error) {
+        
+      toast.error(error.response.data.message || "Login failed");
       return rejectWithValue(error.response?.data?.message || "Login failed");
     }
   }
@@ -50,16 +55,18 @@ export const signupUser = createAsyncThunk(
           photo,
         }
       );
-
+      toast.success("Registration successful!");
       // Store token in localStorage immediately on success
       localStorage.setItem("token", response.data.token);
 
       return response.data;
     } catch (error) {
+      toast.error(error.response.data.message || "Registration failed");
       return rejectWithValue(error.response.data.message);
     }
   }
 );
+
 
 // Async thunk for loading user data
 export const loadUser = createAsyncThunk(
@@ -75,6 +82,8 @@ export const loadUser = createAsyncThunk(
 
       return response.data;
     } catch (error) {
+      // Show error toast
+      toast.error(error.response.data.message || 'Failed to load user data');
       return rejectWithValue(error.response.data.message);
     }
   }
@@ -91,6 +100,8 @@ const userSlice = createSlice({
       state.token = null;
       state.loading = false;
       state.error = null;
+      // Show success toast for logout
+      toast.success('Logged out successfully');
     },
     clearError: (state) => {
       state.error = null;

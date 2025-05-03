@@ -30,13 +30,13 @@ function Search() {
   }, [query , dispatch]);
 
   const categories = useSelector((state) => state.product.categories);
-  const results = useSelector((state) => state.product.productSearch);
+  const data = useSelector((state) => state.product.productSearch);
 
   const isPrevPage = page > 1;
-  const isNextPage = page < results.length / 10;
+  const isNextPage = page < data.length / 10;
 
   const itemsPerPage = 10;
-  const paginatedItems = results.slice(
+  const paginatedItems = data.slice(
     (page - 1) * itemsPerPage,
     page * itemsPerPage
   );
@@ -112,8 +112,11 @@ function Search() {
               <Card key={item._id} item={item} />
             ))}
           </div>
-          {paginatedItems.length === 0 ? <p className="txt">No Results</p> : ""}
+          {paginatedItems.length === 0 ? <p className="txt">Nothing here</p> : ""}
 
+          {data.length <= 10 ? (
+          null
+        ) : (
           <div className="pgch">
             <button
               disabled={!isPrevPage}
@@ -126,7 +129,7 @@ function Search() {
               onClick={() => setPage((prev) => prev + 1)}>
               Next
             </button>
-          </div>
+          </div>)}
         </div>
       </div>
     </div>
