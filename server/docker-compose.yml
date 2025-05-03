@@ -6,7 +6,7 @@ services:
     ports:
       - "${PORT:-4000}:${PORT:-4000}"
     environment:
-      - NODE_ENV=production
+      - NODE_ENV=development
       - PORT=${PORT:-4000}
       - MONGO_URI=mongodb://mongodb:27017/
       - JWT_SECRET=${JWT_SECRET:-thisismy__________________jwtSECRET789456123}
@@ -50,7 +50,7 @@ services:
       - mongodb_data:/data/db
     restart: unless-stopped
     healthcheck:
-      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      test: ["CMD", "mongo", "--eval", "db.adminCommand('ping')"]
       interval: 30s
       timeout: 10s
       retries: 3
