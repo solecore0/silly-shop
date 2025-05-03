@@ -189,7 +189,7 @@ function Navbar() {
               <li>
                 <Link to="/orders">Orders</Link>
               </li>
-              {user.role === "admin" && (
+              {user?.role === "admin" && (
                 <li>
                   <Link to="/admin/dashboard">Admin</Link>
                 </li>

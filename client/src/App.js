@@ -1,9 +1,9 @@
-import React, { lazy, Suspense, useEffect ,useRef } from "react";
+import React, { lazy, Suspense, useEffect, useRef } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { useDispatch , useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setScreenWidth } from "./redux/uiSlice";
 import { fetchProductInfo } from "./redux/product";
-import Cookies from 'js-cookie';
+import toast, { Toaster } from 'react-hot-toast';
 
 // css
 import "./App.css";
@@ -44,12 +44,12 @@ function App() {
 
   const hasFetchedUser = useRef(false);
 
-
   const user = useSelector((state) => state.user.user);
 
   useEffect(() => {
     // Handle window resize
     const handleResize = () => {
+      toast.success("Window resized!");
       dispatch(setScreenWidth(window.innerWidth));
     };
 
@@ -59,22 +59,43 @@ function App() {
     // Check for authentication token
     const token = localStorage.getItem('token');
     
-     if (token ) {
-    // prevent future runs
-    dispatch(loadUser());
-  }
+    if (token) {
+      // prevent future runs
+      dispatch(loadUser());
+    }
 
     // Load initial data
     dispatch(fetchProductInfo());
 
-    
-
     return () => window.removeEventListener("resize", handleResize);
-  }, [dispatch ]);
+  }, [dispatch]);
 
-  return (
+  return (  
     <Router>
       <Navbar />
+      <Toaster
+      position="top-right"
+      toastOptions={{
+        duration: 2000,
+        style: {
+          background: '#333',
+          color: '#fff',
+        },
+        // Add close button configuration
+        success: {
+          duration: 3000,
+          icon: '✅',
+          className: 'toast-success',
+        },
+        error: {
+          duration: 4000,
+          icon: '❌',
+          className: 'toast-error',
+        },
+        // Enable close button for all toasts
+        closeButton: true,
+      }}
+    />
       <Suspense fallback={<Loader />}>
         <Routes>
           <Route path="/" element={<Home />} />

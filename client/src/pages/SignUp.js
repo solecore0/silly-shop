@@ -20,7 +20,7 @@ const SignUp = () => {
   const handleSubmit = async(e) => {
     e.preventDefault()
    await dispatch(signupUser({ name , password , email , photo , dob , gender }))
-   if (Cookies.getItem('token')) {
+   if (localStorage.getItem('token')) {
       navigate('/')
       window.location.reload()
     }
