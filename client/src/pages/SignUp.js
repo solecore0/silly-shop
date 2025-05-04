@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { signupUser } from "../redux/user";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-hot-toast";
 import Loader from "../components/Loader";
 
 const SignUp = () => {
@@ -20,7 +21,6 @@ const SignUp = () => {
   const token = useSelector((state) => state.user.token);
   const loading = useSelector((state) => state.user.loading);
   const error = useSelector((state) => state.user.error);
-
 
   useEffect(() => {
     if (token && user) {
@@ -40,7 +40,7 @@ const SignUp = () => {
         window.location.reload();
       }
     } catch (err) {
-      console.error("Signup failed:", err);
+      toast.error(err.message);
     }
   };
 
@@ -50,7 +50,7 @@ const SignUp = () => {
     }
   };
 
-  console.log(name, password, email, photo, dob , gender);
+  console.log(name, password, email, photo, dob, gender);
   return (
     <div className="registery" onKeyDown={handleKeyDown}>
       <h1>Sign-up</h1>
@@ -130,14 +130,14 @@ const SignUp = () => {
               Signing up...
             </>
           ) : (
-            "Sign-up"
+            "Sign up"
           )}
         </button>
       </div>
       <hr />
       <div className="sin">
         <p>Already have an account ?</p>
-        <Link to="/login">Log-in</Link>
+        <Link to="/login">Log In</Link>
       </div>
     </div>
   );

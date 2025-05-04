@@ -3,7 +3,6 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import toast from "react-hot-toast";
 
-
 const COOKIE_EXPIRES = 7;
 
 const initialState = {
@@ -30,7 +29,6 @@ export const loginUser = createAsyncThunk(
       localStorage.setItem("token", response.data.token);
       return response.data;
     } catch (error) {
-        
       toast.error(error.response.data.message || "Login failed");
       return rejectWithValue(error.response?.data?.message || "Login failed");
     }
@@ -67,7 +65,6 @@ export const signupUser = createAsyncThunk(
   }
 );
 
-
 // Async thunk for loading user data
 export const loadUser = createAsyncThunk(
   "user/loadUser",
@@ -83,7 +80,7 @@ export const loadUser = createAsyncThunk(
       return response.data;
     } catch (error) {
       // Show error toast
-      toast.error(error.response.data.message || 'Failed to load user data');
+      toast.error(error.response.data.message || "Failed to load user data");
       return rejectWithValue(error.response.data.message);
     }
   }
@@ -94,14 +91,14 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     logout: (state) => {
-      Cookies.remove("token");
+      Cookies.remove("refreshToken");
       localStorage.removeItem("token");
       state.user = null;
       state.token = null;
       state.loading = false;
       state.error = null;
       // Show success toast for logout
-      toast.success('Logged out successfully');
+      toast.success("Logged out successfully");
     },
     clearError: (state) => {
       state.error = null;
@@ -119,7 +116,10 @@ const userSlice = createSlice({
         state.user = action.payload.user;
         state.token = action.payload.token;
         state.error = null;
-        Cookies.set("token", action.payload.token, { expires: COOKIE_EXPIRES });
+        console.log("Login success, updated state:", {
+          user: action.payload.user,
+          token: action.payload.token,
+        });
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.loading = false;
@@ -127,7 +127,6 @@ const userSlice = createSlice({
         state.user = null;
         state.token = null;
         localStorage.removeItem("token");
-        Cookies.remove("token");
       })
 
       // Signup cases
@@ -137,11 +136,11 @@ const userSlice = createSlice({
       })
       .addCase(signupUser.fulfilled, (state, action) => {
         state.loading = false;
-        state.user = action.payload.user;
         state.token = action.payload.token;
         state.error = null;
-        // Set cookie on successful signup
-        Cookies.set("token", action.payload.token, { expires: COOKIE_EXPIRES });
+        state.user = action.payload.user;
+        // Set token in localStorage
+        localStorage.setItem("token", action.payload.token);
       })
       .addCase(signupUser.rejected, (state, action) => {
         state.loading = false;
@@ -156,7 +155,11 @@ const userSlice = createSlice({
       .addCase(loadUser.fulfilled, (state, action) => {
         state.loading = false;
         state.user = action.payload.user;
-        
+        state.token = localStorage.getItem("token");
+        console.log("Load user success:", {
+          user: action.payload.user,
+          token: state.token,
+        });
       })
       .addCase(loadUser.rejected, (state, action) => {
         state.loading = false;

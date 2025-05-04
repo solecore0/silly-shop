@@ -94,9 +94,13 @@ userSchema.virtual("age").get(function () {
 });
 
 userSchema.methods.getJwtTokens = function () {
-  const accessToken = jwt.sign({ id: this._id }, process.env.JWT_SECRET ?? "", {
-    expiresIn: process.env.ACCESS_TOKEN_EXPIRE,
-  });
+  const accessToken = jwt.sign(
+    { id: this._id, role: this.role },
+    process.env.JWT_SECRET ?? "",
+    {
+      expiresIn: process.env.ACCESS_TOKEN_EXPIRE,
+    }
+  );
   const refreshToken = jwt.sign(
     { id: this._id, tokenVersion: this.tokenVersion },
     process.env.REFRESH_JWT_SECRET ?? "",

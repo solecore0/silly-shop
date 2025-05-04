@@ -10,7 +10,6 @@ const LogIn = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-
   const loading = useSelector((state) => state.user.loading);
   const error = useSelector((state) => state.user.error);
 
@@ -21,9 +20,13 @@ const LogIn = () => {
     }
     try {
       const result = await dispatch(loginUser({ email, password })).unwrap();
+      console.log("Login response:", result);
       if (result.token) {
-        navigate("/");
-        window.location.reload();
+        if (result.user.role === "admin") {
+          navigate("/admin/dashboard");
+        } else {
+          navigate("/");
+        }
       }
     } catch (err) {
       console.error("Login failed:", err);
@@ -34,7 +37,6 @@ const LogIn = () => {
     if (e.key === "Enter") {
       handleSubmit(e);
     }
-
   };
 
   return (
