@@ -1,17 +1,14 @@
 // src/redux/productSlice.js
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
-import toast from 'react-hot-toast';
+import api from "../utils/api";
+import toast from "react-hot-toast";
 
 // Async thunks for fetching data from backend
 export const fetchProductInfo = createAsyncThunk(
   "product/fetchProductInfo",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.get(
-        "http://localhost:4000/api/v1/product/latest"
-      );
-
+      const response = await api.get("/product/latest");
       return response.data.products;
     } catch (error) {
       toast.error(error.response?.data?.message || "Failed to fetch products");
@@ -24,9 +21,7 @@ export const fetchProductSearch = createAsyncThunk(
   "product/fetchProductSearch",
   async (query, { rejectWithValue }) => {
     try {
-      const response = await axios.get(
-        `http://localhost:4000/api/v1/product/find?name=${query}`
-      );
+      const response = await api.get(`/product/find?name=${query}`);
       return response.data.products;
     } catch (error) {
       toast.error(error.response?.data?.message || "Search failed");
@@ -39,12 +34,12 @@ export const fetchProductId = createAsyncThunk(
   "product/fetchProductId",
   async (id, { rejectWithValue }) => {
     try {
-      const response = await axios.get(
-        `http://localhost:4000/api/v1/product/${id}`
-      );
+      const response = await api.get(`/product/${id}`);
       return response.data.product;
     } catch (error) {
-      toast.error(error.response?.data?.message || "Failed to fetch product details");
+      toast.error(
+        error.response?.data?.message || "Failed to fetch product details"
+      );
       return rejectWithValue(error.response?.data?.message);
     }
   }
@@ -54,31 +49,22 @@ export const fetchCategories = createAsyncThunk(
   "product/fetchCategories",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.get(
-        "http://localhost:4000/api/v1/product/categories"
-      );
+      const response = await api.get("/product/categories");
       return response.data.categories;
     } catch (error) {
-      toast.error(error.response?.data?.message || "Failed to fetch categories");
+      toast.error(
+        error.response?.data?.message || "Failed to fetch categories"
+      );
       return rejectWithValue(error.response?.data?.message);
     }
   }
 );
 
-// Add new thunk for fetching all products
 export const fetchAllProducts = createAsyncThunk(
   "product/fetchAllProducts",
   async (_, { rejectWithValue }) => {
     try {
-      const token = localStorage.getItem('token');
-      const response = await axios.get(
-        "http://localhost:4000/api/v1/product/all",
-        {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        }
-      );
+      const response = await api.get("/product/all");
       return response.data.products;
     } catch (error) {
       return rejectWithValue(error.response.data.message);
@@ -90,17 +76,11 @@ export const createProduct = createAsyncThunk(
   "product/createProduct",
   async (formData, { rejectWithValue }) => {
     try {
-      const token = localStorage.getItem('token');
-      const response = await axios.post(
-        "http://localhost:4000/api/v1/product/new",
-        formData,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "multipart/form-data",
-          }
-        }
-      );
+      const response = await api.post("/product/new", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
       return response.data.product;
     } catch (error) {
       return rejectWithValue(error.response.data.message);
@@ -119,8 +99,7 @@ const productSlice = createSlice({
     status: "idle",
     error: null,
   },
-  reducers: {
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(fetchProductInfo.fulfilled, (state, action) => {

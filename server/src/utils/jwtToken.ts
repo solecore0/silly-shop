@@ -20,5 +20,12 @@ export const sendTokens = (user: any, statusCode: number, res: Response) => {
       success: true,
       message: `Welcome ${user.name}`,
       token: accessToken,
+      user: {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+        role: user.role,
+        photo: user.photo,
+      },
     });
 };

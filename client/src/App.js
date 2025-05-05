@@ -12,7 +12,6 @@ import { fetchProductInfo } from "./redux/product";
 import Cookies from "js-cookie";
 import toast, { Toaster } from "react-hot-toast";
 
-
 // css
 import "./App.css";
 import "./css/tablet.css";
@@ -50,14 +49,22 @@ const AddProduct = lazy(() => import("./pages/admin/AddProduct"));
 const PrivateRoute = ({ element, adminRequired = false }) => {
   const user = useSelector((state) => state.user.user);
   const token = useSelector((state) => state.user.token);
-  console.log("User:", user);
-  console.log("Token:", token);
+
+  console.log("PrivateRoute check:", {
+    hasUser: !!user,
+    hasToken: !!token,
+    userRole: user?.role,
+    adminRequired,
+    isAdmin: user?.role === "admin",
+  });
 
   if (!token || !user) {
+    console.log("No token or user, redirecting to login");
     return <Navigate to="/login" />;
   }
 
   if (adminRequired && user.role !== "admin") {
+    console.log("Admin access denied, redirecting to home");
     return <Navigate to="/" />;
   }
 
@@ -74,7 +81,6 @@ function App() {
   useEffect(() => {
     // Handle window resize
     const handleResize = () => {
-
       dispatch(setScreenWidth(window.innerWidth));
     };
 
@@ -84,7 +90,6 @@ function App() {
     // Check for authentication token
 
     const token = localStorage.getItem("token");
-
 
     if (token) {
       // prevent future runs
@@ -97,32 +102,32 @@ function App() {
     return () => window.removeEventListener("resize", handleResize);
   }, [dispatch]);
 
-  return (  
+  return (
     <Router>
       <Navbar />
       <Toaster
-      position="top-right"
-      toastOptions={{
-        duration: 2000,
-        style: {
-          background: '#333',
-          color: '#fff',
-        },
-        // Add close button configuration
-        success: {
-          duration: 3000,
-          icon: '✅',
-          className: 'toast-success',
-        },
-        error: {
-          duration: 4000,
-          icon: '❌',
-          className: 'toast-error',
-        },
-        // Enable close button for all toasts
-        closeButton: true,
-      }}
-    />
+        position="top-right"
+        toastOptions={{
+          duration: 1500,
+          style: {
+            background: "#333",
+            color: "#fff",
+          },
+          // Add close button configuration
+          success: {
+            duration: 3000,
+            icon: "✅",
+            className: "toast-success",
+          },
+          error: {
+            duration: 4000,
+            icon: "❌",
+            className: "toast-error",
+          },
+          // Enable close button for all toasts
+          closeButton: true,
+        }}
+      />
       <Suspense fallback={<Loader />}>
         <Routes>
           <Route path="/" element={<Home />} />

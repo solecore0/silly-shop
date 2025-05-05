@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { signupUser } from "../redux/user";
 import { useNavigate } from "react-router-dom";
-import Loader from "../components/Loader";
+import { toast } from "react-hot-toast";
 
 const SignUp = () => {
   const [name, setName] = useState("");
@@ -21,26 +21,46 @@ const SignUp = () => {
   const loading = useSelector((state) => state.user.loading);
   const error = useSelector((state) => state.user.error);
 
-
   useEffect(() => {
     if (token && user) {
       navigate("/");
-      window.location.reload();
     }
   }, [token, user, navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Add validation
+    if (!name || !email || !password || !dob || !gender) {
+      toast.error("Please fill in all fields");
+      return;
+    }
+
+    if (name.length < 4) {
+      toast.error("Username must be at least 4 characters long");
+      return;
+    }
+
+    if (password.length < 8) {
+      toast.error("Password must be at least 8 characters long");
+      return;
+    }
+
+    if (!email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+      toast.error("Please enter a valid email address");
+      return;
+    }
+
     try {
       const result = await dispatch(
         signupUser({ name, password, email, photo, dob, gender })
       ).unwrap();
       if (result.token) {
         navigate("/");
-        window.location.reload();
       }
     } catch (err) {
       console.error("Signup failed:", err);
+      toast.error("Signup failed. Please try again.");
     }
   };
 
@@ -50,18 +70,10 @@ const SignUp = () => {
     }
   };
 
-  console.log(name, password, email, photo, dob , gender);
+  console.log(name, password, email, photo, dob, gender);
   return (
     <div className="registery" onKeyDown={handleKeyDown}>
       <h1>Sign-up</h1>
-      {error && (
-        <div
-          className="error-message"
-          style={{ color: "red", marginBottom: "10px" }}
-        >
-          {error}
-        </div>
-      )}
       <div className="inp">
         <input
           type="text"
@@ -130,14 +142,14 @@ const SignUp = () => {
               Signing up...
             </>
           ) : (
-            "Sign-up"
+            "Sign up"
           )}
         </button>
       </div>
       <hr />
       <div className="sin">
         <p>Already have an account ?</p>
-        <Link to="/login">Log-in</Link>
+        <Link to="/login">Log In</Link>
       </div>
     </div>
   );

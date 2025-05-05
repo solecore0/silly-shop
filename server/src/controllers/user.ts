@@ -181,6 +181,12 @@ export const getUserInfo = TryCatch(async (req, res, next) => {
 
   return res.status(200).json({
     success: true,
-    user,
+    user: {
+      id: user._id,
+      name: user.name,
+      email: user.email,
+      role: user.role,
+      photo: user.photo,
+    },
   });
 });

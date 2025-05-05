@@ -1,32 +1,40 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../redux/user";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-hot-toast";
 
 const LogIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  const user = useSelector((state) => state.user.user);
+  const token = useSelector((state) => state.user.token);
 
   const loading = useSelector((state) => state.user.loading);
-  const error = useSelector((state) => state.user.error);
+
+  useEffect(() => {
+    if (token && user) {
+      navigate("/");
+    }
+  }, [token, user, navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!email || !password) {
+      toast.error("Please fill in all fields");
       return;
     }
     try {
       const result = await dispatch(loginUser({ email, password })).unwrap();
       if (result.token) {
         navigate("/");
-        window.location.reload();
       }
     } catch (err) {
       console.error("Login failed:", err);
+      toast.error("Login failed. Please try again.");
     }
   };
 
@@ -34,20 +42,19 @@ const LogIn = () => {
     if (e.key === "Enter") {
       handleSubmit(e);
     }
-
   };
 
   return (
     <div className="registery" onKeyDown={handleKeyDown}>
       <h1>Log-In</h1>
-      {error && (
+      {/* {error && (
         <div
           className="error-message"
           style={{ color: "red", marginBottom: "10px" }}
         >
           {error}
         </div>
-      )}
+      )} */}
       <div className="inp">
         <input
           type="email"

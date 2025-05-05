@@ -1,10 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+import api from "../utils/api";
 import Cookies from "js-cookie";
 import toast from "react-hot-toast";
-
-
-const COOKIE_EXPIRES = 7;
 
 const initialState = {
   user: null,
@@ -18,19 +15,15 @@ export const loginUser = createAsyncThunk(
   "user/login",
   async ({ email, password }, { rejectWithValue }) => {
     try {
-      const response = await axios.post(
-        "http://localhost:4000/api/v1/user/login",
-        {
-          email,
-          password,
-        }
-      );
+      const response = await api.post("/user/login", {
+        email,
+        password,
+      });
 
       toast.success("Logged in successfully!");
       localStorage.setItem("token", response.data.token);
       return response.data;
     } catch (error) {
-        
       toast.error(error.response.data.message || "Login failed");
       return rejectWithValue(error.response?.data?.message || "Login failed");
     }
@@ -44,17 +37,14 @@ export const signupUser = createAsyncThunk(
     { rejectWithValue }
   ) => {
     try {
-      const response = await axios.post(
-        "http://localhost:4000/api/v1/user/register",
-        {
-          name,
-          email,
-          password,
-          gender,
-          dob,
-          photo,
-        }
-      );
+      const response = await api.post("/user/register", {
+        name,
+        email,
+        password,
+        gender,
+        dob,
+        photo,
+      });
       toast.success("Registration successful!");
       // Store token in localStorage immediately on success
       localStorage.setItem("token", response.data.token);
@@ -67,23 +57,17 @@ export const signupUser = createAsyncThunk(
   }
 );
 
-
 // Async thunk for loading user data
 export const loadUser = createAsyncThunk(
   "user/loadUser",
   async (_, { rejectWithValue }) => {
     try {
-      const token = localStorage.getItem("token");
-      const response = await axios.get("http://localhost:4000/api/v1/user/me", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await api.get("/user/me");
 
       return response.data;
     } catch (error) {
       // Show error toast
-      toast.error(error.response.data.message || 'Failed to load user data');
+      toast.error(error.response.data.message || "Failed to load user data");
       return rejectWithValue(error.response.data.message);
     }
   }
@@ -94,14 +78,14 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     logout: (state) => {
-      Cookies.remove("token");
+      Cookies.remove("refreshToken");
       localStorage.removeItem("token");
       state.user = null;
       state.token = null;
       state.loading = false;
       state.error = null;
       // Show success toast for logout
-      toast.success('Logged out successfully');
+      toast.success("Logged out successfully");
     },
     clearError: (state) => {
       state.error = null;
@@ -119,7 +103,6 @@ const userSlice = createSlice({
         state.user = action.payload.user;
         state.token = action.payload.token;
         state.error = null;
-        Cookies.set("token", action.payload.token, { expires: COOKIE_EXPIRES });
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.loading = false;
@@ -127,7 +110,6 @@ const userSlice = createSlice({
         state.user = null;
         state.token = null;
         localStorage.removeItem("token");
-        Cookies.remove("token");
       })
 
       // Signup cases
@@ -137,11 +119,11 @@ const userSlice = createSlice({
       })
       .addCase(signupUser.fulfilled, (state, action) => {
         state.loading = false;
-        state.user = action.payload.user;
         state.token = action.payload.token;
         state.error = null;
-        // Set cookie on successful signup
-        Cookies.set("token", action.payload.token, { expires: COOKIE_EXPIRES });
+        state.user = action.payload.user;
+        // Set token in localStorage
+        localStorage.setItem("token", action.payload.token);
       })
       .addCase(signupUser.rejected, (state, action) => {
         state.loading = false;
@@ -156,7 +138,7 @@ const userSlice = createSlice({
       .addCase(loadUser.fulfilled, (state, action) => {
         state.loading = false;
         state.user = action.payload.user;
-        
+        state.token = localStorage.getItem("token");
       })
       .addCase(loadUser.rejected, (state, action) => {
         state.loading = false;
