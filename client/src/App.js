@@ -58,6 +58,8 @@ const PrivateRoute = ({ element, adminRequired = false }) => {
     isAdmin: user?.role === "admin",
   });
 
+
+
   if (!token || !user) {
     console.log("No token or user, redirecting to login");
     return <Navigate to="/login" />;
@@ -82,6 +84,7 @@ function App() {
     // Handle window resize
     const handleResize = () => {
       dispatch(setScreenWidth(window.innerWidth));
+      
     };
 
     window.addEventListener("resize", handleResize);
@@ -90,9 +93,10 @@ function App() {
     // Check for authentication token
 
     const token = localStorage.getItem("token");
-
+    console.log(token)
     if (token) {
       // prevent future runs
+      
       dispatch(loadUser());
     }
 
@@ -106,7 +110,7 @@ function App() {
     <Router>
       <Navbar />
       <Toaster
-        position="top-right"
+        position="top-center"
         toastOptions={{
           duration: 1500,
           style: {

@@ -3,6 +3,9 @@
   .navbar {
     padding: 0rem 1.5rem;
     height: 4rem;
+    display: flex;
+    align-items: center;
+
   }
 
   .navbar h1 {
@@ -13,8 +16,8 @@
   .links {
     position: relative;
     z-index: 11;
-    width:fit-content;
-    height: 2.5rem;
+    width: fit-content;
+    height: fit-content;
     opacity: 1;
     background-color: white;
     flex-direction: row;
@@ -23,8 +26,10 @@
   }
 
   .links ul {
+    display: flex;
     flex-direction: row;
     align-items: center;
+    justify-content: flex-end ;
   
   }
 
@@ -40,6 +45,11 @@
   .links li i {
     font-size: 1rem;
 
+  }
+
+  .links li img {
+    width: 1rem;
+    height: 1rem;
   }
 
   /* Top Links */

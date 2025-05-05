@@ -19,7 +19,7 @@
     margin: 0.5rem auto;
     padding: 0.6rem 0.5rem;
     border-bottom: 1.5px solid #000;
-    width: 50%;
+    width: 45%;
     font-size: 1.8rem;
     justify-self: center;
   }
@@ -35,16 +35,20 @@
   .navbar .links {
     width: 25%;
     justify-content: flex-end;
+
+
   }
 
   .navbar .links ul {
+    display: flex;
     flex-direction: row;
     align-items: center;
+    gap: 1rem;
   }
 
   .navbar img {
-    width: 2.5rem;
-    height: 2.4rem;
+    width: 2rem;
+    height: 2rem;
     border-radius: 50%;
     cursor: pointer;
     transition: transform 0.3s ease;
@@ -166,9 +170,9 @@
 
   /* Admin Sidebar */
   #sidebar {
-    width: 20%;
+    width: 25%;
     height: 90vh;
-    position: fixed;
+    position: absolute;
     top: 6rem;
     left: 0;
     padding: 20px;

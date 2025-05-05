@@ -199,6 +199,7 @@ button {
   top: 1.6rem;
   right: 0;
   width: 8rem;
+  height: fit-content;
   z-index: 999;
   margin: 40px 10px;
   padding: 10px;
@@ -307,6 +308,7 @@ button {
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
   gap: 1rem;
 }
 
@@ -320,6 +322,7 @@ button {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  padding: 1rem ;
 }
 
 .cards .card {
@@ -359,6 +362,11 @@ button {
 .card p {
   font-size: 1rem;
   font-weight: 600;
+}
+
+.card button {
+  width: 90%;
+  font-size: 1rem;
 }
 
 /* Pagination */
@@ -910,46 +918,7 @@ button {
     opacity: 1;
   }
 
-  /* Coin Toss */
-  .tosscoin {
-    margin: 2rem auto 20rem;
-    width: 15rem;
-    height: 15rem;
-    transform-style: preserve-3d;
-    transition: all 0.5s ease;
-    animation: toss 1s ease-in-out forwards;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    position: relative;
-  }
 
-  .tosscoin div {
-    width: 70%;
-    height: 90%;
-    position: absolute;
-    border-radius: 50%;
-    background-size: contain;
-    background-repeat: no-repeat;
-    display: grid;
-    place-items: center;
-    filter: drop-shadow(0px 10px 10px rgba(0, 0, 0, 0.521));
-    backface-visibility: hidden;
-  }
-
-  .tosscoin div:first-of-type {
-    background-image: url("./assets/images/heads.png");
-  }
-
-  .tosscoin div:last-of-type {
-    background-image: url("./assets/images/tails.png");
-    transform: rotateY(-180deg);
-  }
-
-  .tosscoin:hover {
-    transform: scale(1.1);
-  }
 
   /* Table */
   .table-container {
@@ -1265,7 +1234,11 @@ button {
 
     .table {
       overflow-x: auto;
-      margin-left: 50%;
+    }
+
+    .table .Cimg {
+      width: 1rem;
+      height: 1rem;
     }
 
     .table th,
