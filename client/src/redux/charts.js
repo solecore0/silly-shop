@@ -1,108 +1,99 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
-import toast from 'react-hot-toast';
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import api from "../utils/api";
+import toast from "react-hot-toast";
 
 // Create async thunk for fetching pie chart data
 export const fetchPieData = createAsyncThunk(
-  'charts/fetchPieData',
+  "charts/fetchPieData",
   async (_, { rejectWithValue }) => {
     try {
-        const token = localStorage.getItem('token');
-        const response = await axios.get('http://localhost:4000/api/v1/admin/stats/pie', {
-          headers: {
-              Authorization: `Bearer ${token}`
-          }
-        });
-        return response.data.charts;
+      const response = await api.get("/api/v1/admin/stats/pie");
+      return response.data.charts;
     } catch (error) {
-        toast.error(error.response?.data?.message || 'Failed to load pie chart data');
-        return rejectWithValue(error.response?.data?.message);
+      toast.error(
+        error.response?.data?.message || "Failed to load pie chart data"
+      );
+      return rejectWithValue(error.response?.data?.message);
     }
   }
 );
 
 // Add line chart data thunk
 export const fetchLineData = createAsyncThunk(
-    'charts/fetchLineData',
-    async (_, { rejectWithValue }) => {
-      try {
-        const token = localStorage.getItem('token');
-        const response = await axios.get('http://localhost:4000/api/v1/admin/stats/Line', {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        });
-        return response.data.charts;
-      } catch (error) {
-        toast.error(error.response?.data?.message || 'Failed to load line chart data');
-        return rejectWithValue(error.response?.data?.message);
-      }
+  "charts/fetchLineData",
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await api.get("/api/v1/admin/stats/Line");
+      return response.data.charts;
+    } catch (error) {
+      toast.error(
+        error.response?.data?.message || "Failed to load line chart data"
+      );
+      return rejectWithValue(error.response?.data?.message);
     }
+  }
 );
 
 // Add bar chart data thunk
 export const fetchBarData = createAsyncThunk(
-    'charts/fetchBarData',
-    async (_, { rejectWithValue }) => {
-      try {
-        const token = localStorage.getItem('token');
-        const response = await axios.get('http://localhost:4000/api/v1/admin/stats/bar', {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        });
-        return response.data.charts;
-      } catch (error) {
-        toast.error(error.response?.data?.message || 'Failed to load bar chart data');
-        return rejectWithValue(error.response?.data?.message);
-      }
+  "charts/fetchBarData",
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await api.get("/api/v1/admin/stats/bar");
+      return response.data.charts;
+    } catch (error) {
+      toast.error(
+        error.response?.data?.message || "Failed to load bar chart data"
+      );
+      return rejectWithValue(error.response?.data?.message);
     }
+  }
 );
 
 const chartsSlice = createSlice({
-  name: 'charts',
+  name: "charts",
   initialState: {
     pieData: [],
     barData: [],
     lineData: [],
     loading: false,
-    error: null
+    error: null,
   },
   reducers: {
     clearChartError: (state) => {
       state.error = null;
-    }
+    },
   },
   extraReducers: (builder) => {
     builder
-    // Pie chart cases
-    .addCase(fetchPieData.pending, (state) => {
-      state.loading = true;
-      state.error = null;
-    })
-    .addCase(fetchPieData.fulfilled, (state, action) => {
-      state.loading = false;
-      state.pieData = action.payload;
-    })
-    .addCase(fetchPieData.rejected, (state, action) => {
-      state.loading = false;
-      state.error = action.payload;
-    })
-    // Bar chart cases
-    .addCase(fetchBarData.pending, (state) => {
-      state.loading = true;
-      state.error = null;
-    })
-    .addCase(fetchBarData.fulfilled, (state, action) => {
-      state.loading = false;
-      state.barData = action.payload;
-    })
-    .addCase(fetchBarData.rejected, (state, action) => {
-      state.loading = false;
-      state.error = action.payload;
-    })
-    // Line chart cases
-    .addCase(fetchLineData.pending, (state) => {
+      // Pie chart cases
+      .addCase(fetchPieData.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchPieData.fulfilled, (state, action) => {
+        state.loading = false;
+        state.pieData = action.payload;
+      })
+      .addCase(fetchPieData.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+      // Bar chart cases
+      .addCase(fetchBarData.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchBarData.fulfilled, (state, action) => {
+        state.loading = false;
+        state.barData = action.payload;
+      })
+      .addCase(fetchBarData.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+      // Line chart cases
+      .addCase(fetchLineData.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
@@ -113,8 +104,8 @@ const chartsSlice = createSlice({
       .addCase(fetchLineData.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
-      })
-  }
+      });
+  },
 });
 
 export const { clearChartError } = chartsSlice.actions;

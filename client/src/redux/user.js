@@ -1,9 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+import api from "../utils/api";
 import Cookies from "js-cookie";
 import toast from "react-hot-toast";
-
-const COOKIE_EXPIRES = 7;
 
 const initialState = {
   user: null,
@@ -17,13 +15,10 @@ export const loginUser = createAsyncThunk(
   "user/login",
   async ({ email, password }, { rejectWithValue }) => {
     try {
-      const response = await axios.post(
-        "http://localhost:4000/api/v1/user/login",
-        {
-          email,
-          password,
-        }
-      );
+      const response = await api.post("/user/login", {
+        email,
+        password,
+      });
 
       toast.success("Logged in successfully!");
       localStorage.setItem("token", response.data.token);
@@ -42,17 +37,14 @@ export const signupUser = createAsyncThunk(
     { rejectWithValue }
   ) => {
     try {
-      const response = await axios.post(
-        "http://localhost:4000/api/v1/user/register",
-        {
-          name,
-          email,
-          password,
-          gender,
-          dob,
-          photo,
-        }
-      );
+      const response = await api.post("/user/register", {
+        name,
+        email,
+        password,
+        gender,
+        dob,
+        photo,
+      });
       toast.success("Registration successful!");
       // Store token in localStorage immediately on success
       localStorage.setItem("token", response.data.token);
@@ -70,12 +62,7 @@ export const loadUser = createAsyncThunk(
   "user/loadUser",
   async (_, { rejectWithValue }) => {
     try {
-      const token = localStorage.getItem("token");
-      const response = await axios.get("http://localhost:4000/api/v1/user/me", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await api.get("/user/me");
 
       return response.data;
     } catch (error) {
@@ -116,10 +103,6 @@ const userSlice = createSlice({
         state.user = action.payload.user;
         state.token = action.payload.token;
         state.error = null;
-        console.log("Login success, updated state:", {
-          user: action.payload.user,
-          token: action.payload.token,
-        });
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.loading = false;
@@ -156,10 +139,6 @@ const userSlice = createSlice({
         state.loading = false;
         state.user = action.payload.user;
         state.token = localStorage.getItem("token");
-        console.log("Load user success:", {
-          user: action.payload.user,
-          token: state.token,
-        });
       })
       .addCase(loadUser.rejected, (state, action) => {
         state.loading = false;
