@@ -31,7 +31,7 @@ const ProductInfo = () => {
   return (
     <>
       <div className="Cmain">
-        <div className="Showcase">
+        <div className="ProductImage">
           <img src={`http://localhost:4000/${data?.photo}`} alt="img" />
           <div className="cover"></div>
         </div>

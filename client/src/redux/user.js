@@ -67,7 +67,7 @@ export const loadUser = createAsyncThunk(
       return response.data;
     } catch (error) {
       // Show error toast
-      toast.error(error.response.data.message || "Failed to load user data");
+      // toast.error(error.response.data.message || "Failed to load user data");
       return rejectWithValue(error.response.data.message);
     }
   }

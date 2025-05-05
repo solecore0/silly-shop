@@ -1,25 +1,23 @@
-@media screen and (min-width: 1024px) {
+@media screen and (min-width: 1440px) and (max-width: 1880px) {
   /* Navbar */
   .navbar {
-    padding: 1rem 1.5rem;
-    height: 4rem;
-    position: relative;
+    padding: 0 1.5rem;
+    height: 5rem;
   }
 
   .navbar h1 {
-    font-size: 1.8rem;
+    font-size: 2rem;
     width: 25%;
   }
 
   .navbar .ser {
     display: flex;
-    height: 2rem;
     align-items: center;
     gap: 1rem;
     margin: 0.5rem auto;
     padding: 0.6rem 0.5rem;
     border-bottom: 1.5px solid #000;
-    width: 50%;
+    width: 60%;
     font-size: 1.8rem;
     justify-self: center;
   }
@@ -33,7 +31,7 @@
   }
 
   .navbar .links {
-    width: 25%;
+    width: 20%;
     justify-content: flex-end;
   }
 
@@ -66,39 +64,63 @@
     font-size: 1.2rem;
   }
 
-  /* Home */
-  .home {
-    width: 100%;
+  .Llinks {
+    position: fixed;
+    top: 1.6rem;
+    right: 0;
+    width: 8rem;
+    z-index: 999;
+    margin: 40px 10px;
+    padding: 10px;
+    background-color: #797980;
+    opacity: 0.9;
+    text-align: center;
+    border-radius: 5px;
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 1rem 0;
-    background: white;
+    gap: 20px;
   }
 
-  .home .main {
-    width: 100%;
-    padding: 0 4rem 1rem 4rem;
+  .Llinks ul {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 2rem;
+    gap: 10px;
   }
+
+  .Llinks li {
+    cursor: pointer;
+    padding: 10px;
+    transition: transform 0.3s ease;
+  }
+
+  .Llinks li:hover {
+    transform: scale(1.1);
+  }
+
+  .Llinks a {
+    color: #fff;
+    font-weight: 600;
+    font-size: 1rem;
+  }
+
+
+   /* Home */
+
+  
 
   .home .main h1 {
-    font-size: 2rem;
+    font-size: 2.5rem;
   }
 
   .Showcase {
-    width: calc(100vw - 60px); /* 20px space on each side */
-    margin: 3rem auto 0 auto;
-    height: 30rem;
+    width: calc(100vw - 80px); /* 30px padding on left + right */
+    margin: 1rem auto;
+    height: 45rem; /* Scales with screen width */
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 1.5vw;
+    gap: 2vw;
   }
 
   .Showcase .data {
@@ -108,26 +130,26 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 0.75rem;
+    padding: 1rem;
   }
 
   .Showcase .data h1 {
-    font-size: clamp(2.5rem, 4vw, 4.5rem);
+    font-size: clamp(3rem, 5vw, 6rem); /* Scalable and capped */
     line-height: 1.2;
   }
 
   .Showcase .data p {
-    font-size: clamp(1rem, 1.5vw, 1.4rem);
-    margin-top: 0.75rem;
-    max-width: 85%;
+    font-size: clamp(1.2rem, 1.8vw, 2rem);
+    margin-top: 1rem;
+    max-width: 80%;
   }
 
   .Showcase img,
   .Showcase .cover {
     width: 100%;
     height: 100%;
-    image-rendering: auto;
-    image-rendering: crisp-edges;
+    image-rendering:optimizeQuality;
+    image-rendering: -webkit-optimize-contrast;
     image-rendering: -webkit-optimize-contrast;
   }
 
@@ -151,7 +173,7 @@
   .registery .inp input,
   .registery .inp select {
     width: 80%;
-    height: 2.5rem;
+    height: 3rem;
   }
 
   .registery .inp button {
@@ -166,24 +188,25 @@
 
   /* Admin Sidebar */
   #sidebar {
-    width: 20%;
+    width: clamp(18vw, 20vw, 22vw);
     height: 90vh;
     position: fixed;
-    top: 6rem;
+    top: 4rem;
     left: 0;
-    padding: 20px;
+    padding: 2vw;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 1.5vw;
   }
 
   #sidebar h3 {
     font-weight: 900;
     color: #333;
+    font-size: 1.5vw;
   }
 
   #sidebar div {
-    margin: 0 20px;
+    margin: 0 2vw;
     display: flex;
     flex-direction: column;
   }
@@ -191,30 +214,33 @@
   #sidebar div h5 {
     color: gray;
     font-weight: 200;
+    font-size: 1vw;
   }
 
   #sidebar ul {
-    margin: 20px 35px;
-    gap: 0.5rem;
+    margin: 2vw 3vw;
+    gap: 0.8vw;
     display: flex;
     flex-direction: column;
     width: 100%;
   }
 
   #sidebar li {
-    padding: 0.5rem;
+    padding: 0.8vw;
     width: 100%;
+    font-size: 1vw;
   }
 
   .link {
     font-weight: 500;
     display: flex;
     align-items: center;
-    gap: 1.5rem;
+    gap: 1.5vw;
   }
 
   .link i {
-    width: 1.2rem;
+    width: 1.5vw;
+    height: 1.5vw;
   }
 
   /* Admin Content */
@@ -229,10 +255,9 @@
     margin-top: 2rem;
   }
 
-  .admin-container main .container-h {
-    margin-bottom: 2rem;
+  .container-h {
+    font-size: 2rem;
   }
-
   .admin-product-table img,
   .table-container img {
     width: 6.2rem;
@@ -262,14 +287,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-  }
-
-  .admin-container main .ProductDiv {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1rem 2rem;
-    margin-bottom: 2rem;
   }
 
   .admin-container main div button i {
@@ -332,7 +349,9 @@
     font-weight: 800;
   }
 
+
   /* Charts & Graphs */
+
   .graph-container,
   .chart-container,
   .dashboard-app-container {
@@ -359,36 +378,25 @@
   .categories {
     flex-direction: column;
     display: flex;
-    gap: 2rem;
-    margin-top: 1rem;
+    gap: 1rem;
   }
 
   .category-item {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    width: 100%;
-    font-size: 13px;
+    font-size: 1.1rem;
+    justify-content: space-between;
   }
 
   .category-item h3 {
-    font-size: 0.6rem;
-    margin-right: auto;
-  }
-
-  .category-item span {
-    font-weight: 600;
+    font-size: 1.3rem;
   }
 
   .progress {
-    margin-left: auto;
-    width: 9rem;
-    height: 1rem;
-    background-color: #e0e0e0;
-    border-radius: 20px;
-    display: flex;
-    align-items: center;
-    overflow: hidden;
+    width: 12rem;
+    height: 1.2rem;
+  }
+
+  .category-item span {
+    font-size: 1rem;
   }
 
   .transaction-container {

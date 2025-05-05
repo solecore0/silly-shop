@@ -106,7 +106,7 @@ function Search() {
         </div>
 
         <div className="result">
-          <h1>Results:</h1>
+          <h1>Results</h1>
           <div className="cards">
             {paginatedItems.map((item) => (
               <Card key={item._id} item={item} />

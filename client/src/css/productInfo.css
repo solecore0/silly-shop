@@ -1,12 +1,40 @@
+/* === Main Layout === */
 .Cmain {
     background-color: #fff;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    gap: 2rem;
     align-items: center;
-    margin: 0 1rem 0 1rem;
-    }
+    gap: 2rem;
+    margin: 0 1rem;
+}
+
+
+
+/* === Product Details === */
+.ProductImage {
+    width: calc(90vw );
+    margin: 2rem auto 0 auto;
+    height: 40vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+
+.ProductImage img {
+    width: 100%;
+    height: 100%;   
+    border-radius: 1rem;
+}
+.ProductImage .cover {
+    width: 100%;
+    height: 100%;
+    border-radius: 1rem;
+    background-color: #000000;
+    opacity: 0.5;
+    position: absolute;
+}
 
 .details {
     display: flex;
@@ -17,16 +45,17 @@
     padding: 2rem;
 }
 
-h2{
+
+h2 {
     font-size: 1.8rem;
 }
 
+/* === Quantity Selector === */
 .amo {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
-    flex-direction: row;
     gap: 1rem;
 }
 
@@ -37,42 +66,21 @@ h2{
     width: 1.5rem;
     height: 1.5rem;
     color: white;
-    background-color: #797980 ;
+    background-color: #797980;
     border-radius: 2px;
 }
 
-.reviews {
-    display: flex;
-    flex-direction: column;
-    justify-content: start;
-    align-items: center;
-    gap: 1rem;
-    width: 80%;
-}
-
-
-.reviews .user {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: row;
-    gap: 1rem;
-}
-.reviews h3 {
+button {
     font-size: 1.5rem;
-}
-
-.reviews img {
-    width: 3rem;
     height: 3rem;
-    border-radius: 50%;
+    width: fit-content;
+    padding: 0 2rem;
 }
 
-.reviews p {
-    font-size: 1rem;
-    margin-left: 4rem;
-}
 
+
+
+/* === Tablet Screens: 728px to 1024px === */
 @media screen and (min-width: 728px) and (max-width: 1024px) {
     h2 {
         font-size: 2.5rem;
@@ -87,27 +95,47 @@ h2{
     }
 }
 
+/* === Desktop Screens: ≥ 1024px === */
 @media screen and (min-width: 1024px) {
     .Cmain {
-       justify-content: normal;
-       align-items: center;
-       padding: 2rem 3rem;
-       height: auto;
+        justify-content: flex-start;
+        align-items: center;
+        padding: 2rem 0;
+        height: auto;
     }
 
-    .Cmain .Showcase {
-        width: 65%;
+    .ProductImage {
+        width: calc(70vw );
+        margin: 2rem auto 0 auto;
+        height: 60vh;
+        display: flex;
+        align-items: center;
+        position: relative;
+    }
+
+
+    .ProductImage img {
+        width: 100%;
+        height: 100%;   
+        border-radius: 1rem;
+    }
+    .ProductImage .cover {
+        width: 100%;
         height: 100%;
+        border-radius: 1rem;
+        background-color: #000000;
+        opacity: 0.5;
+        position: absolute;
     }
 
-
+      
     .details {
         width: 30%;
         height: 100%;
         margin: 2rem 0;
         gap: 3rem;
     }
-   
+
     .inc:hover {
         cursor: pointer;
         scale: 1.1;
@@ -124,9 +152,100 @@ h2{
     .details span {
         font-size: 1.5rem;
     }
-    
+
     button {
         font-size: 1.5rem;
         height: 3rem;
     }
+}
+
+/* === Large Screens: 1440px to 1880px === */
+@media screen and (min-width: 1440px) and (max-width: 1880px) {
+    .Cmain {
+        padding: 3rem 5rem;
+        gap: 3rem;
+    }
+
+    h2 {
+        font-size: 3rem;
+    }
+
+    .details {
+        width: 25%;
+        gap: 4rem;
+    }
+
+    .details p {
+        font-size: 2rem;
+    }
+
+    .details span {
+        font-size: 1.7rem;
+    }
+
+    
+
+    .amo .inc {
+        width: 2rem;
+        height: 2rem;
+        font-size: 1.2rem;
+    }
+
+    button {
+        font-size: 1.75rem;
+        height: 3.5rem;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .Cmain {
+        margin: 0 0.5rem;
+        gap: 1rem;
+        padding: 1rem 0;
+    }
+
+    .ProductImage {
+        width: calc(90vw );
+        margin: 1rem auto 0 auto;
+        height: 30vh;
+        display: flex;
+        align-items: center;
+        position: relative;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+        text-align: center;
+    }
+
+    .details {
+        padding: 1rem;
+        gap: 1.5rem;
+    }
+
+    .details p {
+        font-size: 1rem;
+        text-align: center;
+    }
+
+    .details span {
+        font-size: 0.9rem;
+    }
+
+    .amo {
+        gap: 0.5rem;
+    }
+
+    .amo .inc {
+        width: 1.25rem;
+        height: 1.25rem;
+        font-size: 0.9rem;
+    }
+
+    button {
+        font-size: 1rem;
+        height: 2.5rem;
+        width: 100%;
+    }
+
 }

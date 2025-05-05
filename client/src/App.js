@@ -16,6 +16,7 @@ import toast, { Toaster } from "react-hot-toast";
 import "./App.css";
 import "./css/tablet.css";
 import "./css/laptop.css";
+import "./css/desktop.css";
 
 // components
 import Navbar from "./components/Navbar";
@@ -42,7 +43,6 @@ const PieChart = lazy(() => import("./pages/admin/charts/PieCharts"));
 const BarChart = lazy(() => import("./pages/admin/charts/BarCharts"));
 const Coupon = lazy(() => import("./pages/admin/apps/coupon"));
 const Stopwatch = lazy(() => import("./pages/admin/apps/stopwatch"));
-const Toss = lazy(() => import("./pages/admin/apps/toss"));
 const AddProduct = lazy(() => import("./pages/admin/AddProduct"));
 
 // Private Route Component
@@ -112,20 +112,20 @@ function App() {
           style: {
             background: "#333",
             color: "#fff",
+            cursor: "pointer", 
           },
-          // Add close button configuration
+          // click dismiss configuration
           success: {
-            duration: 3000,
-            icon: "✅",
+            duration: 2000, 
             className: "toast-success",
+            onClick: () => toast.dismiss(), 
           },
           error: {
-            duration: 4000,
-            icon: "❌",
+            duration: 2000, 
             className: "toast-error",
+            onClick: () => toast.dismiss(),
           },
-          // Enable close button for all toasts
-          closeButton: true,
+          closeButton: false,
         }}
       />
       <Suspense fallback={<Loader />}>
@@ -193,10 +193,6 @@ function App() {
             element={
               <PrivateRoute adminRequired={true} element={<Stopwatch />} />
             }
-          />
-          <Route
-            path="/admin/app/toss"
-            element={<PrivateRoute adminRequired={true} element={<Toss />} />}
           />
           <Route
             path="/admin/AddProduct"

@@ -84,14 +84,14 @@ function Navbar() {
     return (
       <>
         <div className="navbar">
-          <h1>Silly-Shop</h1>
+          <h1
+            onClick={() => {
+              navigate("/");
+            }}>
+            Silly-Shop
+          </h1>
           <div className="links">
             <ul>
-              <li>
-                <Link to="/">
-                  <i className="fa-solid fa-house"></i>
-                </Link>
-              </li>
               <li>
                 <Link to="/cart">
                   <i className="fa-solid fa-cart-shopping"></i>
@@ -130,16 +130,16 @@ function Navbar() {
         {openUsr ? (
           <div className={`Tlinks`}>
             <ul>
-              <li>
-                <Link to="/order">Orders</Link>
-              </li>
               {user?.role === "admin" && (
                 <li>
                   <Link to="/admin/dashboard">Admin</Link>
                 </li>
               )}
               <li>
-                <a>Log-Out</a>
+                <a onClick={logOut}>Log Off</a>
+              </li>
+              <li>
+                <Link to="/order">Orders</Link>
               </li>
             </ul>
           </div>
@@ -150,7 +150,12 @@ function Navbar() {
     return (
       <>
         <div className="navbar">
-          <h1>Silly-Shop</h1>
+          <h1
+            onClick={() => {
+              navigate("/");
+            }}>
+            Silly-Shop
+          </h1>
           <div className="ser">
             <i className="fa-solid fa-magnifying-glass"></i>
             <input
@@ -167,11 +172,6 @@ function Navbar() {
           </div>
           <div className="links">
             <ul>
-              <li>
-                <Link to="/">
-                  <i className="fa-solid fa-house"></i>
-                </Link>
-              </li>
               <li>
                 <Link to="/cart">
                   <i className="fa-solid fa-cart-shopping"></i>
@@ -203,7 +203,7 @@ function Navbar() {
                 </li>
               )}
               <li>
-                <a onClick={logOut}>Log-Out</a>
+                <a onClick={logOut}>Log Off</a>
               </li>
             </ul>
           </div>
@@ -216,7 +216,12 @@ function Navbar() {
         <div className="navbar">
           <div className="head">
             <i className={`fa-solid ${t}`} onClick={toggleNavigation}></i>
-            <h1>Silly-Shop</h1>
+            <h1
+              onClick={() => {
+                navigate("/");
+              }}>
+              Silly-Shop
+            </h1>
           </div>
           <div className="Adm">
             {user ? (
@@ -241,30 +246,27 @@ function Navbar() {
           <div className={`links`}>
             <ul>
               <li>
-                <Link to="/">Home</Link>
-              </li>
-              <li>
                 <Link to="/cart">Cart</Link>
               </li>
               <li>
                 <Link to="/search">Search</Link>
               </li>
+              <li>
+                <Link to="/order">Orders</Link>
+              </li>
             </ul>
           </div>
         ) : null}
         {openUsr ? (
-          <div className={`links`}>
+          <div className={`Llinks`}>
             <ul>
-              <li>
-                <Link to="/order">Orders</Link>
-              </li>
               {user?.role === "admin" && (
                 <li>
                   <Link to="/admin/dashboard">Admin</Link>
                 </li>
               )}
               <li>
-                <a>Log-Out</a>
+                <a onClick={logOut}>Log Off</a>
               </li>
             </ul>
           </div>
