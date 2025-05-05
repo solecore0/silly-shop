@@ -8,6 +8,10 @@ const api = axios.create({
   },
 });
 
+// eslint-disable-next-line import/first
+import { setupAxiosInterceptors } from "./tokenRefresh";
+setupAxiosInterceptors(api);
+
 // This interceptor adds the authentication token automatically to every request
 api.interceptors.request.use(
   (config) => {
