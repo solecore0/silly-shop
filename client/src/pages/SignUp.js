@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { signupUser } from "../redux/user";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
-import Loader from "../components/Loader";
 
 const SignUp = () => {
   const [name, setName] = useState("");
@@ -25,7 +24,6 @@ const SignUp = () => {
   useEffect(() => {
     if (token && user) {
       navigate("/");
-      window.location.reload();
     }
   }, [token, user, navigate]);
 
@@ -37,10 +35,10 @@ const SignUp = () => {
       ).unwrap();
       if (result.token) {
         navigate("/");
-        window.location.reload();
       }
     } catch (err) {
-      toast.error(err.message);
+      console.error("Signup failed:", err);
+      toast.error("Signup failed. Please try again.");
     }
   };
 
@@ -54,14 +52,6 @@ const SignUp = () => {
   return (
     <div className="registery" onKeyDown={handleKeyDown}>
       <h1>Sign-up</h1>
-      {error && (
-        <div
-          className="error-message"
-          style={{ color: "red", marginBottom: "10px" }}
-        >
-          {error}
-        </div>
-      )}
       <div className="inp">
         <input
           type="text"
