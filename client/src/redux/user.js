@@ -24,7 +24,7 @@ export const loginUser = createAsyncThunk(
       localStorage.setItem("token", response.data.token);
       return response.data;
     } catch (error) {
-      toast.error(error.response.data.message || "Login failed");
+      toast.error(error.response.data.message);
       return rejectWithValue(error.response?.data?.message || "Login failed");
     }
   }
@@ -51,7 +51,7 @@ export const signupUser = createAsyncThunk(
 
       return response.data;
     } catch (error) {
-      toast.error(error.response.data.message || "Registration failed");
+      toast.error(error.response.data.message );
       return rejectWithValue(error.response.data.message);
     }
   }

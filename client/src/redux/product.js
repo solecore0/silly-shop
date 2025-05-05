@@ -132,7 +132,7 @@ const productSlice = createSlice({
           state.status = "failed";
           state.error = action.payload || action.error.message;
           // Show error toast for any rejected action
-          toast.error(state.error);
+          // toast.error(state.error);
         }
       );
   },

@@ -114,18 +114,6 @@ function App() {
             color: "#fff",
             cursor: "pointer", 
           },
-          // click dismiss configuration
-          success: {
-            duration: 2000, 
-            className: "toast-success",
-            onClick: () => toast.dismiss(), 
-          },
-          error: {
-            duration: 2000, 
-            className: "toast-error",
-            onClick: () => toast.dismiss(),
-          },
-          closeButton: false,
         }}
       />
       <Suspense fallback={<Loader />}>

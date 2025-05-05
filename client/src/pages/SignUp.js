@@ -5,11 +5,14 @@ import { signupUser } from "../redux/user";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 
+
+const url = "https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI="
+
 const SignUp = () => {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
-  const [photo, setPhoto] = useState("");
+  const [photo, setPhoto] = useState(url);
   const [dob, setDob] = useState("");
   const [gender, setGender] = useState("");
 
@@ -93,12 +96,12 @@ const SignUp = () => {
           placeholder="Password"
           onChange={(e) => setPassword(e.target.value)}
         />
-        <input
+        {/* <input
           type="url"
           value={photo}
           placeholder="Profile-Pic"
           onChange={(e) => setPhoto(e.target.value)}
-        />
+        /> */}
         <input
           type="date"
           value={dob}
