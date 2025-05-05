@@ -7,7 +7,7 @@
   }
 
   .navbar h1 {
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     width: 25%;
   }
 
@@ -20,7 +20,7 @@
     padding: 0.6rem 0.5rem;
     border-bottom: 1.5px solid #000;
     width: 45%;
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     justify-self: center;
   }
 
@@ -51,14 +51,8 @@
     height: 2rem;
     border-radius: 50%;
     cursor: pointer;
-    transition: transform 0.3s ease;
   }
 
-  .navbar img:hover,
-  .navbar li:hover,
-  button:hover {
-    transform: scale(1.1);
-  }
 
   button {
     font-size: 1.2rem;
@@ -103,7 +97,7 @@
   }
   
   .cards .card {
-    width: 15rem;
+    width: 16rem;
     margin: 0.1rem;
     border: 1.5px solid black;
     display: flex;
@@ -115,7 +109,7 @@
   
   .card .im {
     width: 100%;
-    height: 15rem;
+    height: 16rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -222,10 +216,12 @@
 
   /* Admin Sidebar */
   #sidebar {
-    width: 25%;
+    width: fit-content;
     height: 90vh;
-    position: absolute;
-    top: 6rem;
+    z-index: 9999;
+    position: fixed;
+    margin-left: 10px;
+    top: 5rem;
     left: 0;
     padding: 20px;
     display: flex;
@@ -276,12 +272,13 @@
   /* Admin Content */
   .admin-container {
     display: flex;
-    gap: 2rem;
+    width: 100%;
+    gap: 5rem;
   }
 
   .admin-container main {
-    width: 70%;
-    margin-left: 25%;
+    width: 75%;
+    margin-left: 28%;
     margin-top: 2rem;
   }
 
@@ -297,8 +294,8 @@
 
   .admin-customer-table img,
   .table-container .Cimg {
-    width: 4rem;
-    height: 4rem;
+    width: 3rem;
+    height: 3rem;
   }
 
   .admin-container main > div {
@@ -400,7 +397,7 @@
   }
 
   .graph-container {
-    margin: 20vh 0;
+    margin: 0 0;
   }
 
   .graph-container .revenue-graph,

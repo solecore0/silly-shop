@@ -130,15 +130,6 @@ button {
   font-size: 1rem;
 }
 
-.navbar h1:hover {
-  color: #3498db;
-}
-
-.navbar .links ul li a:hover,
-.navbar .links ul li a i:hover {
-  color: #3498db;
-}
-
 .navbar img,
 .navbar .Adm img {
   width: 2rem;
@@ -190,9 +181,6 @@ button {
   font-size: 1rem;
 }
 
-.links a:hover {
-  color: #91d3ff;
-}
 
 .Llinks {
   position: fixed;
@@ -222,12 +210,9 @@ button {
 .Llinks li {
   cursor: pointer;
   padding: 10px;
-  transition: transform 0.3s ease;
 }
 
-.Llinks li:hover {
-  transform: scale(1.1);
-}
+
 
 .Llinks a {
   color: #ffffff;

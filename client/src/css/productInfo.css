@@ -47,7 +47,7 @@
 
 
 h2 {
-    font-size: 1.8rem;
+    font-size: 1.3rem;
 }
 
 /* === Quantity Selector === */
@@ -83,15 +83,15 @@ button {
 /* === Tablet Screens: 728px to 1024px === */
 @media screen and (min-width: 728px) and (max-width: 1024px) {
     h2 {
-        font-size: 2.5rem;
+        font-size: 1.3rem;
     }
 
     .details p {
-        font-size: 2rem;
+        font-size: 1.2rem;
     }
 
     .details span {
-        font-size: 1.5rem;
+        font-size: 1.2rem;
     }
 }
 
@@ -102,12 +102,13 @@ button {
         align-items: center;
         padding: 2rem 0;
         height: auto;
+        flex-direction: row;
     }
 
     .ProductImage {
-        width: calc(70vw );
+        width: calc(50vw );
         margin: 2rem auto 0 auto;
-        height: 60vh;
+        height: 55vh;
         display: flex;
         align-items: center;
         position: relative;
@@ -130,7 +131,7 @@ button {
 
       
     .details {
-        width: 30%;
+        width: 40%;
         height: 100%;
         margin: 2rem 0;
         gap: 3rem;
@@ -142,19 +143,19 @@ button {
     }
 
     h2 {
-        font-size: 2.5rem;
+        font-size: 1.5rem;
     }
 
     .details p {
-        font-size: 1.8rem;
+        font-size: 1.3rem;
     }
 
     .details span {
-        font-size: 1.5rem;
+        font-size: 1.3rem;
     }
 
     button {
-        font-size: 1.5rem;
+        font-size: 1.3rem;
         height: 3rem;
     }
 }
