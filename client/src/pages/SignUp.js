@@ -29,6 +29,28 @@ const SignUp = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Add validation
+    if (!name || !email || !password || !dob || !gender) {
+      toast.error("Please fill in all fields");
+      return;
+    }
+
+    if (name.length < 4) {
+      toast.error("Username must be at least 4 characters long");
+      return;
+    }
+
+    if (password.length < 8) {
+      toast.error("Password must be at least 8 characters long");
+      return;
+    }
+
+    if (!email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+      toast.error("Please enter a valid email address");
+      return;
+    }
+
     try {
       const result = await dispatch(
         signupUser({ name, password, email, photo, dob, gender })
