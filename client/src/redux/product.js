@@ -11,7 +11,7 @@ export const fetchProductInfo = createAsyncThunk(
       const response = await api.get("/product/latest");
       return response.data.products;
     } catch (error) {
-      // toast.error(error.response?.data?.message || "Failed to fetch products");
+      toast.error(error.response?.data?.message || "Failed to fetch products");
       return rejectWithValue(error.response?.data?.message);
     }
   }
@@ -24,7 +24,7 @@ export const fetchProductSearch = createAsyncThunk(
       const response = await api.get(`/product/find?name=${query}`);
       return response.data.products;
     } catch (error) {
-      // toast.error(error.response?.data?.message || "Search failed");
+      toast.error(error.response?.data?.message || "Search failed");
       return rejectWithValue(error.response?.data?.message);
     }
   }
@@ -37,9 +37,9 @@ export const fetchProductId = createAsyncThunk(
       const response = await api.get(`/product/${id}`);
       return response.data.product;
     } catch (error) {
-      // toast.error(
-      //   error.response?.data?.message || "Failed to fetch product details"
-      // );
+      toast.error(
+        error.response?.data?.message || "Failed to fetch product details"
+      );
       return rejectWithValue(error.response?.data?.message);
     }
   }
@@ -132,7 +132,7 @@ const productSlice = createSlice({
           state.status = "failed";
           state.error = action.payload || action.error.message;
           // Show error toast for any rejected action
-          // toast.error(state.error);
+          toast.error(state.error);
         }
       );
   },

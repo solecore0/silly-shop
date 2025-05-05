@@ -12,7 +12,7 @@ const Card = ({ item }) => {
   return (
     <div className="card">
       <div className="im">
-        <img src={`${config.UPLOADS_URL}/${item.photo}`} alt="" />
+        <img src={`${config.UPLOADS_URL}${item.photo}`} alt="" />
       </div>
       <h3>{item.name}</h3>
       <p>${item.price}</p>
