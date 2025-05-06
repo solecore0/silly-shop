@@ -23,6 +23,7 @@
     flex-direction: row;
     padding: 0;
     margin: 1rem 0 0;
+    overflow-y: hidden;
   }
 
   .links ul {
@@ -35,6 +36,7 @@
 
   .links li {
     display: inline-block;
+    
   }
 
   .links li a {
@@ -44,12 +46,14 @@
 
   .links li i {
     font-size: 1rem;
+    overflow-y: hidden;
 
   }
 
   .links li img {
     width: 1rem;
     height: 1rem;
+    overflow-y: hidden;
   }
 
   /* Top Links */

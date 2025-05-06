@@ -46,7 +46,7 @@ export const signupUser = createAsyncThunk(
         dob,
         photo,
       });
-      toast("Registration successful!");
+      toast.success("Registration successful!");
       // Store token in localStorage immediately on success
       localStorage.setItem("token", response.data.token);
 
@@ -86,7 +86,7 @@ const userSlice = createSlice({
       state.loading = false;
       state.error = null;
       // Show success toast for logout
-      toast("Logged out successfully");
+      toast.success("Logged out successfully");
     },
     clearError: (state) => {
       state.error = null;

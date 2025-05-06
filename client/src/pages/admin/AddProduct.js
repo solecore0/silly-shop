@@ -1,11 +1,10 @@
-import React, { useState,useRef} from "react";
+import React, { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { createProduct} from "../../redux/product";
-import { toast }from 'react-toastify';
+import { createProduct } from "../../redux/product";
+import { toast } from "react-toastify";
 
 const AddProduct = () => {
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -32,19 +31,19 @@ const AddProduct = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     if (!name || !price || !stock || !category || !photoRef.current) {
       toast.error("All fields are required.");
       return;
     }
-  
+
     const formData = new FormData();
     formData.append("name", name);
     formData.append("price", price);
     formData.append("stock", stock);
     formData.append("category", category);
     formData.append("photo", photoRef.current); // this is the File object
-  
+
     await dispatch(createProduct(formData));
     navigate("/admin/product");
   };
@@ -83,12 +82,12 @@ const AddProduct = () => {
           onChange={(e) => setCategory(e.target.value)}
         />
         <input
+          id="photo-upload"
           type="file"
-          placeholder="Photo URL"
           accept="image/*"
-         
-          onChange={(e) => photoRef.current = e.target.files[0]}
+          onChange={(e) => (photoRef.current = e.target.files[0])}
         />
+
         <button type="submit">Make</button>
       </form>
     </div>

@@ -81,6 +81,7 @@ export const createProduct = createAsyncThunk(
           "Content-Type": "multipart/form-data",
         },
       });
+      toast.success("Product created successfully");
       return response.data.product;
     } catch (error) {
       return rejectWithValue(error.response.data.message);

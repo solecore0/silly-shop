@@ -41,6 +41,10 @@ select {
   outline: none;
 }
 
+i {
+  overflow-y: hidden;
+}
+
 /* Utilities */
 .hidden {
   display: none;
@@ -95,6 +99,7 @@ button {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  overflow-y: hidden;
 }
 
 .navbar h1 {
@@ -276,6 +281,9 @@ button {
   height: 0.1px;
   background-color: #797980;
 }
+
+
+
 
 /* Home */
 .home {

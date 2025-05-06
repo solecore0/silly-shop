@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../redux/user";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-hot-toast";
+import { toast }from 'react-toastify';
 
 const LogIn = () => {
   const [email, setEmail] = useState("");

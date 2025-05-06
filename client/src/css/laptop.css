@@ -22,6 +22,7 @@
     width: 45%;
     font-size: 1.5rem;
     justify-self: center;
+    overflow-y: hidden;
   }
 
   .navbar .ser input {
