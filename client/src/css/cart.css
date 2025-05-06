@@ -18,46 +18,66 @@
     border-radius: 10px;
   }
   
+
   .Citem {
-    background-color: #ebebeb;
+    background-color: #fff;
     width: 80%;
     height: fit-content;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0.5rem;
-    border-radius: 10px;
+    border-radius: 5px;
     overflow-y: hidden;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    margin: 10px 0;
+  }
+
+  .Citem h2 {
+    font-size: 1.2rem;
   }
 
   .Citem p {
-    font-size: 1.2rem;
+    font-size: 1rem;
   }
   
-  .Citem .img {
+  .Citem .itemData {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .Citem .itemData .names {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+  }
+  
+  .Citem .itemData img {
     width: 4rem;
-    height: 4rem;
-    border-radius: 50%;
-    border: 1px solid black;
+    height: 2.5rem;
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: #fff;
   }
   
-  .Citem img {
-    width: 3rem;
-    height: 2rem;
+  .Citem .actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
   
   .Citem .amount {
     width: fit-content;
     display: flex;
-    flex-direction: column;
     align-items: center;
     text-align: center;
     gap: 0.2rem;
     font-weight: 500;
+    height: 1rem;
+    margin-top: 2px;
+    overflow-y: hidden;
   }
   
   .Citem .amount .inc {
@@ -65,21 +85,19 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    color: white;
-    background-color: #797980;
+    color: rgb(0, 0, 0);
     border-radius: 2px;
+    font-size: 1rem;
   }
   
   .amount .inc:hover {
     cursor: pointer;
-    scale: 1.1;
   }
   
   .Citem button {
     width: 2rem;
-    height: 2rem;
+    height: 10px;
     font-size: 1rem;
-    margin-bottom: 1rem;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -90,7 +108,7 @@
   }
   
   .Citem button i {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
   }
   
   .Total {
@@ -99,6 +117,9 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    margin-bottom: 10px;
+    padding: 1rem;
   }
   
   .orderBtn {
@@ -107,7 +128,7 @@
     border-radius: 10px;
     background-color: #797980;
     color: white;
-    font-size: 1.5rem;
+    font-size: 1rem;
     font-weight: 600;
     border: none;
     display: flex;
@@ -124,9 +145,39 @@
   }
   
   /* === Medium Devices (700px–1024px) === */
-  @media screen and (min-width: 700px) and (max-width: 1024px) {
+  @media screen and (min-width: 700px)  {
     .Citem {
       width: 85%;
+      
+    }
+
+    .Citem .itemData img {
+      width: 6rem;
+      height: 3.5rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #fff;
+    }
+
+    .Citem .actions{
+      flex-direction: row;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .Citem button {
+      width: 2rem;
+      height: auto;
+      font-size: 1rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: none;
+      background-color: transparent;
+      color: black;
+      font-weight: 600;
+      margin-bottom: 0.8rem;
     }
   
     .Citem .amount {
@@ -156,9 +207,11 @@
     .Total {
       width: 60%;
       flex-direction: column;
+      margin-bottom: 10px;
       padding: 1rem;
       gap: 1.5rem;
-      background-color: #ebebeb;
+      background-color: #fff;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
       border-radius: 10px;
     }
   
@@ -179,6 +232,16 @@
   
   /* === Large Devices (≥1024px) === */
   @media screen and (min-width: 1024px) {
+
+    .Citem .itemData img {
+      width: 6rem;
+      height: 3.5rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #fff;
+    }
+
     .Citem .amount {
       width: 8rem;
       gap: 1rem;
@@ -198,10 +261,10 @@
     }
   
     .Total {
-      background-color: #ebebeb;
+      background-color: #fff;
       padding: 1rem;
       gap: 2rem;
-      border-radius: 10px;
+      border-radius: 4px;
       width: 40%;
       flex-direction: column;
       margin-right: 2rem;
@@ -218,7 +281,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      width: 100%;
+      width: fit-content;
       gap: 8rem;
       font-size: 1.5rem;
       font-weight: 500;

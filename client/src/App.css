@@ -220,9 +220,6 @@ button {
   font-size: 1rem;
 }
 
-.Llinks {
-  color: #91d3ff;
-}
 
 /* Auth - Login & Signup */
 .registery {
@@ -355,9 +352,7 @@ button {
   font-size: 1rem;
 }
 
-.card button:hover {
-  color:#c7e9ff;
-}
+
 
 /* Pagination */
 .pgch {

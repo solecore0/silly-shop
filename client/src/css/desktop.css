@@ -45,13 +45,12 @@
     height: 2.4rem;
     border-radius: 50%;
     cursor: pointer;
-    transition: transform 0.3s ease;
   }
 
   .navbar img:hover,
   .navbar li:hover,
   button:hover {
-    transform: scale(1.1);
+    cursor: pointer;
   }
 
   button {
@@ -91,12 +90,8 @@
   .Llinks li {
     cursor: pointer;
     padding: 10px;
-    transition: transform 0.3s ease;
   }
 
-  .Llinks li:hover {
-    transform: scale(1.1);
-  }
 
   .Llinks a {
     color: #fff;
@@ -183,7 +178,6 @@
 
   .registery .sin a:hover {
     cursor: pointer;
-    transform: scale(1.1);
   }
 
   /* Admin Sidebar */
