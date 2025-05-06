@@ -2,7 +2,7 @@ import React, { useState,useRef} from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { createProduct} from "../../redux/product";
-import toast from "react-hot-toast";
+import { toast }from 'react-toastify';
 
 const AddProduct = () => {
 

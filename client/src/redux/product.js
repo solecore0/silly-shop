@@ -1,7 +1,7 @@
 // src/redux/productSlice.js
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import api from "../utils/api";
-import toast from "react-hot-toast";
+import { toast }from 'react-toastify';
 
 // Async thunks for fetching data from backend
 export const fetchProductInfo = createAsyncThunk(
@@ -37,7 +37,7 @@ export const fetchProductId = createAsyncThunk(
       const response = await api.get(`/product/${id}`);
       return response.data.product;
     } catch (error) {
-      toast.error(
+      toast(
         error.response?.data?.message || "Failed to fetch product details"
       );
       return rejectWithValue(error.response?.data?.message);

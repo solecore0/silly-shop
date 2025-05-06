@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setScreenWidth } from "./redux/uiSlice";
 import { fetchProductInfo } from "./redux/product";
 import Cookies from "js-cookie";
-import toast, { Toaster } from "react-hot-toast";
+import { ToastContainer, toast } from "react-toastify";
 
 // css
 import "./App.css";
@@ -58,8 +58,6 @@ const PrivateRoute = ({ element, adminRequired = false }) => {
     isAdmin: user?.role === "admin",
   });
 
-
-
   if (!token || !user) {
     console.log("No token or user, redirecting to login");
     return <Navigate to="/login" />;
@@ -84,7 +82,6 @@ function App() {
     // Handle window resize
     const handleResize = () => {
       dispatch(setScreenWidth(window.innerWidth));
-      
     };
 
     window.addEventListener("resize", handleResize);
@@ -93,10 +90,10 @@ function App() {
     // Check for authentication token
 
     const token = localStorage.getItem("token");
-    console.log(token)
+    console.log(token);
     if (token) {
       // prevent future runs
-      
+
       dispatch(loadUser());
     }
 
@@ -109,16 +106,19 @@ function App() {
   return (
     <Router>
       <Navbar />
-      <Toaster
-        position="top-center"
-        toastOptions={{
-          duration: 1500,
-          style: {
-            background: "#333",
-            color: "#fff",
-            cursor: "pointer", 
-          },
-        }}
+      <ToastContainer
+        position="top-right"
+        autoClose={2000}
+        hideProgressBar={true}
+        newestOnTop={false}
+        closeOnClick={true} 
+        closeButton={false} 
+        rtl={false}
+        pauseOnFocusLoss
+        pauseOnHover
+        theme="light"
+        limit={3}
+        style={{ zIndex: "9999", top: "60px" }}
       />
       <Suspense fallback={<Loader />}>
         <Routes>

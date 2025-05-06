@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import api from "../utils/api";
 import Cookies from "js-cookie";
-import toast from "react-hot-toast";
+import { toast }from 'react-toastify';
 
 const initialState = {
   user: null,
@@ -21,7 +21,7 @@ export const loginUser = createAsyncThunk(
         password,
       });
 
-      toast.success("Logged in successfully!");
+      toast("Logged in successfully!");
       localStorage.setItem("token", response.data.token);
       return response.data;
     } catch (error) {
@@ -46,7 +46,7 @@ export const signupUser = createAsyncThunk(
         dob,
         photo,
       });
-      toast.success("Registration successful!");
+      toast("Registration successful!");
       // Store token in localStorage immediately on success
       localStorage.setItem("token", response.data.token);
 
@@ -86,7 +86,7 @@ const userSlice = createSlice({
       state.loading = false;
       state.error = null;
       // Show success toast for logout
-      toast.success("Logged out successfully");
+      toast("Logged out successfully");
     },
     clearError: (state) => {
       state.error = null;
