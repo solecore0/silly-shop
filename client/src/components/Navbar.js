@@ -141,10 +141,10 @@ function Navbar() {
                 </li>
               )}
               <li>
-                <a onClick={logOut}>Log Off</a>
+                <Link to="/order">Orders</Link>
               </li>
               <li>
-                <Link to="/order">Orders</Link>
+                <a onClick={logOut}>Log Off</a>
               </li>
             </ul>
           </div>
@@ -263,9 +263,7 @@ function Navbar() {
               <li>
                 <Link to="/search">Search</Link>
               </li>
-              <li>
-                <Link to="/order">Orders</Link>
-              </li>
+              
             </ul>
           </div>
         ) : null}
@@ -277,6 +275,9 @@ function Navbar() {
                   <Link to="/admin/dashboard">Admin</Link>
                 </li>
               )}
+              <li>
+                <Link to="/order">Orders</Link>
+              </li>
               <li>
                 <a onClick={logOut}>Log Off</a>
               </li>

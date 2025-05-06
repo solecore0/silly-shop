@@ -51,8 +51,8 @@
   }
 
   .links li img {
-    width: 1rem;
-    height: 1rem;
+    width: 2rem;
+    height: 2rem;
     overflow-y: hidden;
   }
 
@@ -63,10 +63,11 @@
     top: 0.8rem;
     left: 50%;
     transform: translateX(-55%);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.346), 0 3px 6px rgba(0, 0, 0, 0.401);
     width: 55vw;
     padding: 10px;
     margin: 40px 20px;
-    background-color: #797980;
+    background-color: #ffffff;
     opacity: 0.9;
     border-radius: 5px;
     display: flex;
@@ -87,7 +88,7 @@
   }
 
   .Tlinks li a {
-    color: #fff;
+    color: #000000;
     font-weight: 600;
     font-size: 1.3rem;
   }
@@ -203,14 +204,14 @@
 @media screen and (max-width: 1024px) and (min-width: 750px) {
   #sidebar {
     position: absolute;
-    top: 3rem;
+    top: 3.5rem;
     left: 50%;
     transform: translateX(-50%);
     width: 60vw;
     height: auto;
     padding: 1rem;
-    background-color: #797980;
-    color: #fff;
+    background-color: #ffffff;
+    color: #000000;
     opacity: 0.9;
     border-radius: 5px;
     z-index: 1111;
@@ -218,13 +219,14 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 20px;
+    gap: 5px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.346), 0 3px 6px rgba(0, 0, 0, 0.401);
   }
 
   #sidebar div {
     width: 100%;
     gap: 1rem;
-    background-color: #797980;
+    background-color: #ffffff;
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -238,6 +240,7 @@
 
   #sidebar div h3 {
     font-size: 1.5rem;
+    color: gray;
   }
 
   #sidebar div ul {
@@ -245,7 +248,6 @@
     padding: 0;
     margin: 0;
     gap: 20px;
-    color: #fff;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -256,8 +258,7 @@
     width: 12rem;
     gap: 2rem;
     font-size: 1.4rem;
-    background-color: #797980;
-    color: #fff;
+    background-color: #ffffff;
     display: flex;
     align-items: center;
     flex-direction: row;
@@ -265,6 +266,8 @@
   }
 
   #sidebar div ul li .link {
+    font-size: 1.5rem;
+    font-weight: 600;
     gap: 2rem;
   }
 

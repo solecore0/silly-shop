@@ -36,7 +36,7 @@ const AdminSidebar = () => {
 
 const DivOne = ({ location, screenWidth }) => (
   <div className="board">
-    <h3>Managment</h3>
+    {screenWidth > 1000 ? <h3>Managment</h3> : ""}
     {screenWidth > 1000 ? (
       <ul>
         <Li
@@ -84,7 +84,8 @@ const DivOne = ({ location, screenWidth }) => (
 
 const DivTwo = ({ location, screenWidth }) => (
   <div className="charts">
-    <h3>Charts</h3>
+    {screenWidth > 1000 ? <h3>Charts</h3> : ""}
+
     {screenWidth > 1000 ? (
       <ul>
         <Li
@@ -116,7 +117,6 @@ const DivTwo = ({ location, screenWidth }) => (
   </div>
 );
 
-
 const Li = ({ url, text, location, Icon }) => (
   <li
     style={{
@@ -142,7 +142,7 @@ const Li2 = ({ url, text, location }) => (
       className="link"
       to={url}
       style={{
-        color: "white",
+        color: "black",
         gap: "10px",
         display: "flex",
       }}>

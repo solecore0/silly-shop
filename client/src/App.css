@@ -185,7 +185,7 @@ button {
 }
 
 .links a {
-  color: #fff;
+  color: #000000;
   font-weight: 600;
   font-size: 1rem;
 }
@@ -200,7 +200,7 @@ button {
   z-index: 999;
   margin: 40px 10px;
   padding: 10px;
-  background-color: #797980;
+  background-color: #fff;
   opacity: 0.9;
   text-align: center;
   border-radius: 5px;
@@ -208,6 +208,7 @@ button {
   align-items: center;
   justify-content: center;
   gap: 20px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.346), 0 3px 6px rgba(0, 0, 0, 0.401);    
 }
 
 .Llinks ul {
@@ -224,7 +225,7 @@ button {
 
 
 .Llinks a {
-  color: #ffffff;
+  color: #000;
   font-weight: 600;
   font-size: 1rem;
 }
@@ -238,6 +239,7 @@ button {
   align-items: center;
   padding: 3rem 0;
   gap: 3rem;
+  width: 100%;
 }
 
 .registery .inp {
@@ -454,7 +456,9 @@ button {
     width: 80vw;
     left: 50%;
     transform: translate(-58%, 0);
-    top: 0.5rem;
+    top: 0.8rem;
+    background-color: #fff;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.346), 0 3px 6px rgba(0, 0, 0, 0.401);
   }
   h1 {
     font-size: 1.3rem;
@@ -462,12 +466,6 @@ button {
   .registery .inp input,
   .registery .inp select {
     width: 60%;
-  }
-  .links {
-    width: 80vw;
-    left: 50%;
-    transform: translate(-53.3%, 0);
-    top: 1rem;
   }
 }
 
@@ -519,6 +517,16 @@ button {
   }
 }
 
+.registery .inp div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  width: 100%;
+  margin: 1rem 0
+}
+
+
 @media (max-width: 750px) {
   #sidebar {
     position: absolute;
@@ -528,8 +536,8 @@ button {
     width: 60vw;
     height: auto;
     padding: 1rem;
-    background-color: #797980;
-    color: #fff;
+    background-color: #ffffff;
+    color: #000000;
     opacity: 0.9;
     border-radius: 5px;
     z-index: 1111;
@@ -537,13 +545,15 @@ button {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 20px;
+    gap: 10px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.346), 0 3px 6px rgba(0, 0, 0, 0.401);
   }
+
 
   #sidebar div {
     width: 100%;
-    gap: 1rem;
-    background-color: #797980;
+    gap: 1.5rem;
+    background-color: #ffffff;
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -564,7 +574,7 @@ button {
     padding: 0;
     margin: 0;
     gap: 20px;
-    color: #fff;
+    color: #000000;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -574,17 +584,19 @@ button {
   #sidebar div ul li {
     width: 12rem;
     gap: 2rem;
-    font-size: 1.4rem;
-    background-color: #797980;
-    color: #fff;
+    font-size: 1.2rem;
+    font-weight: 600;
+    background-color: #ffffff;
+    color: #000000;
     display: flex;
     align-items: center;
     flex-direction: row;
     justify-content: center;
   }
 
-  #sidebar div ul li .link {
+  #sidebar div ul li a {
     gap: 2rem;
+    color: #000;
   }
 
   /* Base Styles */
