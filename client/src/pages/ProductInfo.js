@@ -33,7 +33,6 @@ const ProductInfo = () => {
       <div className="Cmain">
         <div className="ProductImage">
           <img src={`http://localhost:4000/${data?.photo}`} alt="img" />
-          <div className="cover"></div>
         </div>
         <div className="details">
           <h2>{data?.name}</h2>

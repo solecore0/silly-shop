@@ -93,6 +93,11 @@ function Navbar() {
           <div className="links">
             <ul>
               <li>
+                <Link to="/">
+                  <i className="fa-solid fa-home"></i>
+                </Link>
+              </li>
+              <li>
                 <Link to="/cart">
                   <i className="fa-solid fa-cart-shopping"></i>
                 </Link>
@@ -150,12 +155,14 @@ function Navbar() {
     return (
       <>
         <div className="navbar">
-          <h1
-            onClick={() => {
-              navigate("/");
-            }}>
-            Silly-Shop
-          </h1>
+          <div>
+            <h1
+              onClick={() => {
+                navigate("/");
+              }}>
+              Silly-Shop
+            </h1>
+          </div>
           <div className="ser">
             <i className="fa-solid fa-magnifying-glass"></i>
             <input
@@ -172,6 +179,11 @@ function Navbar() {
           </div>
           <div className="links">
             <ul>
+              <li>
+                <Link to="/">
+                  <i className="fa-solid fa-home"></i>
+                </Link>
+              </li>
               <li>
                 <Link to="/cart">
                   <i className="fa-solid fa-cart-shopping"></i>

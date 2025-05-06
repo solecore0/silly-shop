@@ -35,6 +35,10 @@ li {
   list-style: none;
 }
 
+h1 ,h2 ,h3 ,h4,h5,h6,p,i,li{
+  overflow-y: hidden;
+}
+
 input,
 select {
   border: none;
@@ -348,16 +352,20 @@ button {
 
 .card h3 {
   font-size: 1.25rem;
+  margin-top: auto;
+  text-align: center;
 }
 
 .card p {
   font-size: 1rem;
+  margin: auto 0;
   font-weight: 600;
 }
 
 .card button {
   width: 80%;
   font-size: 1rem;
+  margin-top: auto;
 }
 
 
@@ -421,11 +429,13 @@ button {
 .Showcase .data h1 {
   font-size: 2rem;
   font-weight: 800;
+  overflow-y: hidden;
 }
 
 .Showcase .data p {
   font-size: 0.9rem;
   font-weight: 800;
+  overflow-y: hidden;
 }
 
 /* Order */

@@ -6,9 +6,15 @@
     position: relative;
   }
 
+  .navbar div:first-of-type {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    width: 20%;
+  }
+
   .navbar h1 {
     font-size: 1.5rem;
-    width: 25%;
   }
 
   .navbar .ser {
@@ -602,46 +608,6 @@
     opacity: 1;
   }
 
-  /* Coin Toss */
-  .tosscoin {
-    margin: 2rem auto 20rem;
-    width: 15rem;
-    height: 15rem;
-    transform-style: preserve-3d;
-    transition: all 0.5s ease;
-    animation: toss 1s ease-in-out forwards;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    position: relative;
-  }
-
-  .tosscoin div {
-    width: 70%;
-    height: 90%;
-    position: absolute;
-    border-radius: 50%;
-    background-size: contain;
-    background-repeat: no-repeat;
-    display: grid;
-    place-items: center;
-    filter: drop-shadow(0px 10px 10px rgba(0, 0, 0, 0.521));
-    backface-visibility: hidden;
-  }
-
-  .tosscoin div:first-of-type {
-    background-image: url("../assets/images/heads.png");
-  }
-
-  .tosscoin div:last-of-type {
-    background-image: url("../assets/images/tails.png");
-    transform: rotateY(-180deg);
-  }
-
-  .tosscoin:hover {
-    transform: scale(1.1);
-  }
 
   /* Table */
   .table-container {

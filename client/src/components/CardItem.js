@@ -32,9 +32,7 @@ const CardItem = ({ item }) => {
             -
           </span>
         </div>
-        <button>
           <i className="fa-solid fa-xmark"></i>
-        </button>
       </div>
     </div>
   );
