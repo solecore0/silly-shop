@@ -10,14 +10,11 @@ function Search() {
 
   const dispatch = useDispatch();
 
-
-
   const [sort, setSort] = useState("");
 
   const [category, setCategory] = useState("");
 
   const [maxPrice, setMaxPrice] = useState(100000);
-
 
   const [page, setPage] = useState(1);
 
@@ -27,7 +24,7 @@ function Search() {
     window.scrollTo(0, 0);
     dispatch(fetchProductSearch(query));
     dispatch(fetchCategories());
-  }, [query , dispatch]);
+  }, [query, dispatch]);
 
   const categories = useSelector((state) => state.product.categories);
   const data = useSelector((state) => state.product.productSearch);
@@ -43,7 +40,6 @@ function Search() {
 
   return (
     <div className="container">
-      <h1>Search</h1>
       {screenWidth > 1000 ? (
         ""
       ) : (
@@ -70,11 +66,12 @@ function Search() {
               onChange={(e) => {
                 setCategory(e.target.value);
               }}>
-                {categories.map((cat) => (
-                  <option key={cat._id} value={cat._id}>
-                    {cat.name}
-                  </option>
-                ))}
+              <option>Choose Catagory</option>
+              {categories.map((cat) => (
+                <option key={cat._id} value={cat._id}>
+                  {cat.name}
+                </option>
+              ))}
             </select>
           </div>
           <div className="Slc">
@@ -106,30 +103,34 @@ function Search() {
         </div>
 
         <div className="result">
-          <h1>Results</h1>
+          <h1>Search Results</h1>
+          <hr />
           <div className="cards">
             {paginatedItems.map((item) => (
               <Card key={item._id} item={item} />
             ))}
           </div>
-          {paginatedItems.length === 0 ? <p className="txt">Nothing here</p> : ""}
+          {paginatedItems.length === 0 ? (
+            <p className="txt">Nothing here</p>
+          ) : (
+            ""
+          )}
 
-          {data.length <= 10 ? (
-          null
-        ) : (
-          <div className="pgch">
-            <button
-              disabled={!isPrevPage}
-              onClick={() => setPage((prev) => prev - 1)}>
-              Prev
-            </button>
-            <span>{page}</span>
-            <button
-              disabled={!isNextPage}
-              onClick={() => setPage((prev) => prev + 1)}>
-              Next
-            </button>
-          </div>)}
+          {data.length <= 10 ? null : (
+            <div className="pgch">
+              <button
+                disabled={!isPrevPage}
+                onClick={() => setPage((prev) => prev - 1)}>
+                Prev
+              </button>
+              <span>{page}</span>
+              <button
+                disabled={!isNextPage}
+                onClick={() => setPage((prev) => prev + 1)}>
+                Next
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </div>

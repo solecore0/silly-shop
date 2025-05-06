@@ -12,6 +12,12 @@ body {
   width: 100vw;
 }
 
+hr {
+  width: 70%;
+color: #000;
+height: 1px;
+}
+
 h1 {
   font-size: 1.5rem;
 }
@@ -294,10 +300,12 @@ button {
 /* Home */
 .home {
   background-color: #fff;
+  height: fit-content;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 2rem;
+  padding: 1rem;
 }
 
 .home .main {

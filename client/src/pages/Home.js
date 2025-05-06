@@ -35,7 +35,8 @@ function Home() {
         </div>
       </div>
       <div className="main">
-        <h1>Latest Product</h1>
+        <h1>Latest Products.</h1>
+        <hr />
         {data?.length > 0 ? (
           <div className="cards">
             {paginatedItems.map((item) => (

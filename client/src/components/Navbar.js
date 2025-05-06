@@ -154,7 +154,7 @@ function Navbar() {
   } else if (screenWidth > 1000) {
     return (
       <>
-        <div className="navbar">
+        <div className="navbar" id={admin ? "adminNavbar" : ""}>
           <div>
             <h1
               onClick={() => {

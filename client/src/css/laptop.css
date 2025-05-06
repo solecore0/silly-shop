@@ -222,6 +222,23 @@
   }
 
   /* Admin Sidebar */
+  #adminNavbar {
+    position: fixed;
+    top: 0;
+    z-index: 9999;
+    width: 100%;
+    height: 5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1rem;
+  }
+
+  #adminNavbar input {
+    background: transparent;
+  }
+
+
   #sidebar {
     width: fit-content;
     height: 90vh;
@@ -254,7 +271,7 @@
 
   #sidebar ul {
     margin: 20px 35px;
-    gap: 0.5rem;
+    gap: 1.2rem;
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -286,7 +303,7 @@
   .admin-container main {
     width: 75%;
     margin-left: 28%;
-    margin-top: 2rem;
+    margin-top: 6rem;
   }
 
   .admin-container main .container-h {
