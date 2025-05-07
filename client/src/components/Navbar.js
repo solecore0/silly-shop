@@ -8,6 +8,7 @@ import { logout } from "../redux/user";
 import { current } from "@reduxjs/toolkit";
 
 function Navbar() {
+
   const dispatch = useDispatch();
   const location = useLocation();
 
@@ -26,6 +27,13 @@ function Navbar() {
   const [query, setQuery] = useState("");
 
   const navigate = useNavigate();
+
+useEffect(() => {
+  setOpenNav(false);
+  setOpenUsr(false);
+}, [location.pathname]);
+
+
 
   const toggleNavigation = () => {
     if (t === a) {
@@ -263,7 +271,6 @@ function Navbar() {
               <li>
                 <Link to="/search">Search</Link>
               </li>
-              
             </ul>
           </div>
         ) : null}

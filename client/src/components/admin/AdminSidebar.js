@@ -1,14 +1,23 @@
 import { useEffect, useState } from "react";
-import { Link, Location, useLocation } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { Link, useLocation , useNavigate } from "react-router-dom";
+import { useSelector , useDispatch } from "react-redux";
+import { logout } from "../../redux/user";
 
 const AdminSidebar = () => {
   const location = useLocation();
 
   const screenWidth = useSelector((state) => state.ui.screenWidth);
   const sideBar = useSelector((state) => state.adminNav.nav);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  console.log(sideBar);
+
+
+    const logOut = () => {
+      dispatch(logout());
+      navigate("/");
+      navigate(0);
+    };
 
   if (screenWidth > 1000) {
     return (
@@ -25,7 +34,7 @@ const AdminSidebar = () => {
         <aside id="sidebar">
           <h1>Admin</h1>
           <DivOne location={location} screenWidth={screenWidth} />
-          <DivTwo location={location} screenWidth={screenWidth} />
+          <DivTwo location={location} screenWidth={screenWidth} logOut={logOut}/>
         </aside>
       </>
     );
@@ -82,7 +91,7 @@ const DivOne = ({ location, screenWidth }) => (
   </div>
 );
 
-const DivTwo = ({ location, screenWidth }) => (
+const DivTwo = ({ location, screenWidth ,logOut }) => (
   <div className="charts">
     {screenWidth > 1000 ? <h3>Charts</h3> : ""}
 
@@ -112,6 +121,9 @@ const DivTwo = ({ location, screenWidth }) => (
         <Li2 url="/admin/chart/bar" text="Bar" location={location} />
         <Li2 url="/admin/chart/pie" text="Pie" location={location} />
         <Li2 url="/admin/chart/line" text="Line" location={location} />
+        <li>
+          <a onClick={logOut}>Log Off</a>
+        </li>
       </ul>
     )}
   </div>
