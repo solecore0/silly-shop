@@ -122,7 +122,7 @@ const DivTwo = ({ location, screenWidth ,logOut }) => (
         <Li2 url="/admin/chart/pie" text="Pie" location={location} />
         <Li2 url="/admin/chart/line" text="Line" location={location} />
         <li>
-          <a onClick={logOut}>Log Off</a>
+          <a onClick={logOut} >Log off</a>
         </li>
       </ul>
     )}
