@@ -20,7 +20,7 @@
 
   .navbar .ser {
     display: flex;
-    height: 2.5rem;
+    height: 2.2rem;
     align-items: center;
     gap: 1rem;
     margin: 0.5rem auto;
@@ -246,7 +246,7 @@
     z-index: 9999;
     position: fixed;
     margin-left: 10px;
-    top: 5rem;
+    top: 6rem;
     left: 0;
     padding: 20px;
     display: flex;
