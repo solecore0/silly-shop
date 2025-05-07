@@ -38,6 +38,8 @@ function Search() {
     page * itemsPerPage
   );
 
+  console.log(categories)
+
   return (
     <div className="container">
       {screenWidth > 1000 ? (
@@ -68,8 +70,8 @@ function Search() {
               }}>
               <option>Choose Catagory</option>
               {categories.map((cat) => (
-                <option key={cat._id} value={cat._id}>
-                  {cat.name}
+                <option >
+                  {cat}
                 </option>
               ))}
             </select>
