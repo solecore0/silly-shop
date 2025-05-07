@@ -79,11 +79,9 @@ const OrderInformation = () => {
 
       const result = await dispatch(createOrder(orderData));
       if (!result.error) {
-        // Add a small delay before fetching orders to ensure cache is invalidated
-        setTimeout(async () => {
-          await dispatch(fetchMyOrders());
-          navigate("/order");
-        }, 1000);
+        toast.success("Order placed successfully");
+        await dispatch(fetchMyOrders());
+        navigate("/order");
       }
     }
   };

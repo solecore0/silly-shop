@@ -81,26 +81,6 @@ function Navbar() {
 
   const user = useSelector((state) => state.user.user);
 
-  const LogoutButton = () => (
-    <button
-      onClick={logOut}
-      style={{
-        background: "none",
-        border: "none",
-        color: "inherit",
-        font: "inherit",
-        cursor: "pointer",
-        padding: 0,
-        margin: 0,
-        width: "auto",
-        height: "auto",
-        marginTop: 0,
-      }}
-    >
-      Log-Out
-    </button>
-  );
-
   if (screenWidth > 750 && screenWidth < 1000) {
     return (
       <>
