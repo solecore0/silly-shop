@@ -19,9 +19,9 @@ export const fetchProductInfo = createAsyncThunk(
 
 export const fetchProductSearch = createAsyncThunk(
   "product/fetchProductSearch",
-  async (query, { rejectWithValue }) => {
+  async (tableData ,{rejectWithValue } ) => {
     try {
-      const response = await api.get(`/product/find?name=${query}`);
+      const response = await api.get(`/product/find?query=${tableData.query}&sort=${tableData.sort}&category=${tableData.category}&price=${tableData.price}`);
       return response.data.products;
     } catch (error) {
       toast.error(error.response?.data?.message || "Search failed");
@@ -97,10 +97,15 @@ const productSlice = createSlice({
     productId: [],
     categories: [],
     allProducts: [],
+    query: "",
     status: "idle",
     error: null,
   },
-  reducers: {},
+  reducers: {
+    setQuery: (state, action) => {
+      state.query = action.payload;
+    }
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchProductInfo.fulfilled, (state, action) => {
@@ -138,5 +143,7 @@ const productSlice = createSlice({
       );
   },
 });
+
+export const { setQuery } = productSlice.actions;
 
 export default productSlice.reducer;

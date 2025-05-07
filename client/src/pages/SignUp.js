@@ -119,7 +119,7 @@ const SignUp = () => {
         </select>
         <button
           onClick={handleSubmit}
-          // disabled={loading}
+          disabled={loading}
           style={{
             display: "flex",
             alignItems: "center",

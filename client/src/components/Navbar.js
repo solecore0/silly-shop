@@ -3,7 +3,7 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { toggleNav, toggleoffAdmin, toggleonAdmin } from "../redux/adminNav";
-import { fetchProductSearch } from "../redux/product";
+import { setQuery } from "../redux/product";
 import { logout } from "../redux/user";
 import { current } from "@reduxjs/toolkit";
 
@@ -24,7 +24,7 @@ function Navbar() {
 
   const admin = useSelector((state) => state.adminNav.admin);
 
-  const [query, setQuery] = useState("");
+  const query = useSelector((state) => state.product.query);
 
   const navigate = useNavigate();
 
@@ -75,8 +75,6 @@ useEffect(() => {
   };
 
   useEffect(() => {
-    window.scrollTo(0, 0);
-    dispatch(fetchProductSearch(query));
     if (location.pathname.includes("admin")) {
       dispatch(toggleonAdmin());
     } else {
@@ -180,7 +178,11 @@ useEffect(() => {
               type="text"
               value={query}
               onChange={(e) => {
-                setQuery(e.target.value);
+                if (e.target.value === undefined) {
+                  dispatch(setQuery(""));
+                  return;
+                }
+                dispatch(setQuery(e.target.value));
               }}
               placeholder="Search by name..."
             />
