@@ -1,7 +1,7 @@
 // src/redux/productSlice.js
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import api from "../utils/api";
-import { toast }from 'react-toastify';
+import { toast } from "react-toastify";
 
 // Async thunks for fetching data from backend
 export const fetchProductInfo = createAsyncThunk(
@@ -19,9 +19,11 @@ export const fetchProductInfo = createAsyncThunk(
 
 export const fetchProductSearch = createAsyncThunk(
   "product/fetchProductSearch",
-  async (tableData ,{rejectWithValue } ) => {
+  async (tableData, { rejectWithValue }) => {
     try {
-      const response = await api.get(`/product/find?query=${tableData.query}&sort=${tableData.sort}&category=${tableData.category}&price=${tableData.price}`);
+      const response = await api.get(
+        `/product/find?query=${tableData.query}&sort=${tableData.sort}&category=${tableData.category}&price=${tableData.price}`
+      );
       return response.data.products;
     } catch (error) {
       toast.error(error.response?.data?.message || "Search failed");
@@ -37,9 +39,7 @@ export const fetchProductId = createAsyncThunk(
       const response = await api.get(`/product/${id}`);
       return response.data.product;
     } catch (error) {
-      toast(
-        error.response?.data?.message || "Failed to fetch product details"
-      );
+      toast(error.response?.data?.message || "Failed to fetch product details");
       return rejectWithValue(error.response?.data?.message);
     }
   }
@@ -67,7 +67,8 @@ export const fetchAllProducts = createAsyncThunk(
       const response = await api.get("/product/all");
       return response.data.products;
     } catch (error) {
-      return rejectWithValue(error.response.data.message);
+      toast.error(error.response?.data?.message || "Failed to fetch products");
+      return rejectWithValue(error.response?.data?.message);
     }
   }
 );
@@ -104,40 +105,54 @@ const productSlice = createSlice({
   reducers: {
     setQuery: (state, action) => {
       state.query = action.payload;
-    }
+    },
   },
   extraReducers: (builder) => {
     builder
+      .addCase(fetchProductInfo.pending, (state) => {
+        state.status = "loading";
+      })
       .addCase(fetchProductInfo.fulfilled, (state, action) => {
+        state.status = "succeeded";
         state.productInfo = action.payload;
       })
+      .addCase(fetchProductSearch.pending, (state) => {
+        state.status = "loading";
+      })
       .addCase(fetchProductSearch.fulfilled, (state, action) => {
+        state.status = "succeeded";
         state.productSearch = action.payload;
       })
+      .addCase(fetchProductId.pending, (state) => {
+        state.status = "loading";
+      })
       .addCase(fetchProductId.fulfilled, (state, action) => {
+        state.status = "succeeded";
         state.productId = action.payload;
       })
+      .addCase(fetchCategories.pending, (state) => {
+        state.status = "loading";
+      })
       .addCase(fetchCategories.fulfilled, (state, action) => {
+        state.status = "succeeded";
         state.categories = action.payload;
       })
+      .addCase(fetchAllProducts.pending, (state) => {
+        state.status = "loading";
+      })
       .addCase(fetchAllProducts.fulfilled, (state, action) => {
-        state.allProducts = action.payload;
+        state.status = "succeeded";
+        state.allProducts = action.payload || [];
       })
       .addCase(createProduct.fulfilled, (state, action) => {
+        state.status = "succeeded";
         state.allProducts.push(action.payload);
       })
-      .addMatcher(
-        (action) => action.type.endsWith("/pending"),
-        (state) => {
-          state.status = "loading";
-        }
-      )
       .addMatcher(
         (action) => action.type.endsWith("/rejected"),
         (state, action) => {
           state.status = "failed";
           state.error = action.payload || action.error.message;
-          // Show error toast for any rejected action
           toast.error(state.error);
         }
       );

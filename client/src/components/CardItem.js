@@ -20,15 +20,15 @@ const CardItem = ({ item, removeItem, updateQuantity }) => {
 
       <div className="actions">
         <div className="amount">
-          <span className="inc" onClick={addItem}>
+          <span className="inc" onClick={() => handleQuantityChange(1)}>
             +
           </span>
-          <p>{item.amount}</p>
-          <span className="inc" onClick={subItem}>
+          <p>{item.quantity}</p>
+          <span className="inc" onClick={() => handleQuantityChange(-1)}>
             -
           </span>
         </div>
-        <i className="fa-solid fa-xmark"></i>
+        <i className="fa-solid fa-xmark" onClick={removeItem}></i>
       </div>
     </div>
   );

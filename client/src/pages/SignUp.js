@@ -3,10 +3,10 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { signupUser } from "../redux/user";
 import { useNavigate } from "react-router-dom";
-import { toast }from 'react-toastify';
+import { toast } from "react-toastify";
 
-
-const url = "https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI="
+const url =
+  "https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=";
 
 const SignUp = () => {
   const [name, setName] = useState("");
@@ -22,7 +22,6 @@ const SignUp = () => {
   const user = useSelector((state) => state.user.user);
   const token = useSelector((state) => state.user.token);
   const loading = useSelector((state) => state.user.loading);
-  const error = useSelector((state) => state.user.error);
 
   useEffect(() => {
     if (token && user) {

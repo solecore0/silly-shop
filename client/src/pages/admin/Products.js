@@ -9,7 +9,7 @@ import Loader from "../../components/Loader";
 
 const Products = () => {
   const dispatch = useDispatch();
-  const { allProducts, status } = useSelector((state) => state.product);
+  const { allProducts, status, error } = useSelector((state) => state.product);
 
   useEffect(() => {
     dispatch(fetchAllProducts());
@@ -60,6 +60,12 @@ const Products = () => {
   ];
 
   if (status === "loading") return <Loader />;
+  if (status === "failed")
+    return (
+      <div className="error-message">
+        Error: {error || "Failed to load products"}
+      </div>
+    );
 
   return (
     <div className="admin-container">

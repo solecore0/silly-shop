@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "../css/search.css";
 import Card from "../components/Card";
-import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchCategories, fetchProductSearch } from "../redux/product";
 import { setQuery } from "../redux/product";
@@ -69,7 +68,8 @@ function Search() {
               value={category}
               onChange={(e) => {
                 setCategory(e.target.value);
-              }}>
+              }}
+            >
               <option value="">Choose Catagory</option>
               {categories.map((cat) => (
                 <option key={cat} value={cat}>
@@ -84,7 +84,8 @@ function Search() {
               value={sort}
               onChange={(e) => {
                 setSort(e.target.value);
-              }}>
+              }}
+            >
               <option value="asc">Price (Low to High)</option>
               <option value="dsc">Price (High to Low)</option>
             </select>
@@ -122,13 +123,15 @@ function Search() {
             <div className="pgch">
               <button
                 disabled={!isPrevPage}
-                onClick={() => setPage((prev) => prev - 1)}>
+                onClick={() => setPage((prev) => prev - 1)}
+              >
                 Prev
               </button>
               <span>{page}</span>
               <button
                 disabled={!isNextPage}
-                onClick={() => setPage((prev) => prev + 1)}>
+                onClick={() => setPage((prev) => prev + 1)}
+              >
                 Next
               </button>
             </div>

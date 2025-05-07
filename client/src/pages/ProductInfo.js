@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchProductId } from "../redux/product";
 import { addToCart } from "../redux/cartSlice";
 import config from "../config";
-import { toast } from "react-hot-toast";
+import { toast } from "react-toastify";
 
 const ProductInfo = () => {
   const dispatch = useDispatch();
@@ -39,6 +39,8 @@ const ProductInfo = () => {
         quantity: amount,
       })
     );
+
+    toast.success("Added to cart");
   };
 
   if (!data) return <div>Loading...</div>;

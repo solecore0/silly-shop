@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { createOrder, fetchMyOrders } from "../redux/order";
-import { toast } from "react-hot-toast";
+import { toast } from "react-toastify";
 
 const OrderInformation = () => {
   const [address, setAddress] = useState("");
@@ -89,7 +89,7 @@ const OrderInformation = () => {
   };
 
   return (
-    <div id="order-registery" className="registery" >
+    <div id="order-registery" className="registery">
       <h1>Order Info</h1>
       <form className="inp" onSubmit={handleSubmit}>
         <div>
