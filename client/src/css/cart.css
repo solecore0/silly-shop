@@ -1,200 +1,196 @@
 .cart {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    padding-top: 1rem;
-    gap: 2rem;
-   
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding-top: 1rem;
+  gap: 2rem;
 }
 
 .items {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    gap: 1rem;
-    
-    border-radius: 10px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 1rem;
+
+  border-radius: 10px;
 }
 
 .Citem {
-    background-color: #EBEBEB;
-    width: 80%;
-    height: 3rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1rem;
-    border-radius: 10px;
-    overflow-y: hidden;
+  background-color: #ebebeb;
+  width: 80%;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  border-radius: 10px;
+  overflow-y: hidden;
 }
 
 .Citem .img {
-    width: 4rem;
-    height: 4rem;
-    border-radius: 50%;
-    border: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: rgb(255, 255, 255);
-    border: 1px solid black;
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(255, 255, 255);
+  border: 1px solid black;
 }
 
 .Citem img {
-    width: 3rem;
-    height: 2rem;
+  width: 3rem;
+  height: 2rem;
 }
 
 .Citem .amount .inc {
-    width: 50%;
-    color: white;
-    background-color: #797980 ;
-    border-radius: 2px;
-    
+  width: 50%;
+  color: white;
+  background-color: #797980;
+  border-radius: 2px;
 }
 
 .amount .inc:hover {
-    cursor: pointer;
-    scale: 1.1;
+  cursor: pointer;
+  scale: 1.1;
 }
 
 .Citem .amount {
-    width: 2rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    gap: 0.2rem;
-    font-weight: 500;
+  width: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 0.2rem;
+  font-weight: 500;
 }
 
 .Citem button {
-    width: 2rem;
-    height: 2rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 1rem;
-    font-size: 1rem;
-    border: none;
-    background-color: transparent;
-    color: rgb(0, 0, 0);
-    font-weight: 600;  
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  border: none;
+  background-color: transparent;
+  color: rgb(0, 0, 0);
+  font-weight: 600;
 }
 
 .Citem button i {
-    font-size: 1.5rem;
+  font-size: 1.5rem;
 }
 
-.Total { 
-    width: 70%;
-    height: 5rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
+.Total {
+  width: 70%;
+  height: 5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .orderBtn {
-    width: 60%;
-    height: 2.5rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 10px;  
-    background-color:#797980 ;
-    font-size: 1.5rem;
-    border: none;
-    color: white;
-    font-weight: 600; 
+  width: 60%;
+  height: 2.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  background-color: #797980;
+  font-size: 1.5rem;
+  border: none;
+  color: white;
+  font-weight: 600;
 }
 
 .data {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 1rem;
+}
+@media screen and (min-width: 704px) {
+  .Citem .amount {
+    flex-direction: row;
+    width: 7rem;
+    gap: 0.2rem;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .amount p {
+    font-size: 1.2rem;
+    font-weight: 600;
+  }
+
+  .Citem .amount .inc {
+    width: 1rem;
+    font-size: 1rem;
+    padding: 0.5rem;
+    font-weight: 600;
+  }
+
+  .orderBtn {
+    width: 40%;
+    height: 3rem;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .Citem .amount {
+    width: 8rem;
+    gap: 1rem;
+  }
+  .orderBtn {
+    width: 30%;
+    height: 3rem;
+    margin-top: 8rem;
+  }
+
+  .Total {
+    background-color: #ebebeb;
+    padding: 1rem;
+    height: fit-content;
+    gap: 2rem;
+    border-radius: 10px;
+    width: 40%;
+    flex-direction: column;
+    margin: 0 2rem 0 0rem;
+  }
+
+  .data {
+    flex-direction: row;
+    justify-content: space-between;
     width: 100%;
+    align-items: start;
+    gap: 1rem;
+  }
+
+  .Citem {
+    width: 80%;
+  }
+
+  .wrap {
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
-    gap: 1rem;
-}
-@media  screen and (min-width: 704px) {
-    .Citem .amount {
-        flex-direction: row;
-        width: 7rem;
-        gap: 0.2rem;
-        justify-content: space-between;
-        align-items: center;
-    }
+    width: 100%;
+    gap: 8rem;
+    font-size: 1.5rem;
+    font-weight: 500;
+  }
 
-    .amount p {
-        font-size: 1.2rem;
-        font-weight: 600;
-    }
-
-    .Citem .amount .inc {
-        width: 1rem;
-        font-size: 1rem;
-        padding: 0.5rem;
-        font-weight: 600;
-    }
-
-    .orderBtn {
-        width: 40%;
-        height: 3rem;
-    }
-
-}
-
-@media  screen and (min-width: 1024px) {
-    .Citem .amount{
-        width: 8rem;
-        gap: 1rem;
-    }
-    .orderBtn {
-        width: 30%;
-        height: 3rem;
-        margin-top: 8rem;
-    }
-
-    .Total {
-        background-color: #EBEBEB;
-        padding: 1rem;
-        height: fit-content;
-        gap: 2rem;
-        border-radius: 10px;
-        width: 40%;
-        flex-direction: column;
-        margin: 0 2rem 0 0rem;     
-    }
-
-    .data {
-        flex-direction: row;
-        justify-content: space-between;
-        width: 100%;
-        align-items: start;
-        gap: 1rem;
-    }
-
-    .Citem {
-        width: 80%;
-    }
-
-    .wrap {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-        gap: 8rem;
-        font-size: 1.5rem;
-        font-weight: 500;
-    }
-
-    .Total p {
-        font-size: 1.5rem;
-        font-weight: 600;
-    }
+  .Total p {
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
 }

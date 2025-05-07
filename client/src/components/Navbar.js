@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { toggleNav, toggleoffAdmin, toggleonAdmin } from "../redux/adminNav";
 import { fetchProductSearch } from "../redux/product";
 import { logout } from "../redux/user";
-import { current } from "@reduxjs/toolkit";
 
 function Navbar() {
   const dispatch = useDispatch();
@@ -74,11 +72,31 @@ function Navbar() {
     } else {
       dispatch(toggleoffAdmin());
     }
-  }, [location.pathname, query]);
+  }, [location.pathname, query, dispatch]);
 
   const screenWidth = useSelector((state) => state.ui.screenWidth);
 
   const user = useSelector((state) => state.user.user);
+
+  const LogoutButton = () => (
+    <button
+      onClick={logOut}
+      style={{
+        background: "none",
+        border: "none",
+        color: "inherit",
+        font: "inherit",
+        cursor: "pointer",
+        padding: 0,
+        margin: 0,
+        width: "auto",
+        height: "auto",
+        marginTop: 0,
+      }}
+    >
+      Log-Out
+    </button>
+  );
 
   if (screenWidth > 750 && screenWidth < 1000) {
     return (
@@ -119,7 +137,8 @@ function Navbar() {
                 <li>
                   <i
                     className="fa-solid fa-ellipsis-vertical"
-                    onClick={handleAdminNav}></i>
+                    onClick={handleAdminNav}
+                  ></i>
                 </li>
               ) : (
                 ""
@@ -139,7 +158,7 @@ function Navbar() {
                 </li>
               )}
               <li>
-                <a>Log-Out</a>
+                <LogoutButton />
               </li>
             </ul>
           </div>
@@ -203,7 +222,7 @@ function Navbar() {
                 </li>
               )}
               <li>
-                <a onClick={logOut}>Log-Out</a>
+                <LogoutButton />
               </li>
             </ul>
           </div>
@@ -231,7 +250,8 @@ function Navbar() {
             {admin ? (
               <i
                 className="fa-solid fa-ellipsis-vertical"
-                onClick={handleAdminNav}></i>
+                onClick={handleAdminNav}
+              ></i>
             ) : (
               ""
             )}
@@ -264,7 +284,7 @@ function Navbar() {
                 </li>
               )}
               <li>
-                <a>Log-Out</a>
+                <LogoutButton />
               </li>
             </ul>
           </div>

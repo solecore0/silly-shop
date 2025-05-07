@@ -1,35 +1,42 @@
-import React  from 'react'
+import React from "react";
 
-const CardItem = ({item }) => {
-  
-
-  const addItem = () => {
-    item.amount = item.amount + 1
-   }
-
-   const subItem = () => {
-    if (item.amount !== 1) {
-      item.amount = item.amount - 1
-    } else {
-
+const CardItem = ({ item, removeItem, updateQuantity }) => {
+  const handleQuantityChange = (change) => {
+    const newQuantity = item.quantity + change;
+    if (newQuantity >= 1 && newQuantity <= item.stock) {
+      updateQuantity(newQuantity);
     }
-  }
+  };
 
   return (
-    <div className='Citem'>
-        <div className="img"><img src={item.img} alt="" /></div>
-        <div className='names'>
-            <h2>{item.name}</h2>
-            <p>{item.price}</p>
-        </div>
-        <div className='amount'>
-            <span className='inc' onClick={addItem}>+</span>
-            <p>{item.amount}</p>
-            <span className='inc' onClick={subItem}>-</span>
-        </div>
-        <button><i className="fa-solid fa-xmark"></i></button>
+    <div className="cardItem">
+      <div className="product">
+        <img src={item.img} alt={item.name} />
+        <span className="productInfo">
+          <h3>{item.name}</h3>
+          <p>{item.price}</p>
+        </span>
+      </div>
+      <div className="quantity">
+        <button
+          onClick={() => handleQuantityChange(-1)}
+          disabled={item.quantity <= 1}
+        >
+          -
+        </button>
+        <span>{item.quantity}</span>
+        <button
+          onClick={() => handleQuantityChange(1)}
+          disabled={item.quantity >= item.stock}
+        >
+          +
+        </button>
+      </div>
+      <button className="remove" onClick={removeItem}>
+        <i className="fa-solid fa-trash"></i>
+      </button>
     </div>
-  )
-}
+  );
+};
 
-export default CardItem
+export default CardItem;

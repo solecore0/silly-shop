@@ -1,64 +1,68 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import AdminSidebar from "../../components/admin/AdminSidebar";
 import Table from "../../components/admin/Table";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchAllProducts } from "../../redux/product";
-import { useNavigate } from "react-router-dom";
 import config from "../../config";
+import Loader from "../../components/Loader";
 
 const Products = () => {
   const dispatch = useDispatch();
-  const Products = useSelector((state) => state.product);
-  const { allProducts } = Products;
-  const [rows, setRows] = useState(allProducts);
-  const navigate = useNavigate();
+  const { allProducts, status } = useSelector((state) => state.product);
 
   useEffect(() => {
     dispatch(fetchAllProducts());
-  }, [dispatch, navigate, Products]);
+  }, [dispatch]);
 
   const columns = [
     {
       id: "photo",
       header: "Photo",
       accessorKey: "photo",
-      cell: ({ getValue }) => (
-        <img src={`${config.UPLOADS_URL}${getValue()}`} alt="Product" />
+      cell: ({ row }) => (
+        <img
+          src={`${config.UPLOADS_URL}${row.original.photo}`}
+          alt={row.original.name || "Product"}
+        />
       ),
     },
     {
       id: "name",
       header: "Name",
       accessorKey: "name",
+      cell: ({ row }) => row.original.name || "N/A",
     },
     {
       id: "price",
       header: "Price",
       accessorKey: "price",
+      cell: ({ row }) => `$${row.original.price || 0}`,
     },
     {
       id: "stock",
       header: "Stock",
       accessorKey: "stock",
+      cell: ({ row }) => row.original.stock || 0,
     },
     {
       id: "action",
       header: "Action",
-      accessorKey: "action",
-      cell: ({ getValue }) => (
-        <Link to={`/admin/product}`}>
-          <i className="fa-solid fa-eye"></i>
-        </Link>
-      ),
+      cell: ({ row }) => {
+        const productId = row.original._id;
+        return productId ? (
+          <Link to={`/admin/product/${productId}`}>
+            <i className="fa-solid fa-eye"></i>
+          </Link>
+        ) : null;
+      },
     },
   ];
 
-  const data = React.useMemo(() => rows, [rows]);
-  const showPagination = false;
+  if (status === "loading") return <Loader />;
 
   return (
-    <div className="admin-container ">
+    <div className="admin-container">
       <AdminSidebar />
       <main>
         <div className="ProductDiv">
@@ -69,15 +73,15 @@ const Products = () => {
             </Link>
           </button>
         </div>
-        {rows && rows.length > 0 ? (
+        {allProducts && allProducts.length > 0 ? (
           <Table
             columns={columns}
-            data={data}
-            showPagination={showPagination}
-            CCN={"admin-product-table"}
+            data={allProducts}
+            showPagination={false}
+            CCN="admin-product-table"
           />
         ) : (
-          <p>No Products</p>
+          <p>No products found</p>
         )}
       </main>
     </div>

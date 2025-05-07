@@ -70,16 +70,15 @@ const LogIn = () => {
         />
         <button
           onClick={handleSubmit}
-          disabled={loading}
           style={{
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
             gap: "10px",
-            opacity: loading ? 0.7 : 1,
+            opacity: 1,
           }}
         >
-          {loading ? (
+          {/* {loading ? (
             <>
               <div
                 className="loader"
@@ -97,7 +96,8 @@ const LogIn = () => {
             </>
           ) : (
             "Log-In"
-          )}
+          )} */}
+          Log-In
         </button>
       </div>
       <hr />

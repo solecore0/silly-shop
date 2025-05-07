@@ -34,7 +34,7 @@ export const createNewOrder = TryCatch(
     }
 
     if (req.user) {
-      const order = await Order.create({
+      let order = await Order.create({
         shippingInfo,
         subtotal,
         user: req.user._id,
@@ -53,11 +53,14 @@ export const createNewOrder = TryCatch(
         admin: true,
         productIDs: orderItems.map((item) => item.productId),
         orderID: String(order._id),
+        userID: String(order.user),
       });
 
-      return res
-        .status(200)
-        .json({ success: true, message: "Order Placed Successfully!" });
+      return res.status(200).json({
+        success: true,
+        message: "Order Placed Successfully!",
+        order,
+      });
     }
   }
 );

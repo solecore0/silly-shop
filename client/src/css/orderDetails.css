@@ -1,0 +1,112 @@
+.order-details {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+.order-details h1 {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.order-info, .shipping-info, .order-items, .order-summary {
+  background: white;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.order-info p, .shipping-info p {
+  margin: 0.5rem 0;
+}
+
+.order-info .processing {
+  color: #f59e0b;
+}
+
+.order-info .shipped {
+  color: #3b82f6;
+}
+
+.order-info .delivered {
+  color: #10b981;
+}
+
+.order-info .cancelled {
+  color: #ef4444;
+}
+
+.items-list {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.order-item {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+}
+
+.order-item img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.item-details {
+  flex: 1;
+}
+
+.item-details h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.1rem;
+}
+
+.item-details p {
+  margin: 0.25rem 0;
+  color: #4b5563;
+}
+
+.summary-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.summary-details .total {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 2px solid #e5e7eb;
+  font-size: 1.2rem;
+}
+
+.admin-actions {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.admin-actions button {
+  padding: 0.75rem 1.5rem;
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.admin-actions button:disabled {
+  background-color: #9ca3af;
+  cursor: not-allowed;
+}
+
+@media (min-width: 768px) {
+  .items-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
