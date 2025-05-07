@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import api from "../utils/api";
 import Cookies from "js-cookie";
-import { toast }from 'react-toastify';
+import { toast } from "react-toastify";
 
 const initialState = {
   user: null,
@@ -15,13 +15,12 @@ export const loginUser = createAsyncThunk(
   "user/login",
   async ({ email, password }, { rejectWithValue }) => {
     try {
-      console.log(api.post)
       const response = await api.post("/user/login", {
         email,
         password,
       });
 
-      toast("Logged in successfully!");
+      toast.success("Login successful!");
       localStorage.setItem("token", response.data.token);
       return response.data;
     } catch (error) {
@@ -52,7 +51,7 @@ export const signupUser = createAsyncThunk(
 
       return response.data;
     } catch (error) {
-      toast.error(error.response.data.message );
+      toast.error(error.response.data.message);
       return rejectWithValue(error.response.data.message);
     }
   }
