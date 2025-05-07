@@ -2,24 +2,25 @@ import React from "react";
 import "../css/cart.css";
 import CardItem from "../components/CardItem";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { removeFromCart, updateQuantity } from "../redux/cartSlice";
+import config from "../config";
 
 function Cart() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const user = useSelector((state) => state.user.user);
   const token = useSelector((state) => state.user.token);
+  const { items, total } = useSelector((state) => state.cart);
+  const screenWidth = useSelector((state) => state.ui.screenWidth);
 
-  const data = [
-    {
-      id: 1,
-      img: "https://m.media-amazon.com/images/I/81Fm0tRFdHL.__AC_SY445_SX342_QL70_FMwebp.jpg",
-      name: "Airforce",
-      price: "$30",
-      amount: 1,
-    },
-  ];
+  const handleRemoveItem = (id) => {
+    dispatch(removeFromCart(id));
+  };
 
-  const removeItem = () => {};
+  const handleUpdateQuantity = (id, quantity) => {
+    dispatch(updateQuantity({ _id: id, quantity }));
+  };
 
   const handleOrder = () => {
     if (!user || !token) {
@@ -29,32 +30,58 @@ function Cart() {
     navigate("/OrderInformation");
   };
 
-  const screenWidth = useSelector((state) => state.ui.screenWidth);
+  const handleContinueShopping = () => {
+    navigate("/search");
+  };
 
   return (
     <div className="cart">
       <h1>Cart</h1>
       <div className="data">
         <div className="items">
-          {data.map((item) => (
-            <CardItem key={item.id} item={item} removeItem={removeItem} />
-          ))}
+          {items.length > 0 ? (
+            items.map((item) => (
+              <CardItem
+                key={item._id}
+                item={{
+                  ...item,
+                  img: `${config.UPLOADS_URL}${item.photo}`,
+                  price: `$${item.price}`,
+                }}
+                removeItem={() => handleRemoveItem(item._id)}
+                updateQuantity={(qty) => handleUpdateQuantity(item._id, qty)}
+              />
+            ))
+          ) : (
+            <div className="empty-cart-message">Your cart is empty</div>
+          )}
         </div>
-        <div className="Total">
-          <h2>Total</h2>
-          {screenWidth > 1024
-            ? data.map((item) => (
-                <div className="wrap" key={item.id}>
-                  <span>{item.name}</span>
-                  <span>{item.price}</span>
-                </div>
-              ))
-            : ""}
-          <p>$100</p>
-        </div>
+        {items.length > 0 && (
+          <div className="Total">
+            <h2>Total</h2>
+            {screenWidth > 1024 && (
+              <div className="items-summary">
+                {items.map((item) => (
+                  <div className="wrap" key={item._id}>
+                    <span>{item.name}</span>
+                    <span>${item.price * item.quantity}</span>
+                  </div>
+                ))}
+              </div>
+            )}
+            <p>${total}</p>
+          </div>
+        )}
       </div>
-      <button className="orderBtn" onClick={handleOrder}>
-        {!user ? "Login to Order" : "Order"}
+      <button
+        className="orderBtn"
+        onClick={items.length > 0 ? handleOrder : handleContinueShopping}
+      >
+        {items.length === 0
+          ? "Continue Shopping"
+          : !user
+          ? "Login to Order"
+          : "Order Now"}
       </button>
     </div>
   );

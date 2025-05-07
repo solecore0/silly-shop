@@ -1,17 +1,22 @@
 // store.js
-import { configureStore } from '@reduxjs/toolkit';
-import uiReducer from './uiSlice';
-import adminNavSlice from './adminNav.js';
-import produdctSlice from './product.js';
-import userReducer from './user.js';
-import  chartSlice  from './charts.js';
- const store = configureStore({
+import { configureStore } from "@reduxjs/toolkit";
+import uiReducer from "./uiSlice";
+import adminNavReducer from "./adminNav";
+import productReducer from "./product";
+import userReducer from "./user";
+import chartReducer from "./charts";
+import orderReducer from "./order";
+import cartReducer from "./cartSlice";
+
+const store = configureStore({
   reducer: {
     ui: uiReducer,
     user: userReducer,
-    adminNav: adminNavSlice,
-    product: produdctSlice,
-    chart: chartSlice,
+    adminNav: adminNavReducer,
+    product: productReducer,
+    chart: chartReducer,
+    order: orderReducer,
+    cart: cartReducer,
   },
 });
 

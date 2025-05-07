@@ -1,69 +1,96 @@
-import React, { useState } from "react";
+import React, { useEffect, useCallback } from "react";
 import Table from "../components/admin/Table";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchMyOrders } from "../redux/order";
+import Loader from "../components/Loader";
 
 const Order = () => {
+  const dispatch = useDispatch();
+  const location = useLocation();
+  const { orders, status } = useSelector((state) => state.order);
+
+  const fetchOrders = useCallback(async () => {
+    await dispatch(fetchMyOrders());
+  }, [dispatch]);
+
+  useEffect(() => {
+    fetchOrders();
+  }, [fetchOrders]);
+
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'visible') {
+        fetchOrders();
+      }
+    };
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
+  }, [fetchOrders]);
 
   const columns = [
     {
       id: "orderId",
       header: "ID",
-      accessorKey: "id",
+      accessorKey: "_id",
     },
     {
       id: "quantity",
       header: "Quantity",
-      accessorKey: "quantity",
+      accessorKey: "orderItems",
+      cell: ({ row }) => {
+        const items = row.original.orderItems;
+        return items
+          ? items.reduce((total, item) => total + item.quantity, 0)
+          : 0;
+      },
     },
     {
       id: "discount",
       header: "Discount",
       accessorKey: "discount",
+      cell: ({ row }) => `$${row.original.discount || 0}`,
     },
     {
-      id: "amount",
-      header: "Amount",
-      accessorKey: "amount",
+      id: "total",
+      header: "Total",
+      accessorKey: "total",
+      cell: ({ row }) => `$${row.original.total || 0}`,
     },
     {
       id: "status",
       header: "Status",
       accessorKey: "status",
-      cell: ({ row }) => (
-        <span className="red">{row.original.status}</span>
-      ),
+      cell: ({ row }) => {
+        const status = row.original.status || "Processing";
+        return <span className={status.toLowerCase()}>{status}</span>;
+      },
     },
     {
       id: "action",
       header: "Action",
-      accessorKey: "action",
-      cell: ({ row }) => (
-        <Link to={`/order/${row.original.id}`}>View</Link>
-      ),
+      cell: ({ row }) => {
+        const orderId = row.original._id;
+        return orderId ? <Link to={`/order/${orderId}`}>View</Link> : null;
+      },
     },
   ];
-  const [rows] = useState([
-    {
-      id: "6666asdsad8cafasfe",
-      amount: 1000,
-      quantity: 1,
-      discount: 469,
-      status: "Pending",
-      action: "View",
-    },
-  ]);
-  const showPagination = false;
-  const data = React.useMemo(() => rows, [rows]);
+
+  if (status === "loading") return <Loader />;
+
   return (
     <div className="order">
       <h1>My Orders</h1>
-      {rows && rows.length > 0 ? (
+      {orders && orders.length > 0 ? (
         <Table
           columns={columns}
-          data={data}
-          heading={""}
-          showPagination={showPagination}
-          CCN={"order-table"}
+          data={orders}
+          heading=""
+          showPagination={false}
+          CCN="order-table"
         />
       ) : (
         <p>No Orders</p>
@@ -71,4 +98,5 @@ const Order = () => {
     </div>
   );
 };
+
 export default Order;

@@ -1,14 +1,10 @@
 import React from "react";
 
-const CardItem = ({ item }) => {
-  const addItem = () => {
-    item.amount = item.amount + 1;
-  };
-
-  const subItem = () => {
-    if (item.amount !== 1) {
-      item.amount = item.amount - 1;
-    } else {
+const CardItem = ({ item, removeItem, updateQuantity }) => {
+  const handleQuantityChange = (change) => {
+    const newQuantity = item.quantity + change;
+    if (newQuantity >= 1 && newQuantity <= item.stock) {
+      updateQuantity(newQuantity);
     }
   };
 
@@ -32,7 +28,7 @@ const CardItem = ({ item }) => {
             -
           </span>
         </div>
-          <i className="fa-solid fa-xmark"></i>
+        <i className="fa-solid fa-xmark"></i>
       </div>
     </div>
   );

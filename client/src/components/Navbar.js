@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { toggleNav, toggleoffAdmin, toggleonAdmin } from "../redux/adminNav";
 import { setQuery } from "../redux/product";
 import { logout } from "../redux/user";
-import { current } from "@reduxjs/toolkit";
 
 function Navbar() {
-
   const dispatch = useDispatch();
   const location = useLocation();
 
@@ -28,12 +25,10 @@ function Navbar() {
 
   const navigate = useNavigate();
 
-useEffect(() => {
-  setOpenNav(false);
-  setOpenUsr(false);
-}, [location.pathname]);
-
-
+  useEffect(() => {
+    setOpenNav(false);
+    setOpenUsr(false);
+  }, [location.pathname]);
 
   const toggleNavigation = () => {
     if (t === a) {
@@ -80,11 +75,31 @@ useEffect(() => {
     } else {
       dispatch(toggleoffAdmin());
     }
-  }, [location.pathname, query]);
+  }, [location.pathname, query, dispatch]);
 
   const screenWidth = useSelector((state) => state.ui.screenWidth);
 
   const user = useSelector((state) => state.user.user);
+
+  const LogoutButton = () => (
+    <button
+      onClick={logOut}
+      style={{
+        background: "none",
+        border: "none",
+        color: "inherit",
+        font: "inherit",
+        cursor: "pointer",
+        padding: 0,
+        margin: 0,
+        width: "auto",
+        height: "auto",
+        marginTop: 0,
+      }}
+    >
+      Log-Out
+    </button>
+  );
 
   if (screenWidth > 750 && screenWidth < 1000) {
     return (
@@ -93,7 +108,8 @@ useEffect(() => {
           <h1
             onClick={() => {
               navigate("/");
-            }}>
+            }}
+          >
             Silly-Shop
           </h1>
           <div className="links">
@@ -130,7 +146,8 @@ useEffect(() => {
                 <li>
                   <i
                     className="fa-solid fa-ellipsis-vertical"
-                    onClick={handleAdminNav}></i>
+                    onClick={handleAdminNav}
+                  ></i>
                 </li>
               ) : (
                 ""
@@ -165,7 +182,8 @@ useEffect(() => {
             <h1
               onClick={() => {
                 navigate("/");
-              }}>
+              }}
+            >
               Silly-Shop
             </h1>
           </div>
@@ -241,7 +259,8 @@ useEffect(() => {
             <h1
               onClick={() => {
                 navigate("/");
-              }}>
+              }}
+            >
               Silly-Shop
             </h1>
           </div>
@@ -258,7 +277,8 @@ useEffect(() => {
             {admin ? (
               <i
                 className="fa-solid fa-ellipsis-vertical"
-                onClick={handleAdminNav}></i>
+                onClick={handleAdminNav}
+              ></i>
             ) : (
               ""
             )}
