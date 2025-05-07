@@ -7,7 +7,6 @@
 
   .navbar h1 {
     font-size: 2rem;
-    width: 25%;
   }
 
   .navbar .ser {
@@ -63,41 +62,10 @@
     font-size: 1.2rem;
   }
 
-  .Llinks {
-    position: fixed;
-    top: 1.6rem;
-    right: 0;
-    width: 8rem;
-    z-index: 999;
-    margin: 40px 10px;
-    padding: 10px;
-    background-color: #797980;
-    opacity: 0.9;
-    text-align: center;
-    border-radius: 5px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 20px;
+ .Llinks {
+    top: 3rem;
   }
 
-  .Llinks ul {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .Llinks li {
-    cursor: pointer;
-    padding: 10px;
-  }
-
-
-  .Llinks a {
-    color: #fff;
-    font-weight: 600;
-    font-size: 1rem;
-  }
 
 
    /* Home */
@@ -211,7 +179,7 @@
   }
 
   #sidebar ul {
-    margin: 2vw 3vw;
+    margin: 2vw 0;
     gap: 0.8vw;
     display: flex;
     flex-direction: column;
@@ -239,13 +207,13 @@
   /* Admin Content */
   .admin-container {
     display: flex;
+    margin-top: 4rem;
     gap: 2rem;
   }
 
   .admin-container main {
     width: 70%;
     margin-left: 25%;
-    margin-top: 2rem;
   }
 
   .container-h {

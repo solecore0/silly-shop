@@ -113,7 +113,8 @@ button {
 }
 
 .navbar h1 {
-  font-size: 1.8rem;
+  font-size: 1.6rem;
+  width: fit-content;
   font-weight: 800;
   cursor: pointer;
   font-family: "Times New Roman", Times, serif;
@@ -200,7 +201,7 @@ button {
 .Llinks {
   position: fixed;
   top: 1.6rem;
-  right: 0;
+  right: 10px;
   width: 8rem;
   height: fit-content;
   z-index: 999;

@@ -38,7 +38,6 @@ function Search() {
     page * itemsPerPage
   );
 
-  console.log(categories)
 
   return (
     <div className="container">
@@ -70,7 +69,7 @@ function Search() {
               }}>
               <option>Choose Catagory</option>
               {categories.map((cat) => (
-                <option >
+                <option key={cat}>
                   {cat}
                 </option>
               ))}
@@ -106,7 +105,6 @@ function Search() {
 
         <div className="result">
           <h1>Search Results</h1>
-          <hr />
           <div className="cards">
             {paginatedItems.map((item) => (
               <Card key={item._id} item={item} />
