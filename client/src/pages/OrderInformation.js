@@ -33,7 +33,7 @@ const OrderInformation = () => {
   };
 
   return (
-    <div className="registery">
+    <div id="order-registery" className="registery" >
       <h1>Order Info</h1>
       <form className="inp" onSubmit={handleSubmit}>
         <div>

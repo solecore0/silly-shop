@@ -46,12 +46,6 @@ const DashBoard = () => {
     <div className='admin-container'>
       <AdminSidebar />
       <main>
-        <div className='search-bar'>
-          <span><i className='fa-solid fa-search'></i></span>
-          <input type="text" placeholder='Search for data,user or stocks'/>
-          <span><i className='fa-solid fa-bell'></i></span>
-         <span><i className="fa-regular fa-circle-user"></i></span> 
-        </div>
         <section className='graph-container'>
           <div className="revenue-graph">
             <h2>Revenue & Transactions</h2>
@@ -120,6 +114,7 @@ const CategoryItem = ({ color, value, heading }) => (
         style={{
           backgroundColor: color,
           width: `${value}%`,
+          height: "100%"
         }}
       ></div>
     </div>

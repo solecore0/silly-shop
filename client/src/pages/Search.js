@@ -4,30 +4,27 @@ import Card from "../components/Card";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchCategories, fetchProductSearch } from "../redux/product";
+import { setQuery } from "../redux/product";
 
 function Search() {
   const screenWidth = useSelector((state) => state.ui.screenWidth);
+  const query = useSelector((state) => state.product.query);
 
   const dispatch = useDispatch();
 
-
-
-  const [sort, setSort] = useState("");
+  const [sort, setSort] = useState("asc");
 
   const [category, setCategory] = useState("");
 
-  const [maxPrice, setMaxPrice] = useState(100000);
-
+  const [price, setPrice] = useState(100000);
 
   const [page, setPage] = useState(1);
 
-  const [query, setQuery] = useState("");
-
   useEffect(() => {
-    window.scrollTo(0, 0);
-    dispatch(fetchProductSearch(query));
+    const tableData = { sort, category, price, query };
+    dispatch(fetchProductSearch(tableData));
     dispatch(fetchCategories());
-  }, [query , dispatch]);
+  }, [sort, category, price, query]);
 
   const categories = useSelector((state) => state.product.categories);
   const data = useSelector((state) => state.product.productSearch);
@@ -43,7 +40,6 @@ function Search() {
 
   return (
     <div className="container">
-      <h1>Search</h1>
       {screenWidth > 1000 ? (
         ""
       ) : (
@@ -53,7 +49,11 @@ function Search() {
             type="text"
             value={query}
             onChange={(e) => {
-              setQuery(e.target.value);
+              if (e.target.value === undefined) {
+                dispatch(setQuery(""));
+              } else {
+                dispatch(setQuery(e.target.value));
+              }
             }}
             placeholder="Search by name..."
           />
@@ -70,11 +70,12 @@ function Search() {
               onChange={(e) => {
                 setCategory(e.target.value);
               }}>
-                {categories.map((cat) => (
-                  <option key={cat._id} value={cat._id}>
-                    {cat.name}
-                  </option>
-                ))}
+              <option value="">Choose Catagory</option>
+              {categories.map((cat) => (
+                <option key={cat} value={cat}>
+                  {cat}
+                </option>
+              ))}
             </select>
           </div>
           <div className="Slc">
@@ -84,7 +85,6 @@ function Search() {
               onChange={(e) => {
                 setSort(e.target.value);
               }}>
-              <option value="">None</option>
               <option value="asc">Price (Low to High)</option>
               <option value="dsc">Price (High to Low)</option>
             </select>
@@ -92,44 +92,47 @@ function Search() {
 
           <div className="Slc">
             <h3>Max Price:</h3>
-            <h3>${maxPrice}</h3>
+            <h3>${price}</h3>
           </div>
           <input
             type="range"
             min={100}
             max={100000}
-            value={maxPrice}
+            value={price}
             onChange={(e) => {
-              setMaxPrice(Number(e.target.value));
+              setPrice(Number(e.target.value));
             }}
           />
         </div>
 
         <div className="result">
-          <h1>Results:</h1>
+          <h1>Search Results</h1>
           <div className="cards">
             {paginatedItems.map((item) => (
               <Card key={item._id} item={item} />
             ))}
           </div>
-          {paginatedItems.length === 0 ? <p className="txt">Nothing here</p> : ""}
+          {paginatedItems.length === 0 ? (
+            <p className="txt">Nothing here</p>
+          ) : (
+            ""
+          )}
 
-          {data.length <= 10 ? (
-          null
-        ) : (
-          <div className="pgch">
-            <button
-              disabled={!isPrevPage}
-              onClick={() => setPage((prev) => prev - 1)}>
-              Prev
-            </button>
-            <span>{page}</span>
-            <button
-              disabled={!isNextPage}
-              onClick={() => setPage((prev) => prev + 1)}>
-              Next
-            </button>
-          </div>)}
+          {data.length <= 10 ? null : (
+            <div className="pgch">
+              <button
+                disabled={!isPrevPage}
+                onClick={() => setPage((prev) => prev - 1)}>
+                Prev
+              </button>
+              <span>{page}</span>
+              <button
+                disabled={!isNextPage}
+                onClick={() => setPage((prev) => prev + 1)}>
+                Next
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </div>

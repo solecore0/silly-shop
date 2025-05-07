@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import "../css/Home.css";
 import Card from "../components/Card";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -21,11 +20,12 @@ function Home() {
     page * itemsPerPage
   );
 
+  const url = "https://www.premierline.co.uk/wp-content/uploads/2020/02/shop-layout-desktop-stage-4.jpeg"; 
   return (
     <div className="home">
       <div className="Showcase">
         <img
-          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRkkE4MAAkihr1xFfnmeMZPRNH4JEhIA-QZA&s"
+          src={url}
           alt=""
         />
         <div className="cover"></div>
@@ -35,7 +35,8 @@ function Home() {
         </div>
       </div>
       <div className="main">
-        <h1>Shop</h1>
+        <h1>Latest Products.</h1>
+        <hr />
         {data?.length > 0 ? (
           <div className="cards">
             {paginatedItems.map((item) => (
@@ -44,7 +45,7 @@ function Home() {
           </div>
         ) : (
           <div className="no-data">
-            <h1>No Data Found</h1>
+            <h2>No Items Exist.</h2>
           </div>
         )}
         {data.length <= 10 ? null : (

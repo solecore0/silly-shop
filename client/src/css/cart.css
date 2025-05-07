@@ -1,200 +1,347 @@
+/* === Base Styles (Mobile First) === */
 .cart {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
     padding-top: 1rem;
     gap: 2rem;
-   
-}
-
-.items {
+  }
+  
+  .items {
     width: 100%;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
     gap: 1rem;
-    
     border-radius: 10px;
-}
+  }
+  
 
-.Citem {
-    background-color: #EBEBEB;
+  .Citem {
+    background-color: #fff;
     width: 80%;
-    height: 3rem;
+    height: fit-content;
     display: flex;
-    align-items: center;
     justify-content: space-between;
-    padding: 1rem;
-    border-radius: 10px;
+    align-items: center;
+    padding: 0.5rem;
+    border-radius: 5px;
     overflow-y: hidden;
-}
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.346), 0 3px 6px rgba(0, 0, 0, 0.401);
+    margin: 10px 0;
+  }
 
-.Citem .img {
-    width: 4rem;
-    height: 4rem;
-    border-radius: 50%;
-    border: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: rgb(255, 255, 255);
-    border: 1px solid black;
-}
+  .Citem h2 {
+    font-size: 1.2rem;
+  }
 
-.Citem img {
-    width: 3rem;
-    height: 2rem;
-}
-
-.Citem .amount .inc {
-    width: 50%;
-    color: white;
-    background-color: #797980 ;
-    border-radius: 2px;
-    
-}
-
-.amount .inc:hover {
-    cursor: pointer;
-    scale: 1.1;
-}
-
-.Citem .amount {
-    width: 2rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    gap: 0.2rem;
-    font-weight: 500;
-}
-
-.Citem button {
-    width: 2rem;
-    height: 2rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 1rem;
+  .Citem p {
     font-size: 1rem;
-    border: none;
-    background-color: transparent;
-    color: rgb(0, 0, 0);
-    font-weight: 600;  
-}
-
-.Citem button i {
-    font-size: 1.5rem;
-}
-
-.Total { 
-    width: 70%;
-    height: 5rem;
+  }
+  
+  .Citem .itemData {
     display: flex;
-    align-items: center;
+    gap: 1rem;
+  }
+
+  .Citem .itemData .names {
+    display: flex;
     justify-content: space-between;
-
-}
-
-.orderBtn {
-    width: 60%;
+    flex-direction: column;
+  }
+  
+  .Citem .itemData img {
+    width: 4rem;
     height: 2.5rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 10px;  
-    background-color:#797980 ;
-    font-size: 1.5rem;
-    border: none;
-    color: white;
-    font-weight: 600; 
-}
-
-.data {
-    width: 100%;
+    background-color: #fff;
+  }
+  
+  .Citem .actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .Citem .amount {
+    width: fit-content;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    gap: 0.2rem;
+    font-weight: 500;
+    height: 1rem;
+    margin-top: 2px;
+    overflow-y: hidden;
+  }
+  
+  .Citem .amount .inc {
+    width: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgb(0, 0, 0);
+    border-radius: 2px;
+    font-size: 1rem;
+  }
+  
+  .amount .inc:hover {
+    cursor: pointer;
+  }
+  
+  .Citem button {
+    width: 2rem;
+    height: 10px;
+    font-size: 1rem;
     display: flex;
     justify-content: center;
     align-items: center;
+    border: none;
+    background-color: transparent;
+    color: black;
+    font-weight: 600;
+  }
+  
+  .Citem button i {
+    font-size: 1.2rem;
+  }
+  
+  .Total {
+    width: 70%;
+    height: fit-content;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.346), 0 3px 6px rgba(0, 0, 0, 0.401);
+    margin-bottom: 10px;
+    padding: 1rem;
+  }
+  
+  .orderBtn {
+    width: 60%;
+    height: 2.5rem;
+    border-radius: 10px;
+    background-color: #797980;
+    color: white;
+    font-size: 1rem;
+    font-weight: 600;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .data {
+    width: 100%;
+    display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 1rem;
-}
-@media  screen and (min-width: 704px) {
-    .Citem .amount {
-        flex-direction: row;
-        width: 7rem;
-        gap: 0.2rem;
-        justify-content: space-between;
-        align-items: center;
+  }
+  
+  /* === Medium Devices (700px–1024px) === */
+  @media screen and (min-width: 700px)  {
+    .Citem {
+      width: 85%;
+      
     }
 
+    .Citem .itemData img {
+      width: 6rem;
+      height: 3.5rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #fff;
+    }
+
+    .Citem .actions{
+      flex-direction: row;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .Citem i{
+      width: 2rem;
+      height: 2rem;
+      font-size: 1.3rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: none;
+      background-color: transparent;
+      color: black;
+      font-weight: 600;
+      margin-top: 5px;
+    }
+
+    .Citem i:hover{
+      cursor: pointer;
+    }
+  
+    .Citem .amount {
+      width: 6rem;
+      flex-direction: row;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+  
     .amount p {
-        font-size: 1.2rem;
-        font-weight: 600;
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+  
+    .Citem .amount .inc {
+      width: 1.5rem;
+      padding: 0.4rem;
+      font-size: 1rem;
+    }
+  
+    .orderBtn {
+      width: 50%;
+      height: 2.8rem;
+      font-size: 1.3rem;
+    }
+  
+    .Total {
+      width: 60%;
+      flex-direction: column;
+      margin-bottom: 10px;
+      padding: 1rem;
+      gap: 1.5rem;
+      background-color: #fff;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.346), 0 3px 6px rgba(0, 0, 0, 0.401);
+      border-radius: 10px;
+    }
+  
+    .Total p {
+      font-size: 1rem;
+      font-weight: 600;
+    }
+  
+    .data {
+      gap: 2rem;
+    }
+  
+    .wrap {
+      gap: 4rem;
+      font-size: 1.3rem;
+    }
+  }
+  
+  /* === Large Devices (≥1024px) === */
+  @media screen and (min-width: 1024px) {
+
+    .Citem .itemData img {
+      width: 6rem;
+      height: 3.5rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #fff;
+    }
+
+    .Citem .amount {
+      width: 8rem;
+      gap: 1rem;
+      flex-direction: row;
     }
 
     .Citem .amount .inc {
-        width: 1rem;
-        font-size: 1rem;
-        padding: 0.5rem;
-        font-weight: 600;
+      width: 2rem;
+      padding: 0.5rem;
+      font-size: 1.2rem;
     }
-
+  
     .orderBtn {
-        width: 40%;
-        height: 3rem;
+      width: 30%;
+      height: 3rem;
+      margin-top: 8rem;
     }
-
-}
-
-@media  screen and (min-width: 1024px) {
-    .Citem .amount{
-        width: 8rem;
-        gap: 1rem;
-    }
-    .orderBtn {
-        width: 30%;
-        height: 3rem;
-        margin-top: 8rem;
-    }
-
+  
     .Total {
-        background-color: #EBEBEB;
-        padding: 1rem;
-        height: fit-content;
-        gap: 2rem;
-        border-radius: 10px;
-        width: 40%;
-        flex-direction: column;
-        margin: 0 2rem 0 0rem;     
+      background-color: #fff;
+      padding: 1rem;
+      gap: 2rem;
+      border-radius: 4px;
+      width: 40%;
+      flex-direction: column;
+      margin-right: 2rem;
     }
-
+  
     .data {
-        flex-direction: row;
-        justify-content: space-between;
-        width: 100%;
-        align-items: start;
-        gap: 1rem;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: flex-start;
+      width: 100%;
     }
-
-    .Citem {
-        width: 80%;
-    }
-
+  
     .wrap {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-        gap: 8rem;
-        font-size: 1.5rem;
-        font-weight: 500;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: fit-content;
+      gap: 8rem;
+      font-size: 1.5rem;
+      font-weight: 500;
     }
-
+  
     .Total p {
-        font-size: 1.5rem;
-        font-weight: 600;
+      font-size: 1rem;
+      font-weight: 600;
     }
-}
+  }
+  
+  /* === Extra Large Devices (1440px–1880px) === */
+  @media screen and (min-width: 1440px) and (max-width: 1880px) {
+    .Citem {
+      width: 70%;
+      padding: 0.5rem;
+    }
+  
+    .Citem img {
+      width: 3.5rem;
+      height: 2.5rem;
+    }
+  
+    .Citem .amount {
+      width: 9rem;
+      gap: 1.5rem;
+    }
+  
+    .Citem .amount .inc {
+      font-size: 1.2rem;
+      padding: 0.6rem;
+    }
+  
+    .amount p {
+      font-size: 1.3rem;
+    }
+  
+    .orderBtn {
+      width: 25%;
+      font-size: 1.6rem;
+      height: 3.5rem;
+    }
+  
+    .Total {
+      width: 35%;
+      padding: 2rem;
+      gap: 2rem;
+    }
+  
+    .Total p {
+      font-size: 1.6rem;
+    }
+  
+    .wrap {
+      gap: 10rem;
+      font-size: 1.6rem;
+    }
+  }
+  

@@ -1,4 +1,5 @@
 
+/* === General Layout === */
 .container {
     display: flex;
     flex-direction: column;
@@ -6,10 +7,22 @@
     align-items: center;
     overflow-x: hidden;
     gap: 1rem;
-
+    margin-top: 2rem;
 }
 
+hr {
+    margin: 1.5rem 0;
+    width: 60%;
+    color: grey;
+}
 
+/* === Input Fields === */
+input {
+    width: 70%;
+    height: 100%;
+}
+
+/* === Search Section === */
 .search {
     margin: 1.5rem 0;
     display: flex;
@@ -20,53 +33,24 @@
     width: 100%;
 }
 
-hr {
-    margin: 1.5rem 0;
-    width: 60%;
-    color: grey;
-}
-
-input {
-    width: 70%; 
-    height: 100%; 
-}
-
-
-
-
-
 .search .choises {
     display: flex;
-    text-align: center;
     flex-direction: column;
-    gap: 1.5rem;
     justify-content: center;
     align-items: center;
+    text-align: center;
+    gap: 1.5rem;
     width: 100%;
 }
 
-.ser {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    margin: 0.5rem 0;
-    padding: 0.6rem 0.5rem;
-    border-bottom: 1px solid #000000;
-    width: 80%;
-    font-size: 1rem;
-    
-}
-
-
 .search .choises input {
     width: 85%;
-   
 }
 
 .search .choises select {
     width: 65%;
+    border: 1.5px solid #000;
     border-radius: 8px;
-    border: 1.5px solid #000000;
     font-size: 1rem;
     padding: 0.3rem 0.5rem;
     background-color: #fff;
@@ -80,76 +64,180 @@ input {
     width: 90%;
 }
 
+/* === Search Entry === */
+.ser {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 0.5rem 0;
+    padding: 0.6rem 0.5rem;
+    border-bottom: 1px solid #000;
+    width: 80%;
+    font-size: 1rem;
+}
 
-
-
-
+/* === Result Section === */
 .result {
     width: 100%;
+    height: 100%;
     display: flex;
     flex-wrap: wrap;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
-    margin: 2rem 0;
     gap: 2rem;
-    height: 100%;
+    margin: 2rem 0;
 }
 
 .result .txt {
-    font-size: 2rem;
+    font-size: 1.4rem;
 }
 
-@media  screen and (min-width: 1024px) {
-    
-    h3 {
+
+
+@media screen and (min-width: 700px) and (max-width: 1024px) {
+    h1 {
         font-size: 1.5rem;
     }
-    h1 {
-        font-size: 2rem;
+
+    h3 {
+        font-size: 1.3rem;
     }
+
     .search {
         flex-direction: row;
+        flex-wrap: wrap;
+        align-items: flex-start;
+        justify-content: center;
+        gap: 2rem;
+        padding: 0 1.5rem;
+    }
+
+    .search .choises {
+        width: 50%;
+        padding: 1.5rem 0;
+        margin: 1.5rem 2rem;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+        gap: 2rem;
+    }
+
+    .search .choises .Slc {
+        flex-direction: column;
+        width: 100%;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .search .Slc select,
+    .search .Slc input {
+        width: 80%;
+    }
+
+    .result {
+        gap: 1.5rem;
+        margin: 1.5rem 0;
+    }
+
+    .result .txt {
+        font-size: 1.5rem;
+        text-align: center;
+    }
+
+    .ser {
+        width: 85%;
+        font-size: 0.95rem;
+    }
+}
+
+
+/* === Responsive Styles (≥ 1024px) === */
+@media screen and (min-width: 1024px) {
+    h1 {
+        font-size: 1.6rem;
+    }
+
+    h3 {
+        font-size: 1.3rem;
+    }
+
+    .search {
+        flex-direction: row;
+        align-items: flex-start;
         padding: 0 2rem;
         position: relative;
-        align-items: normal ;
     }
 
     .search .choises {
         width: 40%;
-        position: sticky;
-        flex-direction: column;
-        gap: 3rem;
         height: fit-content;
-        box-shadow: 0px 4px 8px  rgba(0, 0, 0, 0.25);
-        justify-content: left;
+        flex-direction: column;
+        justify-content: flex-start;
         align-items: center;
+        gap: 3rem;
         padding: 2rem 0;
         margin: 2rem 4rem;
+        position: sticky;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
     }
 
-    .search .choises .Slc{
+    .search .choises .Slc {
         flex-direction: column;
-        width: 100%;
         align-items: center;
         justify-content: center;
         gap: 1rem;
+        width: 100%;
+    }
+
+    .search .Slc select,
+    .search .Slc input {
+        width: 70%;
     }
 
     .search .Slc select {
-        width: 70%;
         height: 2.8rem;
-    }
-    .search .Slc input {
-        width: 70%;
     }
 
     .result {
         justify-content: space-between;
     }
 
-    .result h1 {
-        font-size: 2rem;
     
+}
+
+@media screen and (min-width: 1440px) and (max-width: 1880px) {
+    h1 {
+        font-size: 2rem;
+    }
+
+    h3 {
+        font-size: 1.2rem;
+    }
+
+    .search {
+        padding: 0 4rem;
+    }
+
+    .search .choises {
+        width: 30%;
+        margin: 2rem 5rem;
+        gap: 4rem;
+    }
+
+    .search .choises .Slc {
+        gap: 1.5rem;
+    }
+
+    .search .Slc select,
+    .search .Slc input {
+        width: 80%;
+    }
+
+    .result .txt {
+        font-size: 1.2rem;
+    }
+
+    .ser {
+        font-size: 1.25rem;
+        width: 70%;
     }
 }

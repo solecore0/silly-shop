@@ -1,7 +1,7 @@
 // src/redux/productSlice.js
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import api from "../utils/api";
-import toast from "react-hot-toast";
+import { toast }from 'react-toastify';
 
 // Async thunks for fetching data from backend
 export const fetchProductInfo = createAsyncThunk(
@@ -19,9 +19,9 @@ export const fetchProductInfo = createAsyncThunk(
 
 export const fetchProductSearch = createAsyncThunk(
   "product/fetchProductSearch",
-  async (query, { rejectWithValue }) => {
+  async (tableData ,{rejectWithValue } ) => {
     try {
-      const response = await api.get(`/product/find?name=${query}`);
+      const response = await api.get(`/product/find?query=${tableData.query}&sort=${tableData.sort}&category=${tableData.category}&price=${tableData.price}`);
       return response.data.products;
     } catch (error) {
       toast.error(error.response?.data?.message || "Search failed");
@@ -37,7 +37,7 @@ export const fetchProductId = createAsyncThunk(
       const response = await api.get(`/product/${id}`);
       return response.data.product;
     } catch (error) {
-      toast.error(
+      toast(
         error.response?.data?.message || "Failed to fetch product details"
       );
       return rejectWithValue(error.response?.data?.message);
@@ -81,6 +81,7 @@ export const createProduct = createAsyncThunk(
           "Content-Type": "multipart/form-data",
         },
       });
+      toast.success("Product created successfully");
       return response.data.product;
     } catch (error) {
       return rejectWithValue(error.response.data.message);
@@ -96,10 +97,15 @@ const productSlice = createSlice({
     productId: [],
     categories: [],
     allProducts: [],
+    query: "",
     status: "idle",
     error: null,
   },
-  reducers: {},
+  reducers: {
+    setQuery: (state, action) => {
+      state.query = action.payload;
+    }
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchProductInfo.fulfilled, (state, action) => {
@@ -137,5 +143,7 @@ const productSlice = createSlice({
       );
   },
 });
+
+export const { setQuery } = productSlice.actions;
 
 export default productSlice.reducer;

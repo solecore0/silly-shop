@@ -10,12 +10,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { setScreenWidth } from "./redux/uiSlice";
 import { fetchProductInfo } from "./redux/product";
 import Cookies from "js-cookie";
-import toast, { Toaster } from "react-hot-toast";
+import { ToastContainer, toast } from "react-toastify";
 
 // css
 import "./App.css";
 import "./css/tablet.css";
 import "./css/laptop.css";
+import "./css/desktop.css";
 
 // components
 import Navbar from "./components/Navbar";
@@ -42,7 +43,6 @@ const PieChart = lazy(() => import("./pages/admin/charts/PieCharts"));
 const BarChart = lazy(() => import("./pages/admin/charts/BarCharts"));
 const Coupon = lazy(() => import("./pages/admin/apps/coupon"));
 const Stopwatch = lazy(() => import("./pages/admin/apps/stopwatch"));
-const Toss = lazy(() => import("./pages/admin/apps/toss"));
 const AddProduct = lazy(() => import("./pages/admin/AddProduct"));
 
 // Private Route Component
@@ -90,9 +90,10 @@ function App() {
     // Check for authentication token
 
     const token = localStorage.getItem("token");
-
+    console.log(token);
     if (token) {
       // prevent future runs
+
       dispatch(loadUser());
     }
 
@@ -105,28 +106,19 @@ function App() {
   return (
     <Router>
       <Navbar />
-      <Toaster
+      <ToastContainer
         position="top-right"
-        toastOptions={{
-          duration: 1500,
-          style: {
-            background: "#333",
-            color: "#fff",
-          },
-          // Add close button configuration
-          success: {
-            duration: 3000,
-            icon: "✅",
-            className: "toast-success",
-          },
-          error: {
-            duration: 4000,
-            icon: "❌",
-            className: "toast-error",
-          },
-          // Enable close button for all toasts
-          closeButton: true,
-        }}
+        autoClose={2000}
+        hideProgressBar={true}
+        newestOnTop={false}
+        closeOnClick={true} 
+        closeButton={false} 
+        rtl={false}
+        pauseOnFocusLoss
+        pauseOnHover
+        theme="light"
+        limit={3}
+        style={{ zIndex: "9999", top: "60px" }}
       />
       <Suspense fallback={<Loader />}>
         <Routes>
@@ -193,10 +185,6 @@ function App() {
             element={
               <PrivateRoute adminRequired={true} element={<Stopwatch />} />
             }
-          />
-          <Route
-            path="/admin/app/toss"
-            element={<PrivateRoute adminRequired={true} element={<Toss />} />}
           />
           <Route
             path="/admin/AddProduct"

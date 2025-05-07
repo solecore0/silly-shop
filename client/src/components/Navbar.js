@@ -3,11 +3,12 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { toggleNav, toggleoffAdmin, toggleonAdmin } from "../redux/adminNav";
-import { fetchProductSearch } from "../redux/product";
+import { setQuery } from "../redux/product";
 import { logout } from "../redux/user";
 import { current } from "@reduxjs/toolkit";
 
 function Navbar() {
+
   const dispatch = useDispatch();
   const location = useLocation();
 
@@ -23,9 +24,16 @@ function Navbar() {
 
   const admin = useSelector((state) => state.adminNav.admin);
 
-  const [query, setQuery] = useState("");
+  const query = useSelector((state) => state.product.query);
 
   const navigate = useNavigate();
+
+useEffect(() => {
+  setOpenNav(false);
+  setOpenUsr(false);
+}, [location.pathname]);
+
+
 
   const toggleNavigation = () => {
     if (t === a) {
@@ -67,8 +75,6 @@ function Navbar() {
   };
 
   useEffect(() => {
-    window.scrollTo(0, 0);
-    dispatch(fetchProductSearch(query));
     if (location.pathname.includes("admin")) {
       dispatch(toggleonAdmin());
     } else {
@@ -84,12 +90,17 @@ function Navbar() {
     return (
       <>
         <div className="navbar">
-          <h1>Silly-Shop</h1>
+          <h1
+            onClick={() => {
+              navigate("/");
+            }}>
+            Silly-Shop
+          </h1>
           <div className="links">
             <ul>
               <li>
                 <Link to="/">
-                  <i className="fa-solid fa-house"></i>
+                  <i className="fa-solid fa-home"></i>
                 </Link>
               </li>
               <li>
@@ -130,16 +141,16 @@ function Navbar() {
         {openUsr ? (
           <div className={`Tlinks`}>
             <ul>
-              <li>
-                <Link to="/order">Orders</Link>
-              </li>
               {user?.role === "admin" && (
                 <li>
                   <Link to="/admin/dashboard">Admin</Link>
                 </li>
               )}
               <li>
-                <a>Log-Out</a>
+                <Link to="/order">Orders</Link>
+              </li>
+              <li>
+                <a onClick={logOut}>Log Off</a>
               </li>
             </ul>
           </div>
@@ -149,8 +160,15 @@ function Navbar() {
   } else if (screenWidth > 1000) {
     return (
       <>
-        <div className="navbar">
-          <h1>Silly-Shop</h1>
+        <div className="navbar" id={admin ? "adminNavbar" : ""}>
+          <div>
+            <h1
+              onClick={() => {
+                navigate("/");
+              }}>
+              Silly-Shop
+            </h1>
+          </div>
           <div className="ser">
             <i className="fa-solid fa-magnifying-glass"></i>
             <input
@@ -160,7 +178,11 @@ function Navbar() {
               type="text"
               value={query}
               onChange={(e) => {
-                setQuery(e.target.value);
+                if (e.target.value === undefined) {
+                  dispatch(setQuery(""));
+                  return;
+                }
+                dispatch(setQuery(e.target.value));
               }}
               placeholder="Search by name..."
             />
@@ -169,7 +191,7 @@ function Navbar() {
             <ul>
               <li>
                 <Link to="/">
-                  <i className="fa-solid fa-house"></i>
+                  <i className="fa-solid fa-home"></i>
                 </Link>
               </li>
               <li>
@@ -203,7 +225,7 @@ function Navbar() {
                 </li>
               )}
               <li>
-                <a onClick={logOut}>Log-Out</a>
+                <a onClick={logOut}>Log Off</a>
               </li>
             </ul>
           </div>
@@ -216,7 +238,12 @@ function Navbar() {
         <div className="navbar">
           <div className="head">
             <i className={`fa-solid ${t}`} onClick={toggleNavigation}></i>
-            <h1>Silly-Shop</h1>
+            <h1
+              onClick={() => {
+                navigate("/");
+              }}>
+              Silly-Shop
+            </h1>
           </div>
           <div className="Adm">
             {user ? (
@@ -241,9 +268,6 @@ function Navbar() {
           <div className={`links`}>
             <ul>
               <li>
-                <Link to="/">Home</Link>
-              </li>
-              <li>
                 <Link to="/cart">Cart</Link>
               </li>
               <li>
@@ -253,18 +277,18 @@ function Navbar() {
           </div>
         ) : null}
         {openUsr ? (
-          <div className={`links`}>
+          <div className={`Llinks`}>
             <ul>
-              <li>
-                <Link to="/order">Orders</Link>
-              </li>
               {user?.role === "admin" && (
                 <li>
                   <Link to="/admin/dashboard">Admin</Link>
                 </li>
               )}
               <li>
-                <a>Log-Out</a>
+                <Link to="/order">Orders</Link>
+              </li>
+              <li>
+                <a onClick={logOut}>Log Off</a>
               </li>
             </ul>
           </div>

@@ -65,7 +65,7 @@ const Products = () => {
           <h3>PRODUCTS</h3>
           <button>
             <Link to="/admin/Addproduct">
-              <i className="fa-solid fa-plus"></i>
+              <i style={{color:"white",display:"flex",alignItems:"center"}} className="fa-solid fa-plus"></i>
             </Link>
           </button>
         </div>
@@ -77,7 +77,7 @@ const Products = () => {
             CCN={"admin-product-table"}
           />
         ) : (
-          <p>No Products</p>
+          <div className="flex items-center justify-center"><p>No Products</p></div>
         )}
       </main>
     </div>
