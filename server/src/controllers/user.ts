@@ -160,13 +160,12 @@ export const refreshAccessToken = TryCatch(async (req, res) => {
   await user.save();
 
   // Set new refresh token cookie
-  res.cookie("refreshToken", newRefreshToken, {
-    httpOnly: true,
-    expires: new Date(Date.now() + refreshTokenExpire * 24 * 60 * 60 * 1000),
-  });
-
-  // Return new access token
-  res.json({ accessToken: newAccessToken });
+  res
+    .cookie("refreshToken", newRefreshToken, {
+      httpOnly: true,
+      expires: new Date(Date.now() + refreshTokenExpire * 24 * 60 * 60 * 1000),
+    })
+    .json({ accessToken: newAccessToken });
 });
 
 export const getUserInfo = TryCatch(async (req, res, next) => {

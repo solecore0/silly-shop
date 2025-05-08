@@ -3,13 +3,14 @@ import { setupAxiosInterceptors } from "./tokenRefresh";
 import config from "../config";
 
 const api = axios.create({
-  baseURL: config.API_URL,
+  baseURL: config.API_URL || "http://localhost:4000/api/v1",
+  withCredentials: true,
   headers: {
     "Content-Type": "application/json",
+    Accept: "application/json",
   },
 });
 
-// Add a request interceptor to add the token to all requests
 api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem("token");
@@ -23,7 +24,6 @@ api.interceptors.request.use(
   }
 );
 
-// Setup refresh token interceptors
 setupAxiosInterceptors(api);
 
 export default api;

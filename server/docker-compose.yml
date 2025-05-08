@@ -14,6 +14,7 @@ services:
       - REFRESH_JWT_SECRET=${REFRESH_JWT_SECRET:-thisismy__________________refreshSECRET789456123}
       - REFRESH_TOKEN_EXPIRE=${REFRESH_TOKEN_EXPIRE:-7d}
       - REDIS_URL=redis://redis:6379
+      - CLIENT_URL=${CLIENT_URL:-http://localhost:3000}
     depends_on:
       mongodb:
         condition: service_healthy
