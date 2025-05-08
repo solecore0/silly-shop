@@ -11,11 +11,31 @@ config({ path: "./.env" });
 
 const port: number = Number(process.env.PORT) || 4000;
 const mongoURI: string = process.env.MONGO_URI || "";
+const clientURL: string = process.env.CLIENT_URL || "http://localhost:3000";
 
 const app = express();
 
-// AlLowing CORS
-app.use(cors());
+// CORS configuration - must be before any other middleware
+const corsOptions = {
+  origin: clientURL,
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
+  allowedHeaders: [
+    "Content-Type",
+    "Authorization",
+    "Accept",
+    "Origin",
+    "X-Requested-With",
+  ],
+  exposedHeaders: ["Set-Cookie"],
+  preflightContinue: false,
+  optionsSuccessStatus: 204,
+};
+
+app.use(cors(corsOptions));
+
+// Handle preflight requests
+app.options("*", cors(corsOptions));
 
 // Middleware
 app.use(express.json());

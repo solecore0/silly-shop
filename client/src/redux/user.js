@@ -63,12 +63,18 @@ export const loadUser = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const response = await api.get("/user/me");
-
+      if (response.data.success === false) {
+        console.error(response.data.message || "Failed to load user");
+      }
       return response.data;
     } catch (error) {
-      // Show error toast
-      toast.error(error.response.data.message || "Failed to load user data");
-      return rejectWithValue(error.response.data.message);
+      localStorage.removeItem("token"); // Clear token on auth failure
+      console.error(
+        error.response?.data?.message || "Failed to load user data"
+      );
+      return rejectWithValue(
+        error.response?.data?.message || "Failed to load user data"
+      );
     }
   }
 );
@@ -139,10 +145,14 @@ const userSlice = createSlice({
         state.loading = false;
         state.user = action.payload.user;
         state.token = localStorage.getItem("token");
+        state.error = null;
       })
       .addCase(loadUser.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
+        state.user = null;
+        state.token = null;
+        localStorage.removeItem("token");
       });
   },
 });
