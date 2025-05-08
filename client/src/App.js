@@ -1,4 +1,4 @@
-import React, { lazy, Suspense, useEffect, useRef } from "react";
+import React, { lazy, Suspense, useEffect, useRef, useState } from "react";
 
 import {
   BrowserRouter as Router,
@@ -74,9 +74,7 @@ const PrivateRoute = ({ element, adminRequired = false }) => {
 
 function App() {
   const dispatch = useDispatch();
-
-  const hasFetchedUser = useRef(false);
-
+  const [isLoading, setIsLoading] = useState(true);
   const user = useSelector((state) => state.user.user);
 
   useEffect(() => {
@@ -89,20 +87,29 @@ function App() {
     handleResize(); // Initial dispatch
 
     // Check for authentication token
+    const initializeAuth = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        if (token) {
+          await dispatch(loadUser()).unwrap();
+        }
+      } catch (error) {
+        console.error("Auth initialization failed:", error);
+        localStorage.removeItem("token"); // Clear invalid token
+      } finally {
+        setIsLoading(false); // Always set loading to false
+      }
+    };
 
-    const token = localStorage.getItem("token");
-    console.log(token);
-    if (token) {
-      // prevent future runs
-
-      dispatch(loadUser());
-    }
-
-    // Load initial data
+    initializeAuth();
     dispatch(fetchProductInfo());
 
     return () => window.removeEventListener("resize", handleResize);
   }, [dispatch]);
+
+  if (isLoading) {
+    return <Loader />;
+  }
 
   return (
     <Router>
@@ -112,8 +119,8 @@ function App() {
         autoClose={2000}
         hideProgressBar={true}
         newestOnTop={false}
-        closeOnClick={true} 
-        closeButton={false} 
+        closeOnClick={true}
+        closeButton={false}
         rtl={false}
         pauseOnFocusLoss
         pauseOnHover

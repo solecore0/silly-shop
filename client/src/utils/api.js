@@ -1,4 +1,5 @@
 import axios from "axios";
+import { setupAxiosInterceptors } from "./tokenRefresh";
 import config from "../config";
 
 const api = axios.create({
@@ -8,11 +9,7 @@ const api = axios.create({
   },
 });
 
-// eslint-disable-next-line import/first
-import { setupAxiosInterceptors } from "./tokenRefresh";
-setupAxiosInterceptors(api);
-
-// This interceptor adds the authentication token automatically to every request
+// Add a request interceptor to add the token to all requests
 api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem("token");
@@ -25,5 +22,8 @@ api.interceptors.request.use(
     return Promise.reject(error);
   }
 );
+
+// Setup refresh token interceptors
+setupAxiosInterceptors(api);
 
 export default api;
