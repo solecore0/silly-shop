@@ -12,12 +12,9 @@ const Customer = () => {
   const dispatch = useDispatch();
   const { allUsers , status ,  } = useSelector((state) => state.user);
 
-  console.log(allUsers);
-
   const deleteAction = async(userId) => {
     try {
       await dispatch(deleteUser(userId));
-      await toast.success("User deleted successfully!");
       window.location.reload(); 
     } catch (error) {
       console.error(error);
