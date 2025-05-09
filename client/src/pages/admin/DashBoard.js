@@ -53,6 +53,14 @@ useEffect(() => {
 console.log(dashData.categories)
 console.log(data.categories)
 
+const formattedCategories = dashData?.categories?.map((item) => {
+  const [key, value] = Object.entries(item)[0];
+  return {
+    heading: key,
+    value: value,
+  };
+});
+
 
 
   return (
@@ -79,14 +87,14 @@ console.log(data.categories)
             <h2 style={{marginBottom:"2rem" }}>Inventory</h2>
 
             <div className='categories'>
-              {data.categories.map((i) => (
+              {dashData?.categories ? (formattedCategories.map((i) => (
                 <CategoryItem
                   key={i.heading}
                   value={i.value}
                   heading={i.heading}
                   color={`hsl(${i.value * 4}, ${i.value}%, 50%)`}
                 />
-              ))}
+              ))):""}
             </div>
           </div>
 
@@ -122,9 +130,10 @@ console.log(data.categories)
 
 
 const CategoryItem = ({ color, value, heading }) => (
-  <div className="category-item">
-    <h3 >{heading}</h3>
-    <div className='progress '>
+  <div className="category-item" >
+    <h3 style={{width:"31%" , fontSize:"1rem" , display:"flex" , flexWrap:"wrap"}}>{heading}:</h3>
+    <div>
+      <div className='progress ' >
       <div
         style={{
           backgroundColor: color,
@@ -134,6 +143,7 @@ const CategoryItem = ({ color, value, heading }) => (
       ></div>
     </div>
     <span>{value}%</span>
+    </div>  
   </div>
 );
 

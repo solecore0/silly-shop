@@ -64,6 +64,12 @@ i {
   margin-top: 5rem;
 }
 
+.category-item div {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
 button {
   width: 75%;
   height: 2.5rem;
