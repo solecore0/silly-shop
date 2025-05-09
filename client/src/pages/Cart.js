@@ -58,7 +58,7 @@ function Cart() {
         </div>
         {items.length > 0 && (
           <div className="Total">
-            <h2>Total</h2>
+            <h2>Recipt</h2>
             {screenWidth > 1024 && (
               <div className="items-summary">
                 {items.map((item) => (
@@ -69,7 +69,7 @@ function Cart() {
                 ))}
               </div>
             )}
-            <p>${total}</p>
+            <p> Total:${total}</p>
           </div>
         )}
       </div>

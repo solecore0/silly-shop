@@ -1,110 +1,97 @@
-import React, { useState } from 'react'
-import AdminSidebar from '../../components/admin/AdminSidebar'
-import Table from '../../components/admin/Table'
-
-
+import React, { useState, useEffect } from "react";
+import AdminSidebar from "../../components/admin/AdminSidebar";
+import Table from "../../components/admin/Table";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchAllUsers } from "../../redux/user";
+import config from "../../config";
+import Loader from "../../components/Loader";
 
 const Customer = () => {
+  const dispatch = useDispatch();
+  const { allUsers , status } = useSelector((state) => state.user);
 
-    const columns = [
-      {
-        id: "avatar",
-        header: "Avatar",
-        accessorKey: "avatar",
-        cell: ({ getValue }) => getValue(),
-      },
-      {
-        id: "name",
-        header: "Name",
-        accessorKey: "name",
-      },
-      {
-        id: "gender",
-        header: "Gender",
-        accessorKey: "gender",
-      },
-      {
-        id: "email",
-        header: "Email",
-        accessorKey: "email",
-      },
-      {
-        id: "role",
-        header: "Role",
-        accessorKey: "role",
-      },
-      {
-        id: "action",
-        header: "Action",
-        accessorKey: "action",
-        cell: ({ getValue }) => getValue(),
-      },
-      ];
-      
-      const img = "https://randomuser.me/api/portraits/women/54.jpg";
-      const img2 = "https://randomuser.me/api/portraits/women/50.jpg";
+  console.log(allUsers);
 
-      const [rows] = useState([
-        {
-          avatar: (
-            <img
-              className='Cimg'
-              style={{
-                borderRadius: "50%",
-              }}
-              src={img}
-              alt="Shoes"
-            />
-          ),
-          name: "Emily Palmer",
-          email: "emily.palmer@example.com",
-          gender: "female",
-          role: "user",
-          action: (
-            <button className='trash'>
-              <i className='fa-solid fa-trash'></i>
-            </button>
-          ),
-        },
-      
-        {
-          avatar: (
-            <img
-            className='Cimg'
-              style={{
-                borderRadius: "50%",
-              }}
-              src={img2}
-              alt="Shoes"
-            />
-          ),
-          name: "May Scoot",
-          email: "aunt.may@example.com",
-          gender: "female",
-          role: "user",
-          action: (
-            <button className='trash'>
-              <i className='fa-solid fa-trash'></i>
-            </button>
-          ),
-        },
-      ]);
+  useEffect(() => {
+    dispatch(fetchAllUsers());
+  }, [dispatch]);
 
-      const data = React.useMemo(() => rows, [rows]);
+  const columns = [
+    {
+      id: "avatar",
+      header: "Avatar",
+      accessorKey: "avatar",
+      cell: ({ row }) => (
+        <img
+          className="Cimg avatar"
+          src={row.original.photo}
+          alt={row.original.name.slice(0, 1) || "Product"}
+        />
+        ),
+    },
+    {
+      id: "name",
+      header: "Name",
+      accessorKey: "name",
+      cell: ({ row }) => row.original.name || "N/A",
+    },
+    {
+      id: "gender",
+      header: "Gender",
+      accessorKey: "gender",
+      cell: ({ row }) => row.original.gender || "N/A",
+    },
+    {
+      id: "email",
+      header: "Email",
+      accessorKey: "email",
+      cell: ({ row }) => row.original.email || "N/A",
+    },
+    {
+      id: "role",
+      header: "Role",
+      accessorKey: "role",
+      cell: ({ row }) => row.original.role || "N/A",
+    },
+    {
+      id: "action",
+      header: "Action",
+      accessorKey: "action",
+      cell: ({ getValue }) => 
+        <button className="trash">
+          <i className="fa-solid fa-trash"></i>
+        </button>
+        ,
+    },
+  ];
 
-      const showPagination = false;
+
+  const showPagination = false;
+
+  if (status === "loading") return <Loader />;
 
   return (
     <div className="admin-container ">
-    <AdminSidebar />
-    <main>
-      <div>
-        <h3>PRODUCTS</h3>
-      </div>
-      <Table columns={columns} data={data}  showPagination={showPagination} CCN={"admin-customer-table"}/> 
-    </main>
-  </div>
-  )
-}
+      <AdminSidebar />
+      <main>
+        <div>
+          <h3>PRODUCTS</h3>
+        </div>
+        {allUsers && allUsers.length > 0 ? (
+          <Table
+            columns={columns}
+            data={allUsers}
+            showPagination={false}
+            CCN="admin-product-table"
+          />
+        ) : (
+          <div className="flex items-center justify-center">
+            <p>No users? why you not admin?</p>
+          </div>
+        )}
+      </main>
+    </div>
+  );
+};
 
-export default Customer
+export default Customer;

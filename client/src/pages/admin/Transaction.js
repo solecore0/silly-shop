@@ -71,7 +71,10 @@ const Transaction = () => {
     <div className="admin-container">
       <AdminSidebar />
       <main>
-        <h3>TRANSACTIONS</h3>
+        <div className="flex items-center justify-center">
+          <h3>TRANSACTIONS</h3>
+        </div>
+
         {allOrders && allOrders.length > 0 ? (
           <Table
             columns={columns}
@@ -80,7 +83,9 @@ const Transaction = () => {
             CCN="admin-transaction-table"
           />
         ) : (
-          <p>No transactions found</p>
+          <div className="flex items-center justify-center">
+            <p>No transactions found</p>
+          </div>
         )}
       </main>
     </div>

@@ -561,6 +561,8 @@
     gap: 1rem;
     max-width: 30rem;
     margin-bottom: 20rem;
+    height: fit-content;
+    overflow-y: hidden;
   }
 
   .coupon-form input,
@@ -568,12 +570,14 @@
     padding: 1rem;
     border: 1px solid rgba(0, 0, 0, 0.359);
     border-radius: 5px;
+    overflow-y: hidden;
   }
 
   .coupon-form fieldset {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     align-items: center;
+    overflow-y: hidden;
     grid-column: 1/3;
   }
 
