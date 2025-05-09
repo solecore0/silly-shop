@@ -34,13 +34,11 @@ const ProductInfo = () => {
         _id: data._id,
         name: data.name,
         price: data.price,
-        photo: data.photo,
+        photo: data.thumbnail,
         stock: data.stock,
         quantity: amount,
       })
     );
-
-    toast.success("Added to cart");
   };
 
   if (!data) return <div>Loading...</div>;
@@ -49,7 +47,7 @@ const ProductInfo = () => {
     <>
       <div className="Cmain">
         <div className="ProductImage">
-          <img src={`${config.UPLOADS_URL}${data.photo}`} alt={data.name} />
+          <img src={`${config.UPLOADS_URL}${data.thumbnail}`} alt={data.name} />
         </div>
         <div className="details">
           <h2>{data.name}</h2>

@@ -11,7 +11,7 @@ const CardItem = ({ item, removeItem, updateQuantity }) => {
   return (
     <div className="Citem">
       <div className="itemData">
-        <img src={item.img} alt="" />
+        <img src={item.img} alt={item.name} />
         <div className="names flex justify-between">
           <h2>{item.name}</h2>
           <p>{item.price}</p>
