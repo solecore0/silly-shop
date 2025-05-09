@@ -116,7 +116,6 @@ export const getProducts = TryCatch(
 );
 
 // Delete A Product
-
 export const deleteProduct = TryCatch(async (req, res, next) => {
   const id = req.params.id;
   const product = await Product.findById(id);
@@ -124,9 +123,17 @@ export const deleteProduct = TryCatch(async (req, res, next) => {
     return next(new ErrorHandler("Invalid ID", 404));
   }
 
-  rm(product.photo, () => {
-    console.log("File deleted");
+  // Delete thumbnail and all photos
+  rm(product.thumbnail, () => {
+    console.log("Thumbnail deleted");
   });
+
+  product.photos.forEach((photo) => {
+    rm(photo, () => {
+      console.log("Photo deleted");
+    });
+  });
+
   await product.deleteOne();
 
   await invalidateCache({
@@ -142,29 +149,53 @@ export const deleteProduct = TryCatch(async (req, res, next) => {
 });
 
 // Update A Product
-
 export const updateProduct = TryCatch(
   async (req: Request, res: Response, next: NextFunction) => {
     const id = req.params.id;
     const { name, price, category, stock, description } = req.body;
-    const photo = req.file;
+    const files = req.files as
+      | { [fieldname: string]: Express.Multer.File[] }
+      | undefined;
+
     const product = await Product.findById(id);
 
     if (!product) {
+      // Delete uploaded files if product not found
+      if (files) {
+        const allFiles = [...(files.thumbnail || []), ...(files.photos || [])];
+        allFiles.forEach((file) => {
+          rm(file.path, () => {
+            console.log("File deleted");
+          });
+        });
+      }
       return next(new ErrorHandler("Invalid ID", 404));
     }
 
-    if (photo) {
-      rm(product.photo, () => {
-        console.log("File deleted");
-        product.photo = photo.path;
-      });
+    if (files) {
+      if (files.thumbnail) {
+        // Delete old thumbnail
+        rm(product.thumbnail, () => {
+          console.log("Old thumbnail deleted");
+        });
+        product.thumbnail = files.thumbnail[0].path;
+      }
+
+      if (files.photos) {
+        // Delete old photos
+        product.photos.forEach((photo) => {
+          rm(photo, () => {
+            console.log("Old photo deleted");
+          });
+        });
+        product.photos = files.photos.map((file) => file.path);
+      }
     }
 
     if (name) product.name = name;
     if (price) product.price = price;
     if (category) product.category = category;
-    if (stock) product.name = stock;
+    if (stock) product.stock = stock;
     if (description) product.description = description;
 
     await product.save();
@@ -179,7 +210,6 @@ export const updateProduct = TryCatch(
 );
 
 // Create A New Product
-
 export const createProduct = TryCatch(
   async (
     req: Request<{}, {}, NewProductRequestBody>,
@@ -187,20 +217,24 @@ export const createProduct = TryCatch(
     next: NextFunction
   ) => {
     const { name, price, category, stock, description } = req.body;
+    const files = req.files as { [fieldname: string]: Express.Multer.File[] };
 
-    const photo = req.file;
-
-    if (!photo) {
+    if (!files.thumbnail || !files.photos) {
       return res.status(400).json({
         success: false,
-        message: "Please provide product photo",
+        message: "Please provide both thumbnail and photos",
       });
     }
 
     if (!name || !price || !category || !stock || !description) {
-      rm(photo.path, () => {
-        console.log("File deleted");
+      // Delete uploaded files if validation fails
+      const allFiles = [...files.thumbnail, ...files.photos];
+      allFiles.forEach((file) => {
+        rm(file.path, () => {
+          console.log("File deleted");
+        });
       });
+
       return res.status(400).json({
         success: false,
         message: "Please provide all required fields",
@@ -211,7 +245,8 @@ export const createProduct = TryCatch(
       name,
       price,
       description,
-      photo: photo.path,
+      thumbnail: files.thumbnail[0].path,
+      photos: files.photos.map((file) => file.path),
       category: category.toLowerCase(),
       stock,
     });

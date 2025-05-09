@@ -17,6 +17,8 @@ export interface NewProductRequestBody {
   category: string;
   stock: number;
   description: string;
+  thumbnail?: string;
+  photos?: string[];
 }
 
 export interface NewProductReviewRequestBody {
