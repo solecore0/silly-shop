@@ -50,7 +50,8 @@ useEffect(() => {
   dispatch(fetchDashData());
 }, [dispatch]);
 
-console.log(dashData)
+console.log(dashData.categories)
+console.log(data.categories)
 
 
 
