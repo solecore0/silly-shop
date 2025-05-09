@@ -99,6 +99,22 @@ export const fetchAllUsers = createAsyncThunk(
   }
 );
 
+export const deleteUser = createAsyncThunk(
+  "user/deleteUser",
+  async (userId, { rejectWithValue }) => {
+    try {
+      const response = await api.delete(`/user/${userId}`);
+      toast.success("User deleted successfully!");
+      return response.data;   
+    } catch (error) {
+      toast.error(error.response?.data?.message || "Failed to delete user");
+      return rejectWithValue(error.response?.data?.message);
+    }
+  }
+);
+
+
+
 const userSlice = createSlice({
   name: "user",
   initialState,
@@ -186,6 +202,11 @@ const userSlice = createSlice({
       .addCase(fetchAllUsers.rejected, (state, action) => {
         state.error = action.payload;
         state.status = "idle";
+      })
+      .addCase(deleteUser.fulfilled, (state, action) => {
+        state.allUsers = state.allUsers.filter(
+          (user) => user._id !== action.payload._id
+        );
       })
   },
 });

@@ -5,12 +5,24 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchAllUsers } from "../../redux/user";
 import config from "../../config";
 import Loader from "../../components/Loader";
+import { deleteUser } from "../../redux/user";
+import { toast } from "react-toastify";
 
 const Customer = () => {
   const dispatch = useDispatch();
-  const { allUsers , status } = useSelector((state) => state.user);
+  const { allUsers , status ,  } = useSelector((state) => state.user);
 
   console.log(allUsers);
+
+  const deleteAction = async(userId) => {
+    try {
+      await dispatch(deleteUser(userId));
+      toast.success("User deleted successfully!");
+      window.location.reload(); 
+    } catch (error) {
+      console.error(error);
+    } 
+  }
 
   useEffect(() => {
     dispatch(fetchAllUsers());
@@ -57,8 +69,8 @@ const Customer = () => {
       id: "action",
       header: "Action",
       accessorKey: "action",
-      cell: ({ getValue }) => 
-        <button className="trash">
+      cell: ({ row}) => 
+        <button className="trash" onClick={() => deleteAction(row.original._id)}>
           <i className="fa-solid fa-trash"></i>
         </button>
         ,
