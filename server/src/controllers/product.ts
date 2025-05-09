@@ -3,13 +3,17 @@ import { TryCatch } from "../middlewares/error.js";
 import Product from "../models/product.js";
 import {
   BaseQuery,
+  ExtendedRequest,
   NewProductRequestBody,
+  NewProductReviewRequestBody,
+  NewProductReviewRequestParams,
   SearchQuery,
 } from "../types/types.js";
 import { rm } from "fs";
 import ErrorHandler from "../utils/utility-class.js";
 import { invalidateCache } from "../utils/features.js";
 import { getCache, setCache } from "../services/redis.js";
+import User from "../models/user.js";
 
 export const getAllProducts = TryCatch(async (req, res, next) => {
   let products = await getCache("all-products");
@@ -29,7 +33,7 @@ export const getLatestProducts = TryCatch(async (req, res, next) => {
   let products = await getCache("latest-products");
 
   if (!products) {
-    products = await Product.find().sort({ createdAt: -1 }).limit(5);
+    products = await Product.find().sort({ createdAt: -1 }).limit(6);
     await setCache("latest-products", products);
   }
 
@@ -58,7 +62,7 @@ export const getProductDetails = TryCatch(async (req, res, next) => {
   let product = await getCache(`product-${id}`);
 
   if (!product) {
-    product = await Product.findById(id);
+    product = await Product.findById(id).select("+reviews");
 
     if (!product) {
       return next(new ErrorHandler("Invalid ID Or Product Not Found", 404));
@@ -142,7 +146,7 @@ export const deleteProduct = TryCatch(async (req, res, next) => {
 export const updateProduct = TryCatch(
   async (req: Request, res: Response, next: NextFunction) => {
     const id = req.params.id;
-    const { name, price, category, stock } = req.body;
+    const { name, price, category, stock, description } = req.body;
     const photo = req.file;
     const product = await Product.findById(id);
 
@@ -161,6 +165,7 @@ export const updateProduct = TryCatch(
     if (price) product.price = price;
     if (category) product.category = category;
     if (stock) product.name = stock;
+    if (description) product.description = description;
 
     await product.save();
 
@@ -181,7 +186,7 @@ export const createProduct = TryCatch(
     res: Response,
     next: NextFunction
   ) => {
-    const { name, price, category, stock } = req.body;
+    const { name, price, category, stock, description } = req.body;
 
     const photo = req.file;
 
@@ -192,7 +197,7 @@ export const createProduct = TryCatch(
       });
     }
 
-    if (!name || !price || !category || !stock) {
+    if (!name || !price || !category || !stock || !description) {
       rm(photo.path, () => {
         console.log("File deleted");
       });
@@ -205,6 +210,7 @@ export const createProduct = TryCatch(
     const product = await Product.create({
       name,
       price,
+      description,
       photo: photo.path,
       category: category.toLowerCase(),
       stock,
@@ -214,6 +220,73 @@ export const createProduct = TryCatch(
 
     return res.status(201).json({
       success: true,
+      product,
+    });
+  }
+);
+
+// Create, Update, Delete Product Review
+export const createProductReview = TryCatch(
+  async (
+    req: ExtendedRequest<{}, {}, NewProductReviewRequestBody>,
+    res: Response,
+    next: NextFunction
+  ) => {
+    const { rating, comment, productId } = req.body;
+
+    if (!rating || !comment) {
+      return next(new ErrorHandler("Please provide all fields", 400));
+    }
+
+    const user = await User.findById(req.user?._id);
+    if (!user) {
+      return next(new ErrorHandler("User not found", 404));
+    }
+
+    const product = await Product.findById(productId).select("+reviews");
+
+    if (!product) {
+      return next(new ErrorHandler("Invalid ID", 404));
+    }
+
+    const review = {
+      user: user._id,
+      name: user.name,
+      rating: Number(rating),
+      comment,
+    };
+
+    const isReviewed = product.reviews.find(
+      (rev) => rev.user.toString() === user._id.toString()
+    );
+
+    if (isReviewed) {
+      product.reviews.forEach((rev) => {
+        if (rev.user.toString() === user._id.toString()) {
+          rev.rating = rating;
+          rev.comment = comment;
+        }
+      });
+    } else {
+      product.reviews.push(review);
+      product.numOfReviews = product.reviews.length;
+    }
+
+    let avg = 0;
+
+    product.reviews.forEach((rev) => {
+      avg += rev.rating;
+    });
+
+    product.avgRating = avg / product.reviews.length;
+
+    await product.save();
+
+    await invalidateCache({ product: true, productIDs: String(product._id) });
+
+    return res.status(200).json({
+      success: true,
+      message: "Review Added Successfully",
       product,
     });
   }

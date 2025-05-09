@@ -13,6 +13,7 @@ import {
   getProducts,
   getProductDetails,
   updateProduct,
+  createProductReview,
 } from "../controllers/product.js";
 
 // Get Products By Searched Term or Filters - GET /api/v1/product
@@ -36,5 +37,8 @@ router
   .get(getProductDetails)
   .put(IsAuthorizedUser, adminOnly, singleUpload, updateProduct)
   .delete(IsAuthorizedUser, adminOnly, deleteProduct);
+
+// CREATE, UPDATE, DELETE Product Review - POST, PUT, DELETE /api/v1/:productID/review
+router.route("/review").post(IsAuthorizedUser, createProductReview);
 
 export default router;
