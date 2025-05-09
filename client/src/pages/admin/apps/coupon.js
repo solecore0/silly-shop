@@ -13,8 +13,14 @@ const Coupon = () => {
   const [includeSymbols, setIncludeSymbols] = useState(false);
   const [isCopied, setIsCopied] = useState(false);
   const [ammount, setAmmount] = useState(1);
-
   const [coupon, setCoupon] = useState("");
+
+  const handleAmmountChange = (e) => {
+    const value = Number(e.target.value);
+    if (value >= 1) {
+      setAmmount(value);
+    }
+  };
 
   const copyText = async (coupon) => {
     await window.navigator.clipboard.writeText(coupon);
@@ -56,7 +62,7 @@ const Coupon = () => {
           <form
             className="coupon-form"
             onSubmit={submitHandler}
-            style={{ gap: "2rem", height: "30rem ", marginBottom: "2rem" }}>
+            style={{  height: "30rem ", marginBottom: "2rem" }}>
             <input
               className="fir"
               type="text"
@@ -102,7 +108,9 @@ const Coupon = () => {
               />
               <span>Symbols</span>
             </fieldset>
-            <button type="submit">Generate</button>
+            <button type="submit" style={{ width: "100%", height: "3rem" }}>
+              Generate
+            </button>
           </form>
 
           {coupon && (
@@ -114,7 +122,7 @@ const Coupon = () => {
             </code>
           )}
         </section>
-        <section className="create-coupon">
+        <section className="create-coupon" style={{ height: "fit-content" }}>
           <h2 style={{ marginBottom: "2rem" }}>Create Coupon</h2>
           <form action="">
             <input
@@ -130,9 +138,11 @@ const Coupon = () => {
               type="number"
               value={`${ammount}`}
               style={{ width: "100%", height: "3rem" }}
-              onChange={(e) => setAmmount(e.target.value)}
+              onChange={(e) => handleAmmountChange(e)}
             />
-            <button type="submit">Create</button>
+            <button type="submit" style={{ width: "100%", height: "3rem" }}>
+              Create
+            </button>
           </form>
         </section>
       </main>
