@@ -18,7 +18,11 @@ export const getStats = TryCatch(async (req, res, next) => {
     const today = new Date();
 
     const thisMonthStart = new Date(today.getFullYear(), today.getMonth(), 1);
-    const lastMonthStart = new Date(today.getFullYear(), today.getMonth() - 1, 1);
+    const lastMonthStart = new Date(
+      today.getFullYear(),
+      today.getMonth() - 1,
+      1
+    );
     const lastMonthEnd = new Date(today.getFullYear(), today.getMonth(), 0);
 
     const sixMonthsAgo = new Date();
@@ -176,7 +180,7 @@ export const getStats = TryCatch(async (req, res, next) => {
       order: allOrders.length,
       product: productCount,
       user: userCount,
-      revenue: revenue,
+      revenue,
     };
 
     stats = {

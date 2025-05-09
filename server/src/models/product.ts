@@ -11,9 +11,13 @@ const productSchema = new mongoose.Schema(
       type: String,
       required: [true, "Please Enter Description"],
     },
-    photo: {
+    thumbnail: {
       type: String,
-      required: [true, "Please Provide Photo"],
+      required: [true, "Please Provide Thumbnail"],
+    },
+    photos: {
+      type: [String],
+      default: [],
     },
     price: {
       type: Number,
