@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import toast from "react-hot-toast";
+import {toast} from "react-toastify";
 
 // Load initial state from localStorage
 const loadState = () => {

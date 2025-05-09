@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import api from "../utils/api";
-import toast from "react-hot-toast";
+import {toast} from "react-toastify";
 
 
 export const createCupon = createAsyncThunk(
@@ -8,7 +8,7 @@ export const createCupon = createAsyncThunk(
     async (couponData, {  rejectWithValue }) => {
       try {
         const response = await api.post("/payment/coupon/new", couponData);
-        toast.success(response.data.message);
+        toast.success("Cupon created successfully!");
         return response.data;
       } catch (error) {
         toast.error(error.response?.data?.message || "Failed to create cupon");
@@ -22,7 +22,7 @@ export const createCupon = createAsyncThunk(
    async (_, { rejectWithValue }) => {
      try {
        const response = await api.get("/payment/coupon/all");
-       return response.data.cupons;
+       return response.data.coupons;
      } catch (error) {
        toast.error(
          error.response?.data?.message || "Failed to fetch all cupons"
@@ -80,6 +80,7 @@ const cuponSlice = createSlice({
       })
       .addCase(deleteCupon.fulfilled, (state, action) => {
         state.error = null;
+        state.cupons = state.cupons.filter((cupon) => cupon._id !== action.meta.arg);
       })
       .addCase(deleteCupon.rejected, (state, action) => {
         state.error = action.payload;

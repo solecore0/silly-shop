@@ -15,7 +15,7 @@ const allSymbols = "!@#$%^&*()_+";
 
 const Coupon = () => {
   const dispatch = useDispatch();
-  const { cupons } = useSelector((state) => state.coupon);
+  const { cupons, error } = useSelector((state) => state.coupon);
 
   useEffect(() => {
     dispatch(fetchAllCupons());
@@ -57,9 +57,9 @@ const Coupon = () => {
       toast.error("Please Generate Coupon First");
       return;
     }
-    dispatch(createCupon(couponData));
+    await dispatch(createCupon(couponData));
+    dispatch(fetchAllCupons());
   };
-
   const submitHandler = (e) => {
     e.preventDefault();
 
@@ -85,6 +85,37 @@ const Coupon = () => {
   useEffect(() => {
     setIsCopied(false);
   }, [coupon]);
+
+  const columns = [
+    {
+      id: "id",
+      header: "Id",
+      accessorKey: "_id",
+      cell: ({ row }) => row.original._id || "N/A",
+    },
+    {
+      id: "code",
+      header: "Code",
+      accessorKey: "code",
+      cell: ({ row }) => row.original.code || "N/A",
+    },
+    {
+      id: "amount",
+      header: "Amount",
+      accessorKey: "amount",
+      cell: ({ row }) => row.original.amount || "N/A",
+    },
+    {
+      id: "delete",
+      header: "Delete",
+      accessorKey: "delete",
+      cell: ({ row }) => (
+        <button onClick={() => handleDelete(row.original._id)} style={{backgroundColor:"red"}}><i className="fa-solid fa-trash" style={{color:"white"}}></i></button>
+      ),
+    },
+  ];
+
+  console.log(cupons);
 
   return (
     <div className="admin-container">
@@ -178,7 +209,21 @@ const Coupon = () => {
             </button>
           </form>
         </section>
-        {/* <Table/> */}
+        <section className="create-coupon" style={{ height: "fit-content" }}>
+          <h2>Cupons</h2>
+          {cupons && cupons.length > 0 ? (
+            <Table
+              columns={columns}
+              data={cupons}
+              showPagination={false}
+              CCN="admin-product-table"
+            />
+          ) : (
+            <div className="flex items-center justify-center">
+              <p>No cupons</p>
+            </div>
+          )}
+        </section>
       </main>
     </div>
   );

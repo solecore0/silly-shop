@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import api from "../utils/api";
-import toast from "react-hot-toast";
+import {toast} from "react-toastify";
 import { clearCart } from "./cartSlice";
 
 // Create new order
