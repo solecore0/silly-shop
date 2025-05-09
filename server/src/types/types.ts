@@ -16,6 +16,16 @@ export interface NewProductRequestBody {
   price: number;
   category: string;
   stock: number;
+  description: string;
+}
+
+export interface NewProductReviewRequestBody {
+  rating: number;
+  comment: string;
+  productId: string;
+}
+export interface NewProductReviewRequestParams {
+  productId: string;
 }
 
 export interface ExtendedRequest<TRequest, TBody, TParams>
