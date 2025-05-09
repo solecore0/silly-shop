@@ -17,7 +17,7 @@ const Customer = () => {
   const deleteAction = async(userId) => {
     try {
       await dispatch(deleteUser(userId));
-      toast.success("User deleted successfully!");
+      await toast.success("User deleted successfully!");
       window.location.reload(); 
     } catch (error) {
       console.error(error);
