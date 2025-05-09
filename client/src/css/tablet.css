@@ -789,20 +789,13 @@
     max-width: 100%;
     grid-template-columns: 1fr;
     gap: 0.8rem;
-    height: 25vh;
+    height: 25rem;
     overflow-y: hidden;
   }
 
   .coupon-form fieldset,
   .coupon-form button {
     grid-column: 1/2;
-  }
-
-  /* Coin Toss */
-  .tosscoin {
-    width: 12rem;
-    height: 12rem;
-    margin-bottom: 15rem;
   }
 
   /* Table */

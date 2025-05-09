@@ -12,6 +12,7 @@ const Coupon = () => {
   const [includeCharacters, setIncludeCharacters] = useState(false);
   const [includeSymbols, setIncludeSymbols] = useState(false);
   const [isCopied, setIsCopied] = useState(false);
+  const [ammount, setAmmount] = useState(1);
 
   const [coupon, setCoupon] = useState("");
 
@@ -50,26 +51,31 @@ const Coupon = () => {
     <div className="admin-container">
       <AdminSidebar />
       <main className="dashboard-app-container">
-        <h2>Coupon</h2>
+        <h2>Coupon Code Generator</h2>
         <section>
-          <form className="coupon-form" onSubmit={submitHandler}>
+          <form
+            className="coupon-form"
+            onSubmit={submitHandler}
+            style={{ gap: "2rem", height: "30rem ", marginBottom: "2rem" }}>
             <input
-              className="fir" 
+              className="fir"
               type="text"
               placeholder="Text to include"
               value={prefix}
               onChange={(e) => setPrefix(e.target.value)}
               maxLength={size}
+              style={{ width: "100%", height: "3rem" }}
             />
 
             <input
-              className="fir" 
+              className="fir"
               type="number"
               placeholder="Coupon Length"
               value={size}
               onChange={(e) => setSize(Number(e.target.value))}
               min={8}
               max={25}
+              style={{ width: "100%", height: "3rem" }}
             />
 
             <fieldset>
@@ -100,13 +106,34 @@ const Coupon = () => {
           </form>
 
           {coupon && (
-            <code>
+            <code style={{ height: "2rem", marginTop: "2rem" }}>
               {coupon}{" "}
               <span onClick={() => copyText(coupon)}>
                 {isCopied ? "Copied" : "Copy"}
               </span>{" "}
             </code>
           )}
+        </section>
+        <section className="create-coupon">
+          <h2 style={{ marginBottom: "2rem" }}>Create Coupon</h2>
+          <form action="">
+            <input
+              className="fir"
+              type="text"
+              value={coupon}
+              placeholder="Coupon Code"
+              style={{ width: "100%", height: "3rem" }}
+              onChange={(e) => setCoupon(e.target.value)}
+            />
+            <input
+              className="fir"
+              type="number"
+              value={`${ammount}`}
+              style={{ width: "100%", height: "3rem" }}
+              onChange={(e) => setAmmount(e.target.value)}
+            />
+            <button type="submit">Create</button>
+          </form>
         </section>
       </main>
     </div>

@@ -514,12 +514,12 @@
 
   .dashboard-app-container {
     padding: 2rem;
-    gap: 4rem;
+    gap: 2rem;
   }
 
   .dashboard-app-container section {
     width: 90%;
-    height: 80vh;
+    height: fit-content;
     padding: 2rem;
     display: flex;
     flex-direction: column;
@@ -609,6 +609,8 @@
     letter-spacing: 2px;
     cursor: pointer;
     position: relative;
+    overflow-y: hidden;
+    height: 2rem;
   }
 
   .dashboard-app-container code span {
@@ -625,6 +627,7 @@
     display: flex;
     justify-content: center;
     width: 100%;
+    overflow-y: hidden;
   }
 
   .dashboard-app-container code:hover span {
