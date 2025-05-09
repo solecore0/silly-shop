@@ -60,6 +60,10 @@ i {
   display: none;
 }
 
+.mt {
+  margin-top: 5rem;
+}
+
 button {
   width: 75%;
   height: 2.5rem;

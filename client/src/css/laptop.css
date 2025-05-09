@@ -305,6 +305,7 @@
   .admin-container main {
     width: 75%;
     margin-left: 28%;
+    margin-top: 5rem;
   }
 
   .admin-container main .container-h {
@@ -313,7 +314,7 @@
 
   .admin-product-table img,
   .table-container img {
-    width: 6.2rem;
+    width: 4.5rem;
     height: 4rem;
   }
 

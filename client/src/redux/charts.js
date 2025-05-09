@@ -7,7 +7,7 @@ export const fetchPieData = createAsyncThunk(
   "charts/fetchPieData",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await api.get("/api/v1/admin/stats/pie");
+      const response = await api.get("/admin/stats/pie");
       return response.data.charts;
     } catch (error) {
       toast.error(
@@ -23,7 +23,7 @@ export const fetchLineData = createAsyncThunk(
   "charts/fetchLineData",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await api.get("/api/v1/admin/stats/Line");
+      const response = await api.get("/admin/stats/Line");
       return response.data.charts;
     } catch (error) {
       toast.error(
@@ -39,7 +39,7 @@ export const fetchBarData = createAsyncThunk(
   "charts/fetchBarData",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await api.get("/api/v1/admin/stats/bar");
+      const response = await api.get("/admin/stats/bar");
       return response.data.charts;
     } catch (error) {
       toast.error(
@@ -50,12 +50,31 @@ export const fetchBarData = createAsyncThunk(
   }
 );
 
+
+// Add dashboard chart data thunk
+export const fetchDashData = createAsyncThunk(
+  "charts/fetchDashData",
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await api.get("/admin/stats/dashboard");
+      return response.data.stats;
+    } catch (error) {
+      toast.error(
+        error.response?.data?.message || "Failed to load bar chart data"
+      );
+      return rejectWithValue(error.response?.data?.message);
+    }
+  }
+);
+
+
 const chartsSlice = createSlice({
   name: "charts",
   initialState: {
     pieData: [],
     barData: [],
     lineData: [],
+    dashData: [],
     loading: false,
     error: null,
   },
@@ -102,6 +121,19 @@ const chartsSlice = createSlice({
         state.lineData = action.payload;
       })
       .addCase(fetchLineData.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+      //Dashbord cases
+      .addCase(fetchDashData.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchDashData.fulfilled, (state, action) => {
+        state.loading = false;
+        state.dashData = action.payload;
+      })
+      .addCase(fetchDashData.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       });
