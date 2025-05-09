@@ -7,6 +7,8 @@ import userReducer from "./user";
 import chartReducer from "./charts";
 import orderReducer from "./order";
 import cartReducer from "./cartSlice";
+import cuponReducer from "./cuponSlice";
+
 
 const store = configureStore({
   reducer: {
@@ -17,6 +19,7 @@ const store = configureStore({
     chart: chartReducer,
     order: orderReducer,
     cart: cartReducer,
+    coupon: cuponReducer,
   },
 });
 

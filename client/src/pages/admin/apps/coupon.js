@@ -1,24 +1,43 @@
 import { FormEvent, useEffect, useState } from "react";
 import AdminSidebar from "../../../components/admin/AdminSidebar";
+import {
+  fetchAllCupons,
+  createCupon,
+  deleteCupon,
+} from "../../../redux/cuponSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
+import Table from "../../../components/admin/Table";
 
 const allLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 const allNumbers = "1234567890";
 const allSymbols = "!@#$%^&*()_+";
 
 const Coupon = () => {
+  const dispatch = useDispatch();
+  const { cupons } = useSelector((state) => state.coupon);
+
+  useEffect(() => {
+    dispatch(fetchAllCupons());
+  }, [dispatch]);
+
+  const handleDelete = async (id) => {
+    await dispatch(deleteCupon(id));
+  };
+
   const [size, setSize] = useState(8);
   const [prefix, setPrefix] = useState("");
   const [includeNumbers, setIncludeNumbers] = useState(false);
   const [includeCharacters, setIncludeCharacters] = useState(false);
   const [includeSymbols, setIncludeSymbols] = useState(false);
   const [isCopied, setIsCopied] = useState(false);
-  const [ammount, setAmmount] = useState(1);
+  const [amount, setAmount] = useState(1);
   const [coupon, setCoupon] = useState("");
 
   const handleAmmountChange = (e) => {
     const value = Number(e.target.value);
     if (value >= 1) {
-      setAmmount(value);
+      setAmount(value);
     }
   };
 
@@ -27,11 +46,25 @@ const Coupon = () => {
     setIsCopied(true);
   };
 
+  const couponData = {
+    amount,
+    coupon,
+  };
+
+  const cuponCreator = async (e) => {
+    e.preventDefault();
+    if (coupon === "") {
+      toast.error("Please Generate Coupon First");
+      return;
+    }
+    dispatch(createCupon(couponData));
+  };
+
   const submitHandler = (e) => {
     e.preventDefault();
 
     if (!includeNumbers && !includeCharacters && !includeSymbols)
-      return alert("Please Select One At Least");
+      return toast.error("Please Select One At Least");
 
     let result = prefix || "";
     const loopLength = size - result.length;
@@ -62,7 +95,7 @@ const Coupon = () => {
           <form
             className="coupon-form"
             onSubmit={submitHandler}
-            style={{  height: "30rem ", marginBottom: "2rem" }}>
+            style={{ height: "30rem ", marginBottom: "2rem" }}>
             <input
               className="fir"
               type="text"
@@ -124,7 +157,7 @@ const Coupon = () => {
         </section>
         <section className="create-coupon" style={{ height: "fit-content" }}>
           <h2 style={{ marginBottom: "2rem" }}>Create Coupon</h2>
-          <form action="">
+          <form action="" onSubmit={cuponCreator}>
             <input
               className="fir"
               type="text"
@@ -136,7 +169,7 @@ const Coupon = () => {
             <input
               className="fir"
               type="number"
-              value={`${ammount}`}
+              value={`${amount}`}
               style={{ width: "100%", height: "3rem" }}
               onChange={(e) => handleAmmountChange(e)}
             />
@@ -145,6 +178,7 @@ const Coupon = () => {
             </button>
           </form>
         </section>
+        {/* <Table/> */}
       </main>
     </div>
   );
