@@ -5,8 +5,7 @@ import { signupUser } from "../redux/user";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
-const url =
-  "https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=";
+const url = "https://cdn.pixabay.com/photo/2023/02/18/11/00/icon-7797704_640.png";
 
 const SignUp = () => {
   const [name, setName] = useState("");

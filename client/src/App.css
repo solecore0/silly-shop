@@ -41,7 +41,7 @@ li {
   list-style: none;
 }
 
-h1 ,h2 ,h3 ,h4,h5,h6,p,i,li{
+h1 ,h2 ,h3 ,h4,h5,h6,p,i,li , button{
   overflow-y: hidden;
 }
 
@@ -58,6 +58,16 @@ i {
 /* Utilities */
 .hidden {
   display: none;
+}
+
+.mt {
+  margin-top: 5rem;
+}
+
+.category-item div {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 button {
@@ -88,6 +98,33 @@ button {
   width: 6rem;
   height: 6rem;
   animation: spin 2s linear infinite;
+}
+
+.avatar {
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #797980;
+  color: #fff;
+  font-weight: 600;
+  font-size: 1.2rem;
+}
+
+.dashboard-app-container .create-coupon form{
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.dashboard-app-container .create-coupon form input{
+  width: 100%;
+  padding: 1rem;
+  border: 1px solid rgba(0, 0, 0);
+  border-radius: 5px;
 }
 
 @keyframes spin {
@@ -167,6 +204,7 @@ button {
   background: transparent;
   border: none;
 }
+
 
 /* Navbar Dropdown */
 .links {

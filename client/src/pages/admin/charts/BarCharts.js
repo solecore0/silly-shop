@@ -1,11 +1,21 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import AdminSidebar from '../../../components/admin/AdminSidebar'
 import { BarChart } from "../../../components/admin/Charts";
+import { useSelector , useDispatch } from 'react-redux';
+import { fetchBarData } from '../../../redux/charts';
 
 
 
 
 const BarCharts = () => {
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchBarData());
+  }, [dispatch]);
+
+  const data = useSelector((state) => state.chart.barData);
+  console.log(data)
 
   const months = [
     "January",
@@ -29,23 +39,21 @@ const BarCharts = () => {
         <h1>Bar Charts</h1>
         <section>
           <BarChart
-            data_2={[300, 144, 433, 655, 237, 755, 190]}
-            data_1={[200, 444, 343, 556, 778, 455, 990]}
+            data_2={data?.products}
+            data_1={data?.users}
             title_1="Products"
             title_2="Users"
             bgColor_1={`hsl(260, 50%, 30%)`}
             bgColor_2={`hsl(360, 90%, 90%)`}
             labels={["January", "February", "March", "April", "May", "June", "July"]}
-          />
+          /> 
           <h2>Top Products & Top Customers</h2>
         </section>
-
         <section>
-          <BarChart
+          {data?.orders && data?.orders?.length > 0 ? (
+            <BarChart
             horizontal={true}
-            data_1={[
-              200, 444, 343, 556, 778, 455, 990, 444, 122, 334, 890, 909,
-            ]}
+            data_1={data?.orders}
             data_2={[]}
             title_1="Orders"
             title_2=""
@@ -53,6 +61,8 @@ const BarCharts = () => {
             bgColor_2=""
             labels={months}
           />
+          ) : <p>No data</p>} 
+          
           <h2>Orders throughout the year</h2>
         </section>
       </main>

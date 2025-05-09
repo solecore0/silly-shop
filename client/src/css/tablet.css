@@ -537,6 +537,7 @@
   gap: 1rem;
   max-width: 30rem;
   margin-bottom: 20rem;
+  height: fit-content;
 }
 
 .coupon-form input,
@@ -544,6 +545,7 @@
   padding: 1rem;
   border: 1px solid rgba(0,0,0,0.359);
   border-radius: 5px;
+  overflow-y: hidden;
 }
 
 .coupon-form fieldset {
@@ -602,46 +604,7 @@
   opacity: 1;
 }
 
-/* Coin Toss */
-.tosscoin {
-  margin: 2rem auto 20rem;
-  width: 15rem;
-  height: 15rem;
-  transform-style: preserve-3d;
-  transition: all 0.5s ease;
-  animation: toss 1s ease-in-out forwards;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  position: relative;
-}
 
-.tosscoin div {
-  width: 70%;
-  height: 90%;
-  position: absolute;
-  border-radius: 50%;
-  background-size: contain;
-  background-repeat: no-repeat;
-  display: grid;
-  place-items: center;
-  filter: drop-shadow(0px 10px 10px rgba(0, 0, 0, 0.521));
-  backface-visibility: hidden;
-}
-
-.tosscoin div:first-of-type {
-  background-image: url("../assets/images/heads.png");
-}
-
-.tosscoin div:last-of-type {
-  background-image: url("../assets/images/tails.png");
-  transform: rotateY(-180deg);
-}
-
-.tosscoin:hover {
-  transform: scale(1.1);
-}
 
 /* Table */
 .table-container {
@@ -826,18 +789,13 @@
     max-width: 100%;
     grid-template-columns: 1fr;
     gap: 0.8rem;
+    height: 25rem;
+    overflow-y: hidden;
   }
 
   .coupon-form fieldset,
   .coupon-form button {
     grid-column: 1/2;
-  }
-
-  /* Coin Toss */
-  .tosscoin {
-    width: 12rem;
-    height: 12rem;
-    margin-bottom: 15rem;
   }
 
   /* Table */
