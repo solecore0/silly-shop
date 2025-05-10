@@ -22,8 +22,9 @@ const Products = () => {
       accessorKey: "photo",
       cell: ({ row }) => (
         <img
-          src={`${config.UPLOADS_URL}${row.original.photo}`}
+          src={`${config.UPLOADS_URL}${row.original.thumbnail}`}
           alt={row.original.name || "Product"}
+          style={{width:"80px" , height:"80px" , borderRadius:"10px"}}
         />
       ),
     },

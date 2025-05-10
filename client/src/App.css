@@ -497,6 +497,11 @@ button {
   margin-top: 2rem;
 }
 
+/* Admin */
+
+
+
+
 /* Responsive: Max-width 700px */
 @media screen and (max-width: 750px) {
   .links {
@@ -595,6 +600,7 @@ button {
     gap: 20px;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.346), 0 3px 6px rgba(0, 0, 0, 0.401);
   }
+
 
 
   #sidebar div {
