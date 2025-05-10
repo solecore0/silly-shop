@@ -16,6 +16,8 @@ const AddProduct = () => {
   const [description, setDescription] = useState("");
   const photoRef = useRef(null); // file ref
   const thumbnailRef = useRef(null); // file ref
+  const [thumbnailName, setThumbnailName] = useState("");
+  const [photoNames, setPhotoNames] = useState([]);
 
   const handlePriceChange = (e) => {
     const value = Number(e.target.value);
@@ -57,10 +59,10 @@ const AddProduct = () => {
   };
 
   return (
-    <div className="registery">
-      <h1>Product Info</h1>
+    <div className="registery" style={{ marginTop: "100px" }}>
+      <h1>Create Product</h1>
 
-      <form className="inp" onSubmit={handleSubmit}>
+      <form id="create-product-form" className="inp" onSubmit={handleSubmit}>
         <input
           type="text"
           placeholder="Product Name"
@@ -95,28 +97,43 @@ const AddProduct = () => {
           value={description}
           onChange={(e) => setDescription(e.target.value)}
         />
-        <input
-          id="thumbnail-upload"
-          type="file"
-          accept="image/*"
-          onChange={(e) => (thumbnailRef.current = e.target.files[0])}
-        />  
-        <input
-          id="photo-upload"
-          type="file"
-          accept="image/*"
-          multiple
-          onChange={(e) => {
-            const files = Array.from(e.target.files);
-            if (files.length > 5) {
-              toast.error("You can only upload up to 5 files.");
-              e.target.value = ""; // Clear selection
-              return;
-            }
-            photoRef.current = files; // Array of File objects
-          }}
-        />
-        <span className="hover-text" style={{color:"yellowgreen"}}>Tip:press cntrl to select multiple images</span>
+        <div className="file-input-wrapper">
+          {/* Thumbnail upload */}
+          <label htmlFor="thumbnail-upload" className="upload-button">
+            Upload Thumbnail
+          </label>
+          <input
+            id="thumbnail-upload"
+            type="file"
+            accept="image/*"
+            onChange={(e) => (thumbnailRef.current = e.target.files[0])}
+            style={{ display: "none" }}
+          />
+
+          {/* Photo upload */}
+          <label htmlFor="photo-upload" className="upload-button">
+            Upload Photos (Max 5)
+          </label>
+          <input
+            id="photo-upload"
+            type="file"
+            accept="image/*"
+            multiple
+            onChange={(e) => {
+              const files = Array.from(e.target.files);
+              if (files.length > 5) {
+                toast.error("You can only upload up to 5 files.");
+                e.target.value = "";
+                return;
+              }
+              photoRef.current = files;
+            }}
+            style={{ display: "none" }}
+          />
+        </div>
+        <span className="hover-text" style={{ color: "yellowgreen" }}>
+          Tip:press ctrl to select multiple images
+        </span>
         <button type="submit">Make</button>
       </form>
     </div>

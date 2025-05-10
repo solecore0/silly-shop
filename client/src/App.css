@@ -499,8 +499,35 @@ button {
 
 /* Admin */
 
+#create-product-form input,lable {
+  height: 3rem;
+}
+
+.upload-button {
+  display: inline-block;
+  padding: 8px 16px;
+  margin: 8px 0;
+  background-color: #ffffff;
+  color: rgb(0, 0, 0);
+  font-weight: bold;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.upload-button:hover {
+  background-color: #0056b3;
+  color: white;
+}
 
 
+.file-name,
+.file-name-list {
+  margin-top: 5px;
+  font-size: 14px;
+  color: #333;
+}
 
 /* Responsive: Max-width 700px */
 @media screen and (max-width: 750px) {
