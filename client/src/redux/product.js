@@ -176,7 +176,7 @@ const productSlice = createSlice({
         state.status = "succeeded";
         state.allProducts.push(action.payload);
         state.productSearch.push(action.payload);
-        state.productInfo = push(action.payload);
+        state.productInfo.push(action.payload);
       })
       .addCase(createReview.fulfilled, (state, action) => {
         state.productInfo.reviews.push(action.payload);

@@ -609,9 +609,8 @@ button {
 @media (max-width: 750px) {
   #sidebar {
     position: absolute;
-    top: 3rem;
-    left: 50%;
-    transform: translateX(-50%);
+    top: 4rem;
+    right: 1rem;
     width: 60vw;
     height: auto;
     padding: 1rem;

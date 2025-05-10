@@ -55,7 +55,7 @@ const AddProduct = () => {
     console.log(formData);
 
     await dispatch(createProduct(formData));
-    // navigate("/admin/product");
+    navigate("/admin/product");
   };
 
   return (
