@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import "../css/productInfo.css";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchProductId , createReview} from "../redux/product";
+import { fetchProductId, createReview } from "../redux/product";
 import { addToCart } from "../redux/cartSlice";
 import config from "../config";
 import { toast } from "react-toastify";
@@ -125,9 +125,23 @@ const ProductInfo = () => {
       <hr />
       <div className="reviews">
         <h2>Reviews</h2>
+        <div className="comments">
+          {data.reviews.map((review) => (
+            <div className="review-card" key={review.id}>
+              <h4>{review.name}</h4>
+              <div className="review-stars">
+                {Array.from({ length: 5 }, (_, i) => (
+                  <span key={i} className={i < review.rating ? "filled" : ""}>
+                    ★
+                  </span>
+                ))}
+              </div>
+              <p className="review-comment">"{review.comment}"</p>
+            </div>
+          ))}
+        </div>
         <div className="add-review">
           <h2>Add Your Experience.</h2>
-
           <div className="stars" id="starRating">
             {[1, 2, 3, 4, 5].map((num) => (
               <span
