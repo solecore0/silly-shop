@@ -24,13 +24,27 @@
   height: 100%;
   border-radius: 1rem;
 }
-.ProductImage .cover {
+.ProductImage .img-change {
   width: 100%;
   height: 100%;
-  border-radius: 1rem;
-  background-color: #000000;
-  opacity: 0.5;
   position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ProductImage .img-change button{
+  width: 2rem;
+  padding: 10px;
+  color: #fff;
+  background-color: #797980;
+  border: none;
+  border-radius: 5px;
+  display: none;
+}
+
+.ProductImage .img-change:hover button{
+  display: block;
 }
 
 .details {

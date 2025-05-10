@@ -10,6 +10,7 @@ import { toast } from "react-toastify";
 const ProductInfo = () => {
   const dispatch = useDispatch();
   const [amount, setAmount] = useState(1);
+  const [photoIndex, setPhotoIndex] = useState(0);
   const { id } = useParams();
 
   useEffect(() => {
@@ -17,6 +18,7 @@ const ProductInfo = () => {
   }, [id, dispatch]);
 
   const data = useSelector((state) => state.product.productId);
+
 
   const isPrevAmo = amount > 1;
   const isNextAmo = amount < (data?.stock || 0);
@@ -43,16 +45,36 @@ const ProductInfo = () => {
 
   if (!data) return <div>Loading...</div>;
 
+  const addPhotoIndex = () => {
+    if (photoIndex === data.photos.length - 1) {
+      setPhotoIndex(0);
+    } else {
+      setPhotoIndex(photoIndex + 1);
+    }
+  };
+
+  const subtractPhotoIndex = () => {
+    if (photoIndex === 0) {
+      setPhotoIndex(data.photos.length - 1);
+    } else {
+      setPhotoIndex(photoIndex - 1);
+    }
+  };
+
   return (
     <>
       <div className="Cmain">
         <div className="ProductImage">
-          <img src={`${config.UPLOADS_URL}${data.thumbnail}`} alt={data.name} />
+          <img src={`${config.UPLOADS_URL}${data.photos[photoIndex]}`} alt={data.name} />
+          <div className="img-change">
+          <button onClick={subtractPhotoIndex}>&lt;</button>
+          <button onClick={addPhotoIndex}>&gt;</button>
+          </div>
         </div>
         <div className="details">
           <h2>{data.name}</h2>
           <p>${data.price}</p>
-          <p>{data.stock} in stock</p>
+          <p>{data.description}</p>
           <div className="amo">
             <span
               className="inc"

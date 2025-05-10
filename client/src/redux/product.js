@@ -95,7 +95,7 @@ const productSlice = createSlice({
   initialState: {
     productInfo: [],
     productSearch: [],
-    productId: [],
+    productId: null,
     categories: [],
     allProducts: [],
     query: "",
