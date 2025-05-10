@@ -46,6 +46,13 @@ app.get("/", (req, res) => {
   res.send("Api is working with /api/v1");
 });
 
+app.get("/health", (req, res) => {
+  res.status(200).json({
+    status: "success",
+    message: "Server is up and running",
+  });
+});
+
 // Connecting to database
 connectToDB(mongoURI);
 // Connect to Redis

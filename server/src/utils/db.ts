@@ -6,9 +6,7 @@ export const connectToDB = (uri: string) => {
     process.exit(1);
   }
 
-  Mongoose.connect(uri, {
-    dbName: "sillyshop",
-  })
+  Mongoose.connect(uri)
     .then((c) => {
       console.log("Database Successfully Connected to " + c.connection.host);
     })

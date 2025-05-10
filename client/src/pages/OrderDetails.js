@@ -69,10 +69,7 @@ const OrderDetails = () => {
         <div className="items-list">
           {currentOrder.orderItems.map((item) => (
             <div key={item._id} className="order-item">
-              <img
-                src={`${config.UPLOADS_URL}${item.thumbnail}`}
-                alt={item.name}
-              />
+              <img src={`${config.UPLOADS_URL}${item.photo}`} alt={item.name} />
               <div className="item-details">
                 <h3>{item.name}</h3>
                 <p>Quantity: {item.quantity}</p>
