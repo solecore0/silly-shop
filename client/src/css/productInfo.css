@@ -1,4 +1,15 @@
 /* === Main Layout === */
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  margin: 0 1rem;
+}
+hr{
+  margin: 1rem 0;
+}
 .Cmain {
   background-color: #fff;
   display: flex;
@@ -13,7 +24,7 @@
 .ProductImage {
   width: calc(90vw);
   margin: 2rem auto 0 auto;
-  height: 40vh;
+  height: 55vh;
   display: flex;
   align-items: center;
   position: relative;
@@ -34,13 +45,16 @@
 }
 
 .ProductImage .img-change button{
-  width: 2rem;
-  padding: 10px;
+  width: 4rem;
+  padding: 10px 0;
+  margin: 0;
+  height: 80%;
   color: #fff;
-  background-color: #797980;
+  text-shadow: 0px 1px 1px black;
+  background-color: transparent;
   border: none;
   border-radius: 5px;
-  display: none;
+  font-size: 2rem;
 }
 
 .ProductImage .img-change:hover button{
@@ -87,10 +101,76 @@ button {
   padding: 0 2rem;
 }
 
+/* Reviews */
+.reviews {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  width: 100%;
+}
+.add-review {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin: 2rem 0;
+  width: 60%;
+}
+
+.textarea-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.textarea-wrapper textarea {
+  width: 100%;
+  height: 8rem;
+  padding: 1rem;
+  font-size: 1rem;
+  resize: none;
+  box-sizing: border-box;
+}
+
+.textarea-wrapper .placeholder {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.2rem;
+  color: #999;
+  pointer-events: none;
+  transition: 0.2s ease;
+}
+
+.textarea-wrapper.filled .placeholder {
+  opacity: 0;
+}
+
+.stars {
+  display: flex;
+  gap: 0.5rem;
+  font-size: 2rem;
+  color: #ccc;
+  cursor: pointer;
+  margin-bottom: 0.5rem;
+}
+
+.stars span.active {
+  color: gold;
+}
+
+
 /* === Tablet Screens: 728px to 1024px === */
 @media screen and (min-width: 728px) and (max-width: 1024px) {
   h2 {
     font-size: 1.3rem;
+  }
+
+  .ProductImage{
+    height: 80vh;
   }
 
   .details p {
@@ -115,7 +195,7 @@ button {
   .ProductImage {
     width: 45%;
     margin: 2rem auto 0 auto;
-    height: 60vh;
+    height: 70vh;
     display: flex;
     align-items: center;
     position: relative;
@@ -162,10 +242,19 @@ button {
 }
 
 /* === Large Screens: 1440px to 1880px === */
-@media screen and (min-width: 1440px) and (max-width: 1880px) {
+@media screen and (min-width: 1440px)  {
   .Cmain {
     padding: 3rem 5rem;
     gap: 3rem;
+  }
+
+  .ProductImage {
+    width: 65%;
+    margin: 2rem auto 0 auto;
+    height: 65vh;
+    display: flex;
+    align-items: center;
+    position: relative;
   }
 
   .details {
@@ -199,7 +288,7 @@ button {
   }
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 420px) {
   .Cmain {
     margin: 0 0.5rem;
     gap: 1rem;
@@ -209,7 +298,7 @@ button {
   .ProductImage {
     width: calc(90vw);
     margin: 1rem auto 0 auto;
-    height: 30vh;
+    height: 35vh;
     display: flex;
     align-items: center;
     position: relative;

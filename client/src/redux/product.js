@@ -90,6 +90,20 @@ export const createProduct = createAsyncThunk(
   }
 );
 
+export const createReview = createAsyncThunk(
+  "product/createReview",
+  async (reviewData, { rejectWithValue }) => {
+    try {
+      const response = await api.post("/product/review", reviewData);
+      toast.success("Review added successfully");
+      return response.data.product;
+    } catch (error) {
+      toast.error(error?.response?.data?.message || "Failed to add review");
+      return rejectWithValue(error.response.data.message);
+    }
+  }
+);
+
 const productSlice = createSlice({
   name: "product",
   initialState: {
