@@ -96,7 +96,13 @@ const ProductInfo = () => {
         <div className="details">
           <h2>{data.name}</h2>
           <p>${data.price}</p>
-          <p>Rating: {data.avgRating}⭐ </p>
+          <div className="review-stars">
+            {Array.from({ length: 5 }, (_, i) => (
+              <span key={i} className={i < data.avgRating ? "filled" : ""}>
+                ★
+              </span>
+            ))}
+          </div>
           <p>{data.description}</p>
           <div className="amo">
             <span
@@ -125,6 +131,7 @@ const ProductInfo = () => {
       <hr />
       <div className="reviews">
         <h2>Reviews</h2>
+        <p>Total: {data.reviews.length}</p>
         <div className="comments">
           {data.reviews.map((review) => (
             <div className="review-card" key={review.id}>

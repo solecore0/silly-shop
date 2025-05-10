@@ -9,6 +9,7 @@
 }
 hr{
   margin: 1rem 0;
+  width: 90%;
 }
 .Cmain {
   background-color: #fff;
@@ -24,7 +25,6 @@ hr{
 .ProductImage {
   width: calc(90vw);
   margin: 2rem auto 0 auto;
-  height: 55vh;
   display: flex;
   align-items: center;
   position: relative;
@@ -95,7 +95,7 @@ h2 {
 }
 
 button {
-  font-size: 1.5rem;
+  font-size: 1rem;
   height: 3rem;
   width: fit-content;
   padding: 0 2rem;
@@ -135,7 +135,7 @@ button {
 
 .review-stars {
   color: #ccc;
-  font-size: 1.2rem;
+  font-size: 2rem;
   margin: 0.3rem 0;
 }
 
@@ -173,10 +173,10 @@ button {
 
 .textarea-wrapper .placeholder {
   position: absolute;
-  top: 30%;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-size: 1.2rem;
+  font-size: 1rem;
   color: #999;
   pointer-events: none;
   transition: 0.2s ease;
@@ -206,9 +206,6 @@ button {
     font-size: 1.3rem;
   }
 
-  .ProductImage{
-    height: 80vh;
-  }
 
   .details p {
     font-size: 1.2rem;
@@ -230,9 +227,9 @@ button {
   }
 
   .ProductImage {
-    width: 45%;
-    margin: 2rem auto 0 auto;
-    height: 70vh;
+    width: 70%;
+    margin: 0 auto 0 auto;
+    height: 60%;
     display: flex;
     align-items: center;
     position: relative;
@@ -273,7 +270,7 @@ button {
   }
 
   button {
-    font-size: 1.3rem;
+    font-size: 1rem;
     height: 3rem;
   }
 }
@@ -320,7 +317,7 @@ button {
   }
 
   button {
-    font-size: 1.5rem;
+    font-size: 1rem;
     height: 3.5rem;
   }
 }
@@ -335,7 +332,7 @@ button {
   .ProductImage {
     width: calc(90vw);
     margin: 1rem auto 0 auto;
-    height: 35vh;
+
     display: flex;
     align-items: center;
     position: relative;
