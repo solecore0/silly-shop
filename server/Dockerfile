@@ -25,7 +25,7 @@ COPY --from=builder /usr/src/app/dist ./dist
 COPY --from=builder /usr/src/app/uploads ./uploads
 
 # Copy environment file (if you want it baked in)
-COPY .env .env
+# COPY .env .env
 
 EXPOSE 4000
 
