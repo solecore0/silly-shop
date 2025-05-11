@@ -96,7 +96,6 @@ const DivOne = ({ location, screenWidth }) => (
           width: "100%",
           alignItems: "flex-start",
           justifyContent: "flex-start",
-          padding: "0 0 0 0.5rem",
 
         }}>
         <Li2 url="/admin/dashboard" text="Dashboard" location={location} />

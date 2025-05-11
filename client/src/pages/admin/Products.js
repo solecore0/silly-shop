@@ -89,7 +89,7 @@ const Products = () => {
     );
 
   return (
-    <div className="admin-container">
+    <div className="admin-container " id="product-container">
       <AdminSidebar />
       <main>
         <div className="ProductDiv">
