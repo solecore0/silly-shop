@@ -1,16 +1,13 @@
 import { createClient } from "redis";
-import type { RedisClientType, RedisClientOptions } from "redis";
-
-let redisClient: RedisClientType;
-
 // Connect to redis
+
+let redisClient: any;
+
 export const connectToRedis = async () => {
   try {
-    const config: RedisClientOptions = {
+    redisClient = createClient({
       url: process.env.REDIS_URL || "redis://localhost:6379",
-    };
-
-    redisClient = createClient(config);
+    });
 
     redisClient.on("error", (err: Error) =>
       console.log("Redis Client Error", err)
@@ -122,5 +119,3 @@ export const invalidateCache = async ({
     console.error("Cache invalidation error:", error);
   }
 };
-
-export default redisClient;
