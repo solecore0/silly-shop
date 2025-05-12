@@ -497,6 +497,38 @@ button {
   margin-top: 2rem;
 }
 
+/* Admin */
+
+#create-product-form input,lable {
+  height: 3rem;
+}
+
+.upload-button {
+  display: inline-block;
+  padding: 8px 16px;
+  margin: 8px 0;
+  background-color: #ffffff;
+  color: rgb(0, 0, 0);
+  font-weight: bold;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.upload-button:hover {
+  background-color: #0056b3;
+  color: white;
+}
+
+
+.file-name,
+.file-name-list {
+  margin-top: 5px;
+  font-size: 14px;
+  color: #333;
+}
+
 /* Responsive: Max-width 700px */
 @media screen and (max-width: 750px) {
   .links {
@@ -577,9 +609,8 @@ button {
 @media (max-width: 750px) {
   #sidebar {
     position: absolute;
-    top: 3rem;
-    left: 50%;
-    transform: translateX(-50%);
+    top: 4rem;
+    right: 1rem;
     width: 60vw;
     height: auto;
     padding: 1rem;
@@ -595,6 +626,7 @@ button {
     gap: 20px;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.346), 0 3px 6px rgba(0, 0, 0, 0.401);
   }
+
 
 
   #sidebar div {
@@ -618,7 +650,7 @@ button {
 
   #sidebar div ul {
     width: 50%;
-    padding: 0;
+    padding: 0 0 0 0.5rem;
     margin: 0;
     gap: 20px;
     color: #000000;
@@ -1292,13 +1324,18 @@ button {
       -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
     }
 
+    #product-container .table{
+      margin-left: 8rem;
+    }
+
     .table {
       overflow-x: auto;
+      margin-left: 8rem;
     }
 
     .table .Cimg {
-      width: 1rem;
-      height: 1rem;
+      width: 2rem;
+      height: 2rem;
     }
 
     .table th,

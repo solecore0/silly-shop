@@ -90,12 +90,40 @@ export const createProduct = createAsyncThunk(
   }
 );
 
+export const createReview = createAsyncThunk(
+  "product/createReview",
+  async (reviewData, { rejectWithValue }) => {
+    try {
+      const response = await api.post("/product/review", reviewData);
+      toast.success("Review added successfully");
+      return response.data.product;
+    } catch (error) {
+      toast.error(error?.response?.data?.message || "Failed to add review");
+      return rejectWithValue(error.response.data.message);
+    }
+  }
+);
+
+export const deleteProduct = createAsyncThunk(
+  "product/deleteProduct",
+  async (productId, { rejectWithValue }) => {
+    try {
+      const response = await api.delete(`/product/${productId}`);
+      toast.success("Product deleted successfully!");
+      return response.data;
+    } catch (error) {
+      toast.error(error.response?.data?.message || "Failed to delete product");
+      return rejectWithValue(error.response?.data?.message);
+    }
+  }
+);
+
 const productSlice = createSlice({
   name: "product",
   initialState: {
     productInfo: [],
     productSearch: [],
-    productId: [],
+    productId: null,
     categories: [],
     allProducts: [],
     query: "",
@@ -147,6 +175,22 @@ const productSlice = createSlice({
       .addCase(createProduct.fulfilled, (state, action) => {
         state.status = "succeeded";
         state.allProducts.push(action.payload);
+        state.productSearch.push(action.payload);
+        state.productInfo.push(action.payload);
+      })
+      .addCase(createReview.fulfilled, (state, action) => {
+        state.productInfo.reviews.push(action.payload);
+      })
+      .addCase(deleteProduct.fulfilled, (state, action) => {
+        state.allProducts = state.allProducts.filter(
+          (product) => product._id !== action.payload._id
+        );
+        state.productSearch = state.productSearch.filter(
+          (product) => product._id !== action.payload._id
+        );
+        state.productInfo = state.productInfo.filter(
+          (product) => product._id !== action.payload._id
+        );
       })
       .addMatcher(
         (action) => action.type.endsWith("/rejected"),
@@ -156,6 +200,7 @@ const productSlice = createSlice({
           toast.error(state.error);
         }
       );
+
   },
 });
 

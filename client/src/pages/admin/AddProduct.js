@@ -13,7 +13,11 @@ const AddProduct = () => {
   const [price, setPrice] = useState("");
   const [stock, setStock] = useState("");
   const [category, setCategory] = useState("");
+  const [description, setDescription] = useState("");
   const photoRef = useRef(null); // file ref
+  const thumbnailRef = useRef(null); // file ref
+  const [thumbnailName, setThumbnailName] = useState("");
+  const [photoNames, setPhotoNames] = useState([]);
 
   const handlePriceChange = (e) => {
     const value = Number(e.target.value);
@@ -42,17 +46,23 @@ const AddProduct = () => {
     formData.append("price", price);
     formData.append("stock", stock);
     formData.append("category", category);
-    formData.append("photo", photoRef.current); // this is the File object
+    photoRef.current.forEach((file) => {
+      formData.append("photos", file); // Use the exact expected field name
+    });
+    formData.append("thumbnail", thumbnailRef.current);
+    formData.append("description", description);
+
+    console.log(formData);
 
     await dispatch(createProduct(formData));
     navigate("/admin/product");
   };
 
   return (
-    <div className="registery">
-      <h1>Product Info</h1>
+    <div className="registery" style={{ marginTop: "100px" }}>
+      <h1>Create Product</h1>
 
-      <form className="inp" onSubmit={handleSubmit}>
+      <form id="create-product-form" className="inp" onSubmit={handleSubmit}>
         <input
           type="text"
           placeholder="Product Name"
@@ -82,12 +92,48 @@ const AddProduct = () => {
           onChange={(e) => setCategory(e.target.value)}
         />
         <input
-          id="photo-upload"
-          type="file"
-          accept="image/*"
-          onChange={(e) => (photoRef.current = e.target.files[0])}
+          type="text"
+          placeholder="Description of Product"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
         />
+        <div className="file-input-wrapper">
+          {/* Thumbnail upload */}
+          <label htmlFor="thumbnail-upload" className="upload-button">
+            Upload Thumbnail
+          </label>
+          <input
+            id="thumbnail-upload"
+            type="file"
+            accept="image/*"
+            onChange={(e) => (thumbnailRef.current = e.target.files[0])}
+            style={{ display: "none" }}
+          />
 
+          {/* Photo upload */}
+          <label htmlFor="photo-upload" className="upload-button">
+            Upload Photos (Max 5)
+          </label>
+          <input
+            id="photo-upload"
+            type="file"
+            accept="image/*"
+            multiple
+            onChange={(e) => {
+              const files = Array.from(e.target.files);
+              if (files.length > 5) {
+                toast.error("You can only upload up to 5 files.");
+                e.target.value = "";
+                return;
+              }
+              photoRef.current = files;
+            }}
+            style={{ display: "none" }}
+          />
+        </div>
+        <span className="hover-text" style={{ color: "yellowgreen" }}>
+          Tip:press ctrl to select multiple images
+        </span>
         <button type="submit">Make</button>
       </form>
     </div>

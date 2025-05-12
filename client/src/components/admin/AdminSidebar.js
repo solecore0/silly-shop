@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { Link, useLocation , useNavigate } from "react-router-dom";
-import { useSelector , useDispatch } from "react-redux";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../../redux/user";
 
 const AdminSidebar = () => {
@@ -11,13 +11,11 @@ const AdminSidebar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-
-
-    const logOut = () => {
-      dispatch(logout());
-      navigate("/");
-      navigate(0);
-    };
+  const logOut = () => {
+    dispatch(logout());
+    navigate("/");
+    navigate(0);
+  };
 
   if (screenWidth > 1000) {
     return (
@@ -31,10 +29,21 @@ const AdminSidebar = () => {
   } else if (sideBar) {
     return (
       <>
-        <aside id="sidebar">
+        <aside
+          id="sidebar"
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            width: "10rem",
+            alignItems: "center",
+            justifyContent: "center",
+          }}>
           <h1>Admin</h1>
-          <DivOne location={location} screenWidth={screenWidth} />
-          <DivTwo location={location} screenWidth={screenWidth} logOut={logOut}/>
+          <DivOne
+            location={location}
+            screenWidth={screenWidth}
+            logOut={logOut}
+          />
         </aside>
       </>
     );
@@ -80,52 +89,52 @@ const DivOne = ({ location, screenWidth }) => (
         />
       </ul>
     ) : (
-      <ul>
+      <ul
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          width: "100%",
+          alignItems: "flex-start",
+          justifyContent: "flex-start",
+
+        }}>
         <Li2 url="/admin/dashboard" text="Dashboard" location={location} />
         <Li2 url="/admin/product" text="Product" location={location} />
         <Li2 url="/admin/customer" text="Customer" location={location} />
         <Li2 url="/admin/transaction" text="Transaction" location={location} />
         <Li2 url="/admin/app/coupon" text="Coupon" location={location} />
+        <Li2 url="/admin/chart/bar" text="Bar" location={location} />
+        <Li2 url="/admin/chart/pie" text="Pie" location={location} />
+        <Li2 url="/admin/chart/line" text="Line" location={location} />
       </ul>
     )}
   </div>
 );
 
-const DivTwo = ({ location, screenWidth ,logOut }) => (
+const DivTwo = ({ location, screenWidth, logOut }) => (
   <div className="charts">
     {screenWidth > 1000 ? <h3>Charts</h3> : ""}
 
-    {screenWidth > 1000 ? (
-      <ul>
-        <Li
-          url="/admin/chart/bar"
-          text="Bar"
-          Icon={<i className="fa-solid fa-chart-column"></i>}
-          location={location}
-        />
-        <Li
-          url="/admin/chart/pie"
-          text="Pie"
-          Icon={<i className="fa-solid fa-chart-pie"></i>}
-          location={location}
-        />
-        <Li
-          url="/admin/chart/line"
-          text="Line"
-          Icon={<i className="fa-solid fa-chart-line"></i>}
-          location={location}
-        />
-      </ul>
-    ) : (
-      <ul>
-        <Li2 url="/admin/chart/bar" text="Bar" location={location} />
-        <Li2 url="/admin/chart/pie" text="Pie" location={location} />
-        <Li2 url="/admin/chart/line" text="Line" location={location} />
-        <li>
-          <a onClick={logOut} >Log off</a>
-        </li>
-      </ul>
-    )}
+    <ul>
+      <Li
+        url="/admin/chart/bar"
+        text="Bar"
+        Icon={<i className="fa-solid fa-chart-column"></i>}
+        location={location}
+      />
+      <Li
+        url="/admin/chart/pie"
+        text="Pie"
+        Icon={<i className="fa-solid fa-chart-pie"></i>}
+        location={location}
+      />
+      <Li
+        url="/admin/chart/line"
+        text="Line"
+        Icon={<i className="fa-solid fa-chart-line"></i>}
+        location={location}
+      />
+    </ul>
   </div>
 );
 
@@ -149,7 +158,7 @@ const Li = ({ url, text, location, Icon }) => (
 );
 
 const Li2 = ({ url, text, location }) => (
-  <li>
+  <li style={{display:"flex",alignItems:"flex-start",justifyContent:"flex-start"}}>
     <Link
       className="link"
       to={url}
@@ -157,6 +166,8 @@ const Li2 = ({ url, text, location }) => (
         color: "black",
         gap: "10px",
         display: "flex",
+        alignItems: "flex-start",
+        justifyContent: "flex-start",
       }}>
       {text}
     </Link>

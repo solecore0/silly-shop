@@ -3,7 +3,7 @@ import AdminSidebar from "../../components/admin/AdminSidebar";
 import Table from "../../components/admin/Table";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchAllProducts } from "../../redux/product";
+import { fetchAllProducts, deleteProduct } from "../../redux/product";
 import config from "../../config";
 import Loader from "../../components/Loader";
 
@@ -24,6 +24,7 @@ const Products = () => {
         <img
           src={`${config.UPLOADS_URL}${row.original.thumbnail}`}
           alt={row.original.name || "Product"}
+          style={{ width: "80px", height: "80px", borderRadius: "10px" }}
         />
       ),
     },
@@ -51,9 +52,29 @@ const Products = () => {
       cell: ({ row }) => {
         const productId = row.original._id;
         return productId ? (
-          <Link to={`/admin/product/${productId}`}>
-            <i className="fa-solid fa-eye"></i>
-          </Link>
+          <div style={{ display: "flex" , justifyContent:"space-between"}}>
+            <Link
+              to={`/admin/product/${productId}`}
+              style={{
+                color: "black",
+                display: "flex",
+                justifyContent: "space-between",
+              }}>
+              <i className="fa-solid fa-eye" style={{ marginLeft: "10px" ,
+                color:"blue" ,fontSize:"20px"}}></i>
+            </Link>
+            <Link
+              style={{
+                color: "black",
+                display: "flex",
+                justifyContent: "space-between",
+              }}>
+              <i
+                className="fa-solid fa-trash"
+                style={{ marginRight: "10px" , color:"red" , fontSize:"20px"}}
+                onClick={() => dispatch(deleteProduct(productId))}></i>
+            </Link>
+          </div>
         ) : null;
       },
     },
@@ -68,7 +89,7 @@ const Products = () => {
     );
 
   return (
-    <div className="admin-container">
+    <div className="admin-container " id="product-container">
       <AdminSidebar />
       <main>
         <div className="ProductDiv">
@@ -81,8 +102,8 @@ const Products = () => {
                   display: "flex",
                   alignItems: "center",
                 }}
-                className="fa-solid fa-plus"
-              ></i>
+                className="fa-solid fa-plus">
+              </i>
             </Link>
           </button>
         </div>
