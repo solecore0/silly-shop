@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { toggleNav, toggleoffAdmin, toggleonAdmin } from "../redux/adminNav";
 import { setQuery } from "../redux/product";
 import { logout } from "../redux/user";
+import logo from "../assets/images.png"
 
 function Navbar() {
   const dispatch = useDispatch();
@@ -90,6 +91,7 @@ function Navbar() {
               navigate("/");
             }}
           >
+            <img src={logo} alt=""/>
             Silly-Shop
           </h1>
           <div className="links">
@@ -159,11 +161,13 @@ function Navbar() {
       <>
         <div className="navbar" id={admin ? "adminNavbar" : ""}>
           <div>
+            
             <h1
               onClick={() => {
                 navigate("/");
               }}
             >
+              <img src={logo} alt=""/>
               Silly-Shop
             </h1>
           </div>

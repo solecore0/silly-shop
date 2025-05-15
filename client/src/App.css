@@ -155,6 +155,16 @@ button {
   font-weight: 800;
   cursor: pointer;
   font-family: "Times New Roman", Times, serif;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.navbar h1 img {
+  width: 1.6rem;
+  height: 1.6rem;
+  border-radius: 2px;
+  border: none;
 }
 
 .navbar .head,
