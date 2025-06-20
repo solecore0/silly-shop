@@ -67,8 +67,8 @@ const DashBoard = () => {
           <div className="revenue-graph">
             <h2 style={{ marginBottom: "2rem" }}>Revenue & Transactions</h2>
             <BarChart
-              data_2={dashData?.chart?.revenue}
-              data_1={dashData?.chart?.order}
+              data_2={dashData?.chart?.lastSixMonthRevenue}
+              data_1={dashData?.chart?.lastSixMonthOrders}
               title_1="Revenue"
               title_2="Transaction"
               bgColor_1="rgb(0, 115, 255)"
