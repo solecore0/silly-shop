@@ -251,7 +251,7 @@ export const createProduct = TryCatch(
       stock,
     });
 
-    await invalidateCache({ product: true });
+    await invalidateCache({ product: true, admin: true });
 
     return res.status(201).json({
       success: true,
