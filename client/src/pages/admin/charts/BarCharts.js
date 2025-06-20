@@ -12,7 +12,6 @@ const BarCharts = () => {
   }, [dispatch]);
 
   const data = useSelector((state) => state.chart.barData);
-  console.log(data);
 
   const { last12Months, last6Months } = getLastMonths();
 

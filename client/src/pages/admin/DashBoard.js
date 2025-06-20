@@ -50,9 +50,6 @@ const DashBoard = () => {
     dispatch(fetchDashData());
   }, [dispatch]);
 
-  console.log(dashData.categories);
-  console.log(data.categories);
-
   const formattedCategories = dashData?.categories?.map((item) => {
     const [key, value] = Object.entries(item)[0];
     return {

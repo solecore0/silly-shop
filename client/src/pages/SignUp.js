@@ -5,7 +5,8 @@ import { signupUser } from "../redux/user";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
-const url = "https://cdn.pixabay.com/photo/2023/02/18/11/00/icon-7797704_640.png";
+const url =
+  "https://cdn.pixabay.com/photo/2023/02/18/11/00/icon-7797704_640.png";
 
 const SignUp = () => {
   const [name, setName] = useState("");
@@ -70,8 +71,6 @@ const SignUp = () => {
       handleSubmit(e);
     }
   };
-
-  console.log(name, password, email, photo, dob, gender);
   return (
     <div className="registery" onKeyDown={handleKeyDown}>
       <h1>Sign-up</h1>

@@ -52,8 +52,6 @@ const AddProduct = () => {
     formData.append("thumbnail", thumbnailRef.current);
     formData.append("description", description);
 
-    console.log(formData);
-
     await dispatch(createProduct(formData));
     navigate("/admin/product");
   };

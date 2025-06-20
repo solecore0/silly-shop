@@ -20,7 +20,6 @@ const ProductInfo = () => {
   }, [id, dispatch]);
 
   const data = useSelector((state) => state.product.productId);
-  console.log(data);
 
   const isPrevAmo = amount > 1;
   const isNextAmo = amount < (data?.stock || 0);
@@ -56,7 +55,6 @@ const ProductInfo = () => {
       comment: reviewText,
     };
     dispatch(createReview(reviewData));
-    console.log("Submitted review:", { rating, reviewText });
     toast.success("Review submitted!");
     setRating(0);
     setReviewText("");
@@ -111,7 +109,8 @@ const ProductInfo = () => {
                 if (isPrevAmo) {
                   setAmount(Math.max(1, amount - 1));
                 }
-              }}>
+              }}
+            >
               -
             </span>
             <span>{amount}</span>
@@ -121,7 +120,8 @@ const ProductInfo = () => {
                 if (isNextAmo) {
                   setAmount(Math.min(data.stock, amount + 1));
                 }
-              }}>
+              }}
+            >
               +
             </span>
           </div>
@@ -156,7 +156,8 @@ const ProductInfo = () => {
                 data-rating={num}
                 onClick={() => setRating(num)}
                 className={rating >= num ? "active" : ""}
-                style={{ cursor: "pointer" }}>
+                style={{ cursor: "pointer" }}
+              >
                 ★
               </span>
             ))}
@@ -167,7 +168,8 @@ const ProductInfo = () => {
               id="review"
               value={reviewText}
               onChange={(e) => setReviewText(e.target.value)}
-              required></textarea>
+              required
+            ></textarea>
             <label htmlFor="review" className="placeholder">
               Write your review...
             </label>

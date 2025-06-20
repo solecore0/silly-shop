@@ -51,21 +51,11 @@ const PrivateRoute = ({ element, adminRequired = false }) => {
   const user = useSelector((state) => state.user.user);
   const token = useSelector((state) => state.user.token);
 
-  console.log("PrivateRoute check:", {
-    hasUser: !!user,
-    hasToken: !!token,
-    userRole: user?.role,
-    adminRequired,
-    isAdmin: user?.role === "admin",
-  });
-
   if (!token || !user) {
-    console.log("No token or user, redirecting to login");
     return <Navigate to="/login" />;
   }
 
   if (adminRequired && user.role !== "admin") {
-    console.log("Admin access denied, redirecting to home");
     return <Navigate to="/" />;
   }
 
@@ -94,7 +84,6 @@ function App() {
           await dispatch(loadUser()).unwrap();
         }
       } catch (error) {
-        console.error("Auth initialization failed:", error);
         localStorage.removeItem("token"); // Clear invalid token
       } finally {
         setIsLoading(false); // Always set loading to false

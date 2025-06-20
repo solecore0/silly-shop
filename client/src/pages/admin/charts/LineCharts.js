@@ -12,7 +12,6 @@ const LineCharts = () => {
   }, [dispatch]);
 
   const data = useSelector((state) => state.chart.lineData);
-  console.log(data);
 
   const { last12Months: months } = getLastMonths();
 

@@ -110,12 +110,15 @@ const Coupon = () => {
       header: "Delete",
       accessorKey: "delete",
       cell: ({ row }) => (
-        <button onClick={() => handleDelete(row.original._id)} style={{backgroundColor:"red"}}><i className="fa-solid fa-trash" style={{color:"white"}}></i></button>
+        <button
+          onClick={() => handleDelete(row.original._id)}
+          style={{ backgroundColor: "red" }}
+        >
+          <i className="fa-solid fa-trash" style={{ color: "white" }}></i>
+        </button>
       ),
     },
   ];
-
-  console.log(cupons);
 
   return (
     <div className="admin-container">
@@ -126,7 +129,8 @@ const Coupon = () => {
           <form
             className="coupon-form"
             onSubmit={submitHandler}
-            style={{ height: "30rem ", marginBottom: "2rem" }}>
+            style={{ height: "30rem ", marginBottom: "2rem" }}
+          >
             <input
               className="fir"
               type="text"

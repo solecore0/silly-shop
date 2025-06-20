@@ -3,7 +3,7 @@ import { setupAxiosInterceptors } from "./tokenRefresh";
 import config from "../config";
 
 const api = axios.create({
-  baseURL: config.API_URL || "http://localhost:4000/api/v1",
+  baseURL: config.API_URL,
   withCredentials: true,
   headers: {
     "Content-Type": "application/json",
